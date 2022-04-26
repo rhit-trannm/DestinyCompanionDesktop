@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CSSE333\\CSSE333Project\\C#\\CDestiny2\\CDestiny2.csproj": {}
+    "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {}
   },
   "projects": {
-    "E:\\CSSE333\\CSSE333Project\\C#\\CDestiny2\\CDestiny2.csproj": {
+    "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CSSE333\\CSSE333Project\\C#\\CDestiny2\\CDestiny2.csproj",
+        "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
         "projectName": "CDestiny2",
-        "projectPath": "E:\\CSSE333\\CSSE333Project\\C#\\CDestiny2\\CDestiny2.csproj",
-        "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
-        "outputPath": "E:\\CSSE333\\CSSE333Project\\C#\\CDestiny2\\obj\\",
+        "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+        "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
+        "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://nuget.org": {}
         },
         "frameworks": {
           "net5.0": {
@@ -72,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
         }
       }
     }

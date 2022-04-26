@@ -27,16 +27,16 @@ namespace CDestiny2
             client = new BungieSharper.Client.BungieApiClient(config);
             BungieSharper.Entities.Destiny.Config.DestinyManifest manifest = client.Api.Destiny2_GetDestinyManifest().Result;
             //Console.WriteLine(manifest.MobileAssetContentPath);
-            /*
+
             string url = client.OAuth.GetOAuthAuthorizationUrl();
-            
+
             var psi = new ProcessStartInfo
             {
                 FileName = url,
                 UseShellExecute = true
             };
             Process.Start(psi);
-            */
+
 
             //BungieSharper.Entities.TokenResponse tdoken = client.OAuth.GetOAuthToken("035a6511a2747598ca4f97ed9d5e0aa0").Result;
             //Console.WriteLine(token);
@@ -57,9 +57,9 @@ namespace CDestiny2
 
 
             Console.WriteLine(user.DisplayName);
-            Console.WriteLine(response.Profile.Data.);
+            //Console.WriteLine(response.Profile.Data.);
             
-            BungieSharper.Entities.Destiny.Responses.DestinyCharacterResponse character;
+            //BungieSharper.Entities.Destiny.Responses.DestinyCharacterResponse character;
             
 
 

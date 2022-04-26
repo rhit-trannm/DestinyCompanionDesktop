@@ -2,35 +2,18 @@
  * @fileoverview
  * Provides the JavaScript interactions for all pages.
  *
- * @author 
+ * @author
  * PUT_YOUR_NAME_HERE
  */
-
-/** namespace. */
 var rhit = rhit || {};
 
-/** globals */
-rhit.variableName = "";
-
-/** function and class syntax examples */
-rhit.functionName = function () {
-	/** function body */
-};
-
-rhit.ClassName = class {
-	constructor() {
-
-	}
-
-	methodName() {
-
-	}
-}
-
-/* Main */
-/** function and class syntax examples */
 rhit.main = function () {
-	console.log("Ready");
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const code = urlParams.get('code');
+  console.log(code);
+  document.getElementById("code").innerHTML = `Your Code: ${code}`
+  console.log("Ready");
 };
 
 rhit.main();
