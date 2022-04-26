@@ -1,0 +1,138 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0-windows7.0": {
+      "BungieSharper/0.9.0": {
+        "type": "package",
+        "dependencies": {
+          "BungieSharper.Entities": "0.9.0"
+        },
+        "compile": {
+          "lib/net5.0/BungieSharper.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/BungieSharper.dll": {}
+        }
+      },
+      "BungieSharper.Entities/0.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/BungieSharper.Entities.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/BungieSharper.Entities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BungieSharper/0.9.0": {
+      "sha512": "jPuB6HZP2UWZGkhParILEblYt+/kz5nbUEfloIhTI3O8J32xQ+jNwJSP4g9b0XxacMcHCw5Ho6+3tdfs1Lf5JA==",
+      "type": "package",
+      "path": "bungiesharper/0.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "BungieSharper.png",
+        "bungiesharper.0.9.0.nupkg.sha512",
+        "bungiesharper.nuspec",
+        "lib/net5.0/BungieSharper.dll",
+        "lib/net5.0/BungieSharper.xml",
+        "lib/net6.0/BungieSharper.dll",
+        "lib/net6.0/BungieSharper.xml"
+      ]
+    },
+    "BungieSharper.Entities/0.9.0": {
+      "sha512": "1PP0w3GexoR+8XwandfjLzwtVuC0Whak66kEBZgsskjXmmG2GRW8vSJGpGscrrwZ6X1fo5ZCUQ8yx4iJOc4oHg==",
+      "type": "package",
+      "path": "bungiesharper.entities/0.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "BungieSharper.png",
+        "bungiesharper.entities.0.9.0.nupkg.sha512",
+        "bungiesharper.entities.nuspec",
+        "lib/net5.0/BungieSharper.Entities.dll",
+        "lib/net5.0/BungieSharper.Entities.xml",
+        "lib/net6.0/BungieSharper.Entities.dll",
+        "lib/net6.0/BungieSharper.Entities.xml"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0-windows7.0": [
+      "BungieSharper >= 0.9.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Cylimor\\.nuget\\packages\\": {},
+    "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "projectName": "WPFD2",
+      "projectPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
+      "outputPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0-windows7.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0-windows7.0": {
+          "targetAlias": "net5.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0-windows7.0": {
+        "targetAlias": "net5.0-windows",
+        "dependencies": {
+          "BungieSharper": {
+            "target": "Package",
+            "version": "[0.9.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

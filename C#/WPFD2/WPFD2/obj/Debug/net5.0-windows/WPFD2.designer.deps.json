@@ -1,0 +1,46 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "BungieSharper/0.9.0": {
+        "dependencies": {
+          "BungieSharper.Entities": "0.9.0"
+        },
+        "runtime": {
+          "lib/net5.0/BungieSharper.dll": {
+            "assemblyVersion": "0.9.0.0",
+            "fileVersion": "0.9.0.0"
+          }
+        }
+      },
+      "BungieSharper.Entities/0.9.0": {
+        "runtime": {
+          "lib/net5.0/BungieSharper.Entities.dll": {
+            "assemblyVersion": "0.9.0.0",
+            "fileVersion": "0.9.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BungieSharper/0.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jPuB6HZP2UWZGkhParILEblYt+/kz5nbUEfloIhTI3O8J32xQ+jNwJSP4g9b0XxacMcHCw5Ho6+3tdfs1Lf5JA==",
+      "path": "bungiesharper/0.9.0",
+      "hashPath": "bungiesharper.0.9.0.nupkg.sha512"
+    },
+    "BungieSharper.Entities/0.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1PP0w3GexoR+8XwandfjLzwtVuC0Whak66kEBZgsskjXmmG2GRW8vSJGpGscrrwZ6X1fo5ZCUQ8yx4iJOc4oHg==",
+      "path": "bungiesharper.entities/0.9.0",
+      "hashPath": "bungiesharper.entities.0.9.0.nupkg.sha512"
+    }
+  }
+}

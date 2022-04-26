@@ -118,3 +118,14 @@ C:\CSSE333\courseproject-s4g2\C#\CDestiny2\bin\Debug\net5.0\runtimes\win-x86\nat
 C:\CSSE333\courseproject-s4g2\C#\CDestiny2\bin\Debug\net5.0\runtimes\win8-arm\native\e_sqlite3.dll
 C:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.csproj.CopyComplete
 C:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.genruntimeconfig.cache
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.csproj.AssemblyReference.cache
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\Interop.Microsoft.Office.Interop.Access.dll
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\Interop.SHDocVw.dll
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.csproj.ResolveComReference.cache
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.GeneratedMSBuildEditorConfig.editorconfig
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.AssemblyInfoInputs.cache
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.AssemblyInfo.cs
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.csproj.CoreCompileInputs.cache
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.dll
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\ref\CDestiny2.dll
+E:\CSSE333\courseproject-s4g2\C#\CDestiny2\obj\Debug\net5.0\CDestiny2.pdb

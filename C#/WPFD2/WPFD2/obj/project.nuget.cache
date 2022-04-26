@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "E+KAn/f8S77dd9oWlauK0KsH3y8fJZMk1ILI7kvsUIMAHr/wGXyHbe+hPZQ30rqeo0k0YBQrVYc6uaHQrxhu4w==",
+  "success": true,
+  "projectFilePath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Cylimor\\.nuget\\packages\\bungiesharper\\0.9.0\\bungiesharper.0.9.0.nupkg.sha512",
+    "C:\\Users\\Cylimor\\.nuget\\packages\\bungiesharper.entities\\0.9.0\\bungiesharper.entities.0.9.0.nupkg.sha512"
+  ],
+  "logs": []
+}
