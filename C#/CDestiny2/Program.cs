@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BungieSharper.Entities.Destiny;
 using BungieSharper.Entities.Destiny.Responses;
+using MySql.Data.MySqlClient;
+
 
 namespace CDestiny2
 {
@@ -29,19 +31,33 @@ namespace CDestiny2
             BungieSharper.Entities.Destiny.Config.DestinyManifest manifest = client.Api.Destiny2_GetDestinyManifest().Result;
             //Console.WriteLine(manifest.MobileAssetContentPath);
 
-/*            string url = client.OAuth.GetOAuthAuthorizationUrl();
+            /*            string url = client.OAuth.GetOAuthAuthorizationUrl();
 
-            var psi = new ProcessStartInfo
+                        var psi = new ProcessStartInfo
+                        {
+                            FileName = url,
+                            UseShellExecute = true
+                        };
+                        Process.Start(psi);*/
+
+            //BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken("595ecf909d5863264b55d0ac7bab668a").Result;
+
+            //Console.WriteLine(token.ErrorDescription);
+            string cs = @"Server=titan.csse.rose-hulman.edu; Port=3306;Database=CSSE333_S4G1_FinalProjectDB; Uid=trannm; Pwd=Acixuw+03; Connection Timeout=100";
+            try
             {
-                FileName = url,
-                UseShellExecute = true
-            };
-            Process.Start(psi);*/
+                MySqlConnection con = new MySqlConnection(cs);
+                con.Open();
+                Console.WriteLine($"MySQL version : {con.ServerVersion}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.ToString());
+            }
 
-            BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken("595ecf909d5863264b55d0ac7bab668a").Result;
-            
-            Console.WriteLine(token.ErrorDescription);
-            
+
+
+
 
             /*string s = "COWJBBKGAgAgMtxOtnwuNkNK9vWNnh2Si4jzT3005d95WeoKBImUvYfgAAAAbvmtXoHzWjTOLnqtyN/HYtWPINh4eYIh57Hn9lQ777QkyBIQx6LUqCqhc8RV0XJWFyv4EHPF7iUrIN/uulB7xda9b5oXvTt9HwrSuIePrpJLyBhhmrNTj+AXtS2K7wyrsHabAFwD1oCJ2RNDMGlWnY1N8KFDrHtsKZmvVAwrSrKO9ro3GJehDXoXs3TRwkp1OhXg9RDJT1gHXFMqF/Xf77mEn81vU8SPyULNLj3+k8HFD5XKXenTawtJ6+BABWaOQZMUKdPrhV9sw3ti2gGGAEwH4uXlRu0ATM6sowOU8rk=";
 
@@ -60,9 +76,9 @@ namespace CDestiny2
 
             Console.WriteLine(user.DisplayName);*/
             //Console.WriteLine(response.Profile.Data.);
-            
+
             //BungieSharper.Entities.Destiny.Responses.DestinyCharacterResponse character;
-            
+
 
 
 

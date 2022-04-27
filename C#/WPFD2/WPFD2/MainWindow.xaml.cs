@@ -45,7 +45,6 @@ namespace WPFD2
             {
                 textBlock.Text = s;
             }
-            
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
