@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using BungieSharper;
-using Newtonsoft.Json;
+
 using System.Net;
 using System.Web;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ using System.Linq;
 using BungieSharper.Entities.Destiny;
 using BungieSharper.Entities.Destiny.Responses;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 
 namespace CDestiny2
@@ -43,12 +45,13 @@ namespace CDestiny2
             //BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken("595ecf909d5863264b55d0ac7bab668a").Result;
 
             //Console.WriteLine(token.ErrorDescription);
-            string cs = @"Server=titan.csse.rose-hulman.edu; Port=3306;Database=CSSE333_S4G1_FinalProjectDB; Uid=trannm; Pwd=Acixuw+03; Connection Timeout=100";
+            string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
             try
             {
-                MySqlConnection con = new MySqlConnection(cs);
-                con.Open();
-                Console.WriteLine($"MySQL version : {con.ServerVersion}");
+                SqlConnection conn = new SqlConnection(cs);
+                //MySqlConnection con = new MySqlConnection(cs);
+                conn.Open();
+                Console.WriteLine($"MySQL version : {conn.ServerVersion}");
             }
             catch (Exception e)
             {

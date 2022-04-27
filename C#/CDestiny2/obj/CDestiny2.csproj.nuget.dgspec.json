@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {}
+    "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {}
   },
   "projects": {
-    "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {
+    "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+        "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
         "projectName": "CDestiny2",
-        "projectPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
-        "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
-        "outputPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
+        "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+        "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
+        "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -48,17 +48,17 @@
               "target": "Package",
               "version": "[0.9.0, )"
             },
-            "Destiny2": {
+            "K4os.Compression.LZ4.Streams": {
               "target": "Package",
-              "version": "[1.12.1, )"
+              "version": "[1.2.16, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.29, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.1, )"
             }
           },
           "imports": [
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
