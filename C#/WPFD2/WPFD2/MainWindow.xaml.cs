@@ -34,10 +34,23 @@ namespace WPFD2
 
         private void Authentication_Button(object sender, RoutedEventArgs e)
         {
-            Inventory inventoryWindow = new Inventory();
-            inventoryWindow.Show();
-            this.Hide();
+            string s = manager.getAccessToken(textBox.Text);
+            if(s == "True")
+            {
+                Inventory inventoryWindow = new Inventory();
+                inventoryWindow.Show();
+                this.Hide();
+            }
+            else
+            {
+                textBlock.Text = s;
+            }
+            
         }
 
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

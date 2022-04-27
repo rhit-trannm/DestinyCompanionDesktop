@@ -22,26 +22,28 @@ namespace CDestiny2
 
 
             BungieSharper.Client.BungieClientConfig config = new BungieSharper.Client.BungieClientConfig();
+            config.OAuthClientSecret = "zGpr-mMHVnYhIYJODAlphLzvsiQQ4HfgyFjrZU2UVvE";
             config.OAuthClientId = 39661;
             config.ApiKey = apiKey;
             client = new BungieSharper.Client.BungieApiClient(config);
             BungieSharper.Entities.Destiny.Config.DestinyManifest manifest = client.Api.Destiny2_GetDestinyManifest().Result;
             //Console.WriteLine(manifest.MobileAssetContentPath);
 
-            string url = client.OAuth.GetOAuthAuthorizationUrl();
+/*            string url = client.OAuth.GetOAuthAuthorizationUrl();
 
             var psi = new ProcessStartInfo
             {
                 FileName = url,
                 UseShellExecute = true
             };
-            Process.Start(psi);
+            Process.Start(psi);*/
 
+            BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken("595ecf909d5863264b55d0ac7bab668a").Result;
+            
+            Console.WriteLine(token.ErrorDescription);
+            
 
-            //BungieSharper.Entities.TokenResponse tdoken = client.OAuth.GetOAuthToken("035a6511a2747598ca4f97ed9d5e0aa0").Result;
-            //Console.WriteLine(token);
-
-            string s = "COWJBBKGAgAgMtxOtnwuNkNK9vWNnh2Si4jzT3005d95WeoKBImUvYfgAAAAbvmtXoHzWjTOLnqtyN/HYtWPINh4eYIh57Hn9lQ777QkyBIQx6LUqCqhc8RV0XJWFyv4EHPF7iUrIN/uulB7xda9b5oXvTt9HwrSuIePrpJLyBhhmrNTj+AXtS2K7wyrsHabAFwD1oCJ2RNDMGlWnY1N8KFDrHtsKZmvVAwrSrKO9ro3GJehDXoXs3TRwkp1OhXg9RDJT1gHXFMqF/Xf77mEn81vU8SPyULNLj3+k8HFD5XKXenTawtJ6+BABWaOQZMUKdPrhV9sw3ti2gGGAEwH4uXlRu0ATM6sowOU8rk=";
+            /*string s = "COWJBBKGAgAgMtxOtnwuNkNK9vWNnh2Si4jzT3005d95WeoKBImUvYfgAAAAbvmtXoHzWjTOLnqtyN/HYtWPINh4eYIh57Hn9lQ777QkyBIQx6LUqCqhc8RV0XJWFyv4EHPF7iUrIN/uulB7xda9b5oXvTt9HwrSuIePrpJLyBhhmrNTj+AXtS2K7wyrsHabAFwD1oCJ2RNDMGlWnY1N8KFDrHtsKZmvVAwrSrKO9ro3GJehDXoXs3TRwkp1OhXg9RDJT1gHXFMqF/Xf77mEn81vU8SPyULNLj3+k8HFD5XKXenTawtJ6+BABWaOQZMUKdPrhV9sw3ti2gGGAEwH4uXlRu0ATM6sowOU8rk=";
 
             BungieSharper.Entities.User.GeneralUser user = client.Api.User_GetBungieNetUserById(21139663).Result;
             long membershipid = 4611686018472301094;
@@ -56,7 +58,7 @@ namespace CDestiny2
             DestinyProfileResponse response = client.Api.Destiny2_GetProfile(membershipid, BungieSharper.Entities.BungieMembershipType.TigerSteam, components, s).Result;
 
 
-            Console.WriteLine(user.DisplayName);
+            Console.WriteLine(user.DisplayName);*/
             //Console.WriteLine(response.Profile.Data.);
             
             //BungieSharper.Entities.Destiny.Responses.DestinyCharacterResponse character;
