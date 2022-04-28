@@ -1,9 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Cylimor\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Cylimor\\.nuget\\packages",
-      "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\localmgr\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\localmgr\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ]
   }
 }

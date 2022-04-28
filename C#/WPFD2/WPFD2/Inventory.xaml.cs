@@ -24,6 +24,7 @@ namespace WPFD2
             InitializeComponent();
             SQLManager sql = new SQLManager();
             //textBox.Text = sql.starter();
+
         }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)

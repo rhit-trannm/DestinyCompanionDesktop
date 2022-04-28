@@ -27,7 +27,7 @@ namespace WPFD2
             InitializeComponent();
             if (DEVELOPER_MODE)
             {
-                DevPage devPage = new DevPage();
+                DevPage devPage = new DevPage(new SQLManager(),manager);
                 devPage.Show();
 
 

@@ -26,6 +26,12 @@ namespace WPFD2
             this.sql = sql;
             this.manager = manager;
             InitializeComponent();
+            textBlock.Text = sql.initiateUser();
+        }
+
+        private void Update(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

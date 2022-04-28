@@ -40,7 +40,7 @@ public class Manager
 	}
 	public string LoadJson()
 	{
-		string path = @"E:\CSSE333\courseproject-s4g2\C#\CDestiny2\Output\DestinyClassDefinition.json";
+		string path = @"..\..\..\output\DestinyClassDefinition.json";
 		using (StreamReader r = new StreamReader(path))
 		{
 			string json = r.ReadToEnd();
