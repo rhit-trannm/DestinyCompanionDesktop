@@ -37,6 +37,7 @@ namespace WPFD2
             BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken(authToken).Result;
             if(token.AccessToken == null)
             {
+                //kekw
                 return token.ErrorDescription;
             }
             else
