@@ -22,6 +22,18 @@ namespace WPFD2
         public Inventory()
         {
             InitializeComponent();
+            SQLManager sql = new SQLManager();
+            //textBox.Text = sql.starter();
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

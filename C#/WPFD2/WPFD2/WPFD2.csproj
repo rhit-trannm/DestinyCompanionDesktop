@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BungieSharper" Version="0.9.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
   </ItemGroup>
 
 </Project>

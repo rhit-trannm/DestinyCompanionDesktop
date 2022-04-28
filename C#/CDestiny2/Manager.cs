@@ -1,6 +1,19 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using BungieSharper;
 
+using System.Net;
+using System.Web;
+using System.Collections.Generic;
+using System.Linq;
+using BungieSharper.Entities.Destiny;
+using BungieSharper.Entities.Destiny.Responses;
+using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 public class Manager
 {
 
@@ -25,6 +38,35 @@ public class Manager
 		};
 		Process.Start(psi);
 	}
+	public string LoadJson()
+	{
+		string path = @"E:\CSSE333\courseproject-s4g2\C#\CDestiny2\Output\DestinyClassDefinition.json";
+		using (StreamReader r = new StreamReader(path))
+		{
+			string json = r.ReadToEnd();
+			JObject j = new JObject();
+			JObject items = JsonConvert.DeserializeObject<JObject>(json);
+			dynamic k = items;
 
-	
+			foreach(var item in items)
+            {
+				Console.WriteLine(item.Key);
+				Console.WriteLine(items.SelectToken($"{item.Key}.classType"));
+            }
+		
+			//Console.Write(items);
+			/*			foreach (BungieSharper.Entities.Destiny.Entities.Items.DestinyItemComponent element in items)
+						{
+							Console.Write($"{element.ItemHash} \n");
+						}*/
+		}
+		return null;
+	}
+
+	public class Item
+	{
+		public string name;
+	}
+
+
 }

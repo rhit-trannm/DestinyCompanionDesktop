@@ -6,7 +6,5 @@
         xmlns:local="clr-namespace:WPFD2"
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Grid/>
 </Window>

@@ -12,6 +12,7 @@ using BungieSharper.Entities.Destiny.Responses;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 
 
 namespace CDestiny2
@@ -24,13 +25,15 @@ namespace CDestiny2
             String apiKey = "7c1528dadd144643b93a7ceb2fff5685";
             BungieSharper.Client.BungieApiClient client;
 
-
+            
             BungieSharper.Client.BungieClientConfig config = new BungieSharper.Client.BungieClientConfig();
             config.OAuthClientSecret = "zGpr-mMHVnYhIYJODAlphLzvsiQQ4HfgyFjrZU2UVvE";
             config.OAuthClientId = 39661;
             config.ApiKey = apiKey;
             client = new BungieSharper.Client.BungieApiClient(config);
             BungieSharper.Entities.Destiny.Config.DestinyManifest manifest = client.Api.Destiny2_GetDestinyManifest().Result;
+            Manager man = new Manager();
+            man.LoadJson();
             //Console.WriteLine(manifest.MobileAssetContentPath);
 
             /*            string url = client.OAuth.GetOAuthAuthorizationUrl();
@@ -45,18 +48,18 @@ namespace CDestiny2
             //BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken("595ecf909d5863264b55d0ac7bab668a").Result;
 
             //Console.WriteLine(token.ErrorDescription);
-            string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
-            try
-            {
-                SqlConnection conn = new SqlConnection(cs);
-                //MySqlConnection con = new MySqlConnection(cs);
-                conn.Open();
-                Console.WriteLine($"MySQL version : {conn.ServerVersion}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: {0}", e.ToString());
-            }
+            /*            string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
+                        try
+                        {
+                            SqlConnection conn = new SqlConnection(cs);
+                            //MySqlConnection con = new MySqlConnection(cs);
+                            conn.Open();
+                            Console.WriteLine($"MySQL version : {conn.ServerVersion}");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Error: {0}", e.ToString());
+                        }*/
 
 
 
@@ -98,6 +101,8 @@ namespace CDestiny2
             File.WriteAllTextAsync(path, s);
             return true;
         }
+
+
 
     }
 }

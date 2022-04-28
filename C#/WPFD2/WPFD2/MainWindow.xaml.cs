@@ -20,10 +20,19 @@ namespace WPFD2
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool DEVELOPER_MODE = true;
         Manager manager = new Manager();
         public MainWindow()
         {
             InitializeComponent();
+            if (DEVELOPER_MODE)
+            {
+                DevPage devPage = new DevPage();
+                devPage.Show();
+
+
+                this.Hide();
+            }
             
         }
 

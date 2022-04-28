@@ -348,6 +348,15 @@
           "lib/net5.0/ZstdNet.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -1347,6 +1356,33 @@
         "lib/netstandard2.1/ZstdNet.dll",
         "mysql.data.8.0.29.nupkg.sha512",
         "mysql.data.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -2630,27 +2666,28 @@
       "BungieSharper >= 0.9.0",
       "K4os.Compression.LZ4.Streams >= 1.2.16",
       "Microsoft.Data.SqlClient >= 4.1.0",
-      "MySql.Data >= 8.0.29"
+      "MySql.Data >= 8.0.29",
+      "Newtonsoft.Json >= 13.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\localmgr\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Cylimor\\.nuget\\packages\\": {},
+    "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+      "projectUniqueName": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
       "projectName": "CDestiny2",
-      "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
-      "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
-      "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
+      "projectPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+      "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
+      "outputPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2692,6 +2729,10 @@
           "MySql.Data": {
             "target": "Package",
             "version": "[8.0.29, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
           }
         },
         "imports": [
@@ -2709,7 +2750,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
