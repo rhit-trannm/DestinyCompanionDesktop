@@ -46,12 +46,27 @@ namespace WPFD2
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@DestinyID", SqlDbType.Int).Value = 1;
-                    SqlParameter returnParameter = cmd.Parameters.Add("RetVal", SqlDbType.VarChar);
-                    returnParameter.Direction = ParameterDirection.ReturnValue;
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    return (string) returnParameter.Value;
+                   cmd.Parameters.Add("@Return_Value", SqlDbType.VarChar, 50);
+
+                    cmd.Parameters["@Return_Value"].Direction = ParameterDirection.Output;
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        String displayName = Convert.ToString(cmd.Parameters["@Return_Value"].Value);
+
+                        return displayName;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally {
+                        conn.Close();
+                    }
+              
+                    
                 }
             }
         }
