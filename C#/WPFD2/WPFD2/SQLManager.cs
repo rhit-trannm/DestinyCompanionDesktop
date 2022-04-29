@@ -36,7 +36,7 @@ namespace WPFD2
         {
             return conn.ServerVersion;
         }
-        public string initiateUser()
+        public string initiateUser(long id)
         {
 
             using (SqlConnection con = new SqlConnection(cs))
@@ -45,7 +45,7 @@ namespace WPFD2
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
-                    cmd.Parameters.Add("@DestinyID", SqlDbType.Int).Value = 1;
+                    cmd.Parameters.Add("@DestinyID", SqlDbType.Int).Value = (int) id;
                     cmd.Parameters.Add("@Return_Value", SqlDbType.VarChar, 50);
                     //set param as output
                     cmd.Parameters["@Return_Value"].Direction = ParameterDirection.Output;
@@ -56,7 +56,47 @@ namespace WPFD2
                         cmd.ExecuteNonQuery();
                         //get value of output parameter
                         String displayName = Convert.ToString(cmd.Parameters["@Return_Value"].Value);
-                        return displayName;
+                        if (displayName != null)
+                        {
+                            return displayName;
+                        }
+                        else
+                        {
+                            return "False";
+                        }
+                        
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
+
+        }
+        public string createUser(long id, string name)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.addPlayer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@destinyMembershipId", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add("@displayName", SqlDbType.VarChar, 50).Value = name;
+                    //set param as output
+                    try
+                    {
+                        //start connection and execute procedure
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        //get value of output parameter
+                        return name;
                     }
                     catch (Exception)
                     {

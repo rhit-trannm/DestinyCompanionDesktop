@@ -20,6 +20,7 @@ namespace WPFD2
         BungieSharper.Client.BungieApiClient client;
         BungieSharper.Entities.TokenResponse Token;
         long d2memId;
+        string userName;
         public APIManager()
         {
             BungieSharper.Client.BungieClientConfig config = new BungieSharper.Client.BungieClientConfig();
@@ -28,7 +29,14 @@ namespace WPFD2
             config.ApiKey = apiKey;
             client = new BungieSharper.Client.BungieApiClient(config);
         }
-
+        public long getD2MemID()
+        {
+            return d2memId;
+        }
+        public string getUserName()
+        {
+            return userName;
+        }
         public void Authenticate() 
         {
             string url = client.OAuth.GetOAuthAuthorizationUrl();
@@ -44,15 +52,12 @@ namespace WPFD2
             BungieSharper.Entities.TokenResponse token = client.OAuth.GetOAuthToken(authToken).Result;
             if(token.AccessToken == null)
             {
-                //kekw
                 return token.ErrorDescription;
             }
-            else
-            {
-                Token = token;
-           
-                return "True";
-            }
+            Token = token;
+            profile();
+            
+            return "True";
         }
         public string profile()
         {
@@ -65,15 +70,11 @@ namespace WPFD2
                 if(profile.MembershipType == BungieSharper.Entities.BungieMembershipType.TigerSteam)
                 {
                     d2memId = profile.MembershipId;
+                    userName = profile.DisplayName;
                     return profile.MembershipId.ToString();
                 }
             }
             return "No Profile found";
-
-
-
-
-
 
         }
 

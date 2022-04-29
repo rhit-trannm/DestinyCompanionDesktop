@@ -7,12 +7,20 @@
         mc:Ignorable="d"
         Title="DevPage" Height="450" Width="800">
     <Grid>
-        <Button x:Name="Update2" HorizontalAlignment="Left" Click="Update" Width="150" Height="20" VerticalAlignment="Top" Margin="49,37,0,0" Content="Update">
+        <Button x:Name="Update2" HorizontalAlignment="Left" Click="Update" Width="150" Height="20" VerticalAlignment="Top" Margin="49,37,0,0" Content="create">
             <Button.FontWeight>
                 <FontWeight>Bold</FontWeight>
             </Button.FontWeight>
         </Button>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="313,190,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="52" Width="193"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="250,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="52" Width="193"/>
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="49,81,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="userid" HorizontalAlignment="Left" Margin="49,120,0,0" TextWrapping="Wrap" Text="id" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="read2" HorizontalAlignment="Left" Click="read" Width="150" Height="20" VerticalAlignment="Top" Margin="250,37,0,0" Content="reader">
+            <Button.FontWeight>
+                <FontWeight>Bold</FontWeight>
+            </Button.FontWeight>
+        </Button>
+        <TextBox x:Name="id_read" HorizontalAlignment="Left" Margin="250,81,0,0" TextWrapping="Wrap" Text="id" VerticalAlignment="Top" Width="120" TextChanged="id_read_TextChanged"/>
 
     </Grid>
 </Window>

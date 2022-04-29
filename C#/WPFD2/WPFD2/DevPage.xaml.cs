@@ -24,10 +24,28 @@ namespace WPFD2
         {
             this.manager = manager;
             InitializeComponent();
-            textBlock.Text = this.manager.getSQLManager().initiateUser();
+
+            textBlock.Text = this.manager.getSQLManager().initiateUser(1);
+           
         }
 
         private void Update(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(userid.Text);
+            this.manager.getSQLManager().createUser(id, name.Text);
+
+        }
+
+        private void read(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(id_read.Text);
+            textBlock.Text = this.manager.getSQLManager().initiateUser(id);
+
+
+
+        }
+
+        private void id_read_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

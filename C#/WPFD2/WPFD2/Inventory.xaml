@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Inventory" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="blah" HorizontalAlignment="Left" Margin="96,58,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBox x:Name="Items" HorizontalAlignment="Left" Margin="96,133,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="blah" HorizontalAlignment="Left" Margin="551,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBox x:Name="Items" HorizontalAlignment="Left" Margin="551,135,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="username" HorizontalAlignment="Left" Margin="57,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="userid" HorizontalAlignment="Left" Margin="57,144,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
     </Grid>
 </Window>
