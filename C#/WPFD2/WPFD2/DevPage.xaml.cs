@@ -19,14 +19,12 @@ namespace WPFD2
     /// </summary>
     public partial class DevPage : Window
     {
-        SQLManager sql;
         Manager manager;
-        public DevPage(SQLManager sql, Manager manager)
+        public DevPage(Manager manager)
         {
-            this.sql = sql;
             this.manager = manager;
             InitializeComponent();
-            textBlock.Text = sql.initiateUser();
+            textBlock.Text = this.manager.getSQLManager().initiateUser();
         }
 
         private void Update(object sender, RoutedEventArgs e)

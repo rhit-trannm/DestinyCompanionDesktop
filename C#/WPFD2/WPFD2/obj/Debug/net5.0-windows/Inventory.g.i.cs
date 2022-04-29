@@ -69,7 +69,7 @@ namespace WPFD2 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WPFD2;component/inventory.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WPFD2;V1.0.0.0;component/inventory.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Inventory.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

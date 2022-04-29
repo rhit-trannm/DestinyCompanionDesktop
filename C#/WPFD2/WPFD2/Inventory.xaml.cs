@@ -19,16 +19,14 @@ namespace WPFD2
     /// </summary>
     public partial class Inventory : Window
     {
-        SQLManager sql;
         Manager manager;
         public Inventory(Manager manager)
         {
             InitializeComponent();
-            this.sql = new SQLManager();
             this.manager = manager;
 
-            blah.Text = manager.profile();
-            Items.Text = manager.getInventory();
+            blah.Text = manager.getAPIManager().profile();
+            Items.Text = manager.getAPIManager().getInventory();
             //textBox.Text = sql.starter();
 
         }

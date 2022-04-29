@@ -27,7 +27,7 @@ namespace WPFD2
             InitializeComponent();
             if (DEVELOPER_MODE)
             {
-                DevPage devPage = new DevPage(new SQLManager(),manager);
+                DevPage devPage = new DevPage(manager);
                 devPage.Show();
 
 
@@ -38,12 +38,12 @@ namespace WPFD2
 
         private void getURL(object sender, RoutedEventArgs e)
         {
-            manager.Authenticate();
+            manager.getAPIManager().Authenticate();
         }
 
         private void Authentication_Button(object sender, RoutedEventArgs e)
         {
-            string s = manager.getAccessToken(textBox.Text);
+            string s = manager.getAPIManager().getAccessToken(textBox.Text);
             if(s == "True")
             {
                 Inventory inventoryWindow = new Inventory(manager);
