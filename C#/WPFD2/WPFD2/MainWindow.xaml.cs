@@ -20,7 +20,7 @@ namespace WPFD2
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool DEVELOPER_MODE = true;
+        bool DEVELOPER_MODE = false;
         Manager manager = new Manager();
         public MainWindow()
         {
@@ -46,7 +46,7 @@ namespace WPFD2
             string s = manager.getAccessToken(textBox.Text);
             if(s == "True")
             {
-                Inventory inventoryWindow = new Inventory();
+                Inventory inventoryWindow = new Inventory(manager);
                 inventoryWindow.Show();
                 this.Hide();
             }
