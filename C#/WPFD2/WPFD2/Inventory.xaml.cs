@@ -24,14 +24,14 @@ namespace WPFD2
         {
             InitializeComponent();
             this.manager = manager;
-            
-            blah.Text = manager.getAPIManager().profile();
+
+            /*blah.Text = manager.getAPIManager().profile();
             Items.Text = manager.getAPIManager().getInventory();
             string user = manager.getAPIManager().getUserName();
             long id = manager.getAPIManager().getD2MemID();
             username.Text = "Username: " + user;
             userid.Text = "UserID: " + id.ToString();
-            manager.getSQLManager().initiateUser(id);
+            manager.getSQLManager().initiateUser(id);*/
             //textBox.Text = sql.starter();
 
         }
