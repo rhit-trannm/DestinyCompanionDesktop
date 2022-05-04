@@ -1,5 +1,8 @@
-﻿using BungieSharper.Entities.Destiny;
+﻿using BungieSharper.Entities;
+using BungieSharper.Entities.Destiny;
+using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
+using BungieSharper.Entities.Destiny.Entities.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +25,20 @@ namespace WPFD2
     public partial class Inventory : Window
     {
         Manager manager;
+        List<InventoryItem> Kinetic = new List<InventoryItem>();
+        List<InventoryItem> Energy = new List<InventoryItem>();
+        List<InventoryItem> Power = new List<InventoryItem>();
+        List<InventoryItem> Helmet = new List<InventoryItem>();
+        List<InventoryItem> Gauntlet = new List<InventoryItem>();
+        List<InventoryItem> Chest = new List<InventoryItem>();
+        List<InventoryItem> Leg = new List<InventoryItem>();
+        List<InventoryItem> Class = new List<InventoryItem>();
+        List<EquippedItem> EquippedList = new List<EquippedItem>();
+        Manager _Manager;
         public Inventory(Manager manager)
         {
             InitializeComponent();
+           
             List<EquippedItem> persons = new List<EquippedItem>();
             persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
             EquippedItemsChart.ItemsSource = persons;
@@ -34,13 +48,12 @@ namespace WPFD2
                 classList.Add(entry.ClassType);
             }
             CharacterSelection.ItemsSource = classList;
-            List<String> temp = new List<String>();
-            temp.Add("Hell1");
-            temp.Add("Hell2");
-            temp.Add("Hell3");
-            temp.Add("Hell4");
-            //InventoryKinetic.ItemsSource = temp;
-
+            List<InventoryItem> temp = new List<InventoryItem>();
+            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
+            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 2" });
+            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 3" });
+            InventoryKinetic.ItemsSource = temp;
+            this._Manager = manager;
 
             /*blah.Text = manager.getAPIManager().profile();
             Items.Text = manager.getAPIManager().getInventory();
@@ -56,14 +69,95 @@ namespace WPFD2
         public class EquippedItem
         {
             public string SlotName { set; get; }
+            public String ItemName { set; get; }
+            public uint ItemHash { set; get; }
+            public long? ItemInstanceId
+            {
+                get;
+                set;
+            }
+
+        }
+        public class InventoryItem
+        {
+            public string SlotName { set; get; }
             public string ItemName { set; get; }
+
         }
 
-        private void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+            DestinyItemCategoryDefinition definition = new DestinyItemCategoryDefinition();
+            DestinyInventoryItemDefinition itemDefinition = new DestinyInventoryItemDefinition();
             int index = CharacterSelection.SelectedIndex;
-            List<DestinyCharacterComponent> list = manager.getAPIManager().getCharacterList();
-            manager.getAPIManager().GetEquipped(list.ElementAt(index).CharacterId);
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            //All destiny defintion
+  
+            List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
+            foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetEquipped(list.ElementAt(0).CharacterId))
+            {
+                uint Kinetic = 1498876634;
+                uint Energy = 2465295065;
+                uint Power = 953998645;
+                uint Helmet = 3448274439;
+                uint Gauntlet = 3551918588;
+                uint chest = 14239492;
+                uint Leg = 20886954;
+                uint classArmor = 1585787867;
+
+                EquippedItem temp = new EquippedItem();
+               
+                temp.ItemName = item.ItemHash.ToString();
+                //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
+                if(item.BucketHash == Kinetic)
+                {
+                    temp.SlotName = "Kinetic";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == Energy)
+                {
+                    temp.SlotName = "Energy";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == Power)
+                {
+                    temp.SlotName = "Power";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == Helmet)
+                {
+                    temp.SlotName = "Helmet";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == Gauntlet)
+                {
+                    temp.SlotName = "Gauntlet";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == chest)
+                {
+                    temp.SlotName = "Chest";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == Leg)
+                {
+                    temp.SlotName = "Leg";
+                    EquippedList.Add(temp);
+                }
+                else if (item.BucketHash == classArmor)
+                {
+                    temp.SlotName = "Class";
+                    EquippedList.Add(temp);
+                }
+
+                temp.ItemHash = item.ItemHash;
+                temp.ItemInstanceId = item.ItemInstanceId;
+                
+            }
+            EquippedItemsChart.ItemsSource = EquippedList;
+
+
         }
     }
-    }
+}
