@@ -148,3 +148,4 @@ E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\DevPage.ba
 E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.dll
 E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.ClassicTheme.dll
 E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\App.baml
+E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\Newtonsoft.Json.dll

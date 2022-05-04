@@ -25,6 +25,7 @@ namespace WPFD2
         DestinyProfileUserInfoCard _DestinyProfile;
         List<DestinyCharacterComponent> _CharacterList;
         UserInfoCard _BnetProfile;
+        SQLManager SQL = new SQLManager();
         public APIManager()
         {
             BungieSharper.Client.BungieClientConfig config = new BungieSharper.Client.BungieClientConfig();
@@ -105,6 +106,10 @@ namespace WPFD2
             query.Add(DestinyComponentType.ItemInstances);
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
+        }
+        public void updateManifest(long ItemHash, long bucketHash, string name)
+        {
+            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name);
         }
 /*        public string profile()
         {

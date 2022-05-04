@@ -3,8 +3,11 @@ using BungieSharper.Entities.Destiny;
 using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
 using BungieSharper.Entities.Destiny.Entities.Items;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,6 +161,39 @@ namespace WPFD2
             EquippedItemsChart.ItemsSource = EquippedList;
 
 
+        }
+
+        private void updateManifests_Click(object sender, RoutedEventArgs e)
+        {
+
+
+                string path = @"E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\Outputs\DestinyInventoryItemDefinition.json";
+                using (StreamReader r = new StreamReader(path))
+                {
+                    string json = r.ReadToEnd();
+                    JObject j = new JObject();
+                    JObject items = JsonConvert.DeserializeObject<JObject>(json);
+                    dynamic k = items;
+
+                    foreach (var item in items)
+                    {
+                    if(items.SelectToken($"{item.Key}.displayProperties.name") != null)
+                    {
+                        
+                        this._Manager.getAPIManager().updateManifest(long.Parse(item.Key.ToString()), long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()), items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+                    }
+
+                        Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
+
+                    }
+
+                    //Console.Write(items);
+                    /*			foreach (BungieSharper.Entities.Destiny.Entities.Items.DestinyItemComponent element in items)
+                                {
+                                    Console.Write($"{element.ItemHash} \n");
+                                }*/
+                }
+            
         }
     }
 }

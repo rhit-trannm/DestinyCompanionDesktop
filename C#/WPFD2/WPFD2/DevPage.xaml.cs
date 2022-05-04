@@ -49,5 +49,10 @@ namespace WPFD2
         {
 
         }
+
+        private void updateManifest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

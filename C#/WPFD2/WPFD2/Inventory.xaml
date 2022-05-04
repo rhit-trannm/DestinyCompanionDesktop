@@ -136,10 +136,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="465,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
         <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,327,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
-       
+        <Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/>
+
 
     </Grid>
 

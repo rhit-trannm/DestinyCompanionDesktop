@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KLoStg46WKkUtyMuTkolF1w8QZuNCzZpjUrqYHMk7YQoCqIiXbFa5eqlZRK60hibr8lhvihnIM58iiCHwjXWqQ==",
+  "dgSpecHash": "Jj0VYV22UTIQiY4pCC+gEA4GP7l9IQUaHpc03W7HzuC485AdO2cMJ46EfPZ42H5ulQ7hDZEVFW63DTxD2IUZSg==",
   "success": true,
   "projectFilePath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\Cylimor\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\Cylimor\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",

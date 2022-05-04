@@ -110,6 +110,36 @@ namespace WPFD2
             }
         }
 
+        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.addItemDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
+                    cmd.Parameters.Add("@Name", SqlDbType.NChar,40).Value = name;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
 
 
     }

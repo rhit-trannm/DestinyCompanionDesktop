@@ -40,7 +40,7 @@ public class Manager
 	}
 	public string LoadJson()
 	{
-		string path = @"..\..\..\output\DestinyClassDefinition.json";
+		string path = @"..\..\..\output\DestinyInventoryItemDefinition.json";
 		using (StreamReader r = new StreamReader(path))
 		{
 			string json = r.ReadToEnd();
@@ -50,8 +50,8 @@ public class Manager
 
 			foreach(var item in items)
             {
-				Console.WriteLine(item.Key);
-				Console.WriteLine(items.SelectToken($"{item.Key}.classType"));
+				Console.WriteLine(item.Key +" "+ items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
+
             }
 		
 			//Console.Write(items);
