@@ -2,6 +2,36 @@
   "version": 3,
   "targets": {
     "net5.0-windows7.0": {
+      "AdonisUI/1.17.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.6.0"
+        },
+        "compile": {
+          "lib/net5.0-windows7.0/AdonisUI.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/AdonisUI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "AdonisUI.ClassicTheme/1.17.1": {
+        "type": "package",
+        "dependencies": {
+          "AdonisUI": "1.17.1"
+        },
+        "compile": {
+          "lib/net5.0-windows7.0/AdonisUI.ClassicTheme.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/AdonisUI.ClassicTheme.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "Azure.Core/1.6.0": {
         "type": "package",
         "dependencies": {
@@ -310,7 +340,7 @@
           "Microsoft.Win32.SystemEvents": "5.0.0"
         },
         "compile": {
-          "ref/netcoreapp3.0/_._": {}
+          "ref/netcoreapp3.0/System.Drawing.Common.dll": {}
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Drawing.Common.dll": {}
@@ -627,6 +657,42 @@
     }
   },
   "libraries": {
+    "AdonisUI/1.17.1": {
+      "sha512": "A23SWpxbj6aGaKbGjyDBDJYV1xtkN03uu50iXcyF+m4mxr0vw/IbOLKPSTmclzPEE4hxnHCC4Ysl827HzfLhaw==",
+      "type": "package",
+      "path": "adonisui/1.17.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "adonisui.1.17.1.nupkg.sha512",
+        "adonisui.nuspec",
+        "favicon-256x256.png",
+        "lib/net45/AdonisUI.dll",
+        "lib/net45/AdonisUI.xml",
+        "lib/net5.0-windows7.0/AdonisUI.dll",
+        "lib/net5.0-windows7.0/AdonisUI.xml",
+        "lib/netcoreapp3.1/AdonisUI.dll",
+        "lib/netcoreapp3.1/AdonisUI.xml"
+      ]
+    },
+    "AdonisUI.ClassicTheme/1.17.1": {
+      "sha512": "SMTro4yZ22iNczHII3osyrcuBnH69sRmQsUhV5lg7NPdPZWkYaULK0OtyVriDynmNGqqwRwJ+t4Sc0hBK7jT0g==",
+      "type": "package",
+      "path": "adonisui.classictheme/1.17.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "adonisui.classictheme.1.17.1.nupkg.sha512",
+        "adonisui.classictheme.nuspec",
+        "favicon-256x256.png",
+        "lib/net45/AdonisUI.ClassicTheme.dll",
+        "lib/net45/AdonisUI.ClassicTheme.xml",
+        "lib/net5.0-windows7.0/AdonisUI.ClassicTheme.dll",
+        "lib/net5.0-windows7.0/AdonisUI.ClassicTheme.xml",
+        "lib/netcoreapp3.1/AdonisUI.ClassicTheme.dll",
+        "lib/netcoreapp3.1/AdonisUI.ClassicTheme.xml"
+      ]
+    },
     "Azure.Core/1.6.0": {
       "sha512": "kI4m2NsODPOrxo0OoKjk6B3ADbdovhDQIEmI4039upjjZKRaewVLx/Uz4DfRa/NtnIRZQPUALe1yvdHWAoRt4w==",
       "type": "package",
@@ -2363,6 +2429,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
+      "AdonisUI >= 1.17.1",
+      "AdonisUI.ClassicTheme >= 1.17.1",
       "BungieSharper >= 0.9.0",
       "Microsoft.Data.SqlClient >= 4.1.0"
     ]
@@ -2411,6 +2479,14 @@
       "net5.0-windows7.0": {
         "targetAlias": "net5.0-windows",
         "dependencies": {
+          "AdonisUI": {
+            "target": "Package",
+            "version": "[1.17.1, )"
+          },
+          "AdonisUI.ClassicTheme": {
+            "target": "Package",
+            "version": "[1.17.1, )"
+          },
           "BungieSharper": {
             "target": "Package",
             "version": "[0.9.0, )"

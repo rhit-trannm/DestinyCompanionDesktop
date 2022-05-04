@@ -25,8 +25,8 @@ namespace WPFD2
         public MainWindow()
         {
             InitializeComponent();
-            Inventory inventoryWindow = new Inventory(manager);
-            inventoryWindow.Show();
+            //Inventory inventoryWindow = new Inventory(manager);
+            //inventoryWindow.Show();
             if (DEVELOPER_MODE)
             {
                 DevPage devPage = new DevPage(manager);

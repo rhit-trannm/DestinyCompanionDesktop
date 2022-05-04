@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BungieSharper.Entities.Destiny;
+using BungieSharper.Entities.Destiny.Entities.Characters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,22 @@ namespace WPFD2
         public Inventory(Manager manager)
         {
             InitializeComponent();
-            this.manager = manager;
+            List<EquippedItem> persons = new List<EquippedItem>();
+            persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
+            EquippedItemsChart.ItemsSource = persons;
+            List<DestinyClass> classList = new List<DestinyClass>();
+            foreach (DestinyCharacterComponent entry in manager.getAPIManager().getCharacterList())
+            {
+                classList.Add(entry.ClassType);
+            }
+            CharacterSelection.ItemsSource = classList;
+            List<String> temp = new List<String>();
+            temp.Add("Hell1");
+            temp.Add("Hell2");
+            temp.Add("Hell3");
+            temp.Add("Hell4");
+            //InventoryKinetic.ItemsSource = temp;
+
 
             /*blah.Text = manager.getAPIManager().profile();
             Items.Text = manager.getAPIManager().getInventory();
@@ -36,14 +53,17 @@ namespace WPFD2
 
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        public class EquippedItem
         {
-
+            public string SlotName { set; get; }
+            public string ItemName { set; get; }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            int index = CharacterSelection.SelectedIndex;
+            List<DestinyCharacterComponent> list = manager.getAPIManager().getCharacterList();
+            manager.getAPIManager().GetEquipped(list.ElementAt(index).CharacterId);
         }
     }
-}
+    }

@@ -7,36 +7,28 @@
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         Title="Inventory" Height="686" Width="1480">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
     <Grid>
-        <ListView Margin="33,64,1347,507" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="2">
+        <ListView x:Name="EquippedItemsChart" Margin="33,64,1020,365" Style="{StaticResource BaseButtonStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Focusable" Value="false"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <ListViewItem>Kinetic</ListViewItem>
-            <ListViewItem>Energy</ListViewItem>
-            <ListViewItem>Power</ListViewItem>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Slot" Width="100" DisplayMemberBinding="{Binding Path=SlotName}"/>
+                    <GridViewColumn Header="Item" Width="327" DisplayMemberBinding="{Binding Path=ItemName}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
-        <ListBox x:Name="listBox" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="132,64,1020,507" BorderThickness="2"/>
-        <ListView Margin="33,168,1347,365" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="2">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Focusable" Value="false"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListViewItem Content="Helmet"/>
-            <ListViewItem Content="Gauntlets"/>
-            <ListViewItem Content="Chest Armor"/>
-            <ListViewItem Content="Leg Armor"/>
-            <ListViewItem Content="Class Armor"/>
-        </ListView>
-        <ListBox x:Name="listBox_Copy" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="133,168,1020,365" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="2"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="33,43,0,0" TextWrapping="Wrap" Text="Equipped" VerticalAlignment="Top"/>
 
-        <ListView Margin="465,64,10,365">
+        <ListView x:Name ="InventoryKinetic" Margin="460,64,892,365" Style="{StaticResource BaseButtonStyle}">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -47,39 +39,27 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Kinetic" Width="125" DisplayMemberBinding="{Binding Kinetic}" />
-                    <GridViewColumn Header="Energy" Width="125" DisplayMemberBinding="{Binding Energy}" />
-                    <GridViewColumn Header="Power" Width="125" DisplayMemberBinding="{Binding Power}" />
-                    <GridViewColumn Header="Helmet" Width="125" DisplayMemberBinding="{Binding Helmet}" />
-                    <GridViewColumn Header="Gauntlet" Width="125" DisplayMemberBinding="{Binding Gauntlet}" />
-                    <GridViewColumn Header="Chest" Width="125" DisplayMemberBinding="{Binding Chest}" />
-                    <GridViewColumn Header="Leg" Width="125" DisplayMemberBinding="{Binding Leg}" />
-                    <GridViewColumn Header="Class" Width="125" DisplayMemberBinding="{Binding Class}" />
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <ListView Margin="588,64,766,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Energy" Width="125" DisplayMemberBinding="{Binding Energy}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="465,43,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
-        <ListView Margin="465,64,10,365">
-
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Kinetic" Width="125" DisplayMemberBinding="{Binding Kinetic}" />
-                    <GridViewColumn Header="Energy" Width="125" DisplayMemberBinding="{Binding Energy}" />
-                    <GridViewColumn Header="Power" Width="125" DisplayMemberBinding="{Binding Power}" />
-                    <GridViewColumn Header="Helmet" Width="125" DisplayMemberBinding="{Binding Helmet}" />
-                    <GridViewColumn Header="Gauntlet" Width="125" DisplayMemberBinding="{Binding Gauntlet}" />
-                    <GridViewColumn Header="Chest" Width="125" DisplayMemberBinding="{Binding Chest}" />
-                    <GridViewColumn Header="Leg" Width="125" DisplayMemberBinding="{Binding Leg}" />
-                    <GridViewColumn Header="Class" Width="125" DisplayMemberBinding="{Binding Class}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView Margin="465,356,10,73" Grid.Column="1">
+        <ListView Margin="465,356,10,73" Grid.Column="1" Style="{StaticResource BaseButtonStyle}">
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -94,6 +74,79 @@
             </ListView.View>
         </ListView>
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="465,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
+        <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,327,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
+        <ListView Margin="714,64,640,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Power" Width="125" DisplayMemberBinding="{Binding Power}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="840,64,514,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Helmet" Width="125" DisplayMemberBinding="{Binding Helmet}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="966,64,388,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Gauntlet" Width="125" DisplayMemberBinding="{Binding Gauntlet}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="1092,64,262,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Chest" Width="125" DisplayMemberBinding="{Binding Chest}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="1218,64,136,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Leg" Width="125" DisplayMemberBinding="{Binding Leg}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Margin="1344,64,10,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Class" Width="125" DisplayMemberBinding="{Binding Class}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 

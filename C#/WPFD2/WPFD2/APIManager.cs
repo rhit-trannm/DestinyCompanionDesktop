@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BungieSharper;
 using BungieSharper.Entities;
 using BungieSharper.Entities.Destiny;
+using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
 using BungieSharper.Entities.Destiny.Entities.Inventory;
 using BungieSharper.Entities.Destiny.Entities.Items;
@@ -31,6 +32,10 @@ namespace WPFD2
             config.OAuthClientSecret = "zGpr-mMHVnYhIYJODAlphLzvsiQQ4HfgyFjrZU2UVvE";
             config.ApiKey = apiKey;
             Client = new BungieSharper.Client.BungieApiClient(config);
+        }
+        public List<DestinyCharacterComponent> getCharacterList()
+        {
+            return _CharacterList;
         }
         public void Authenticate() 
         {
@@ -59,11 +64,37 @@ namespace WPFD2
                     _DestinyProfile = profile;
                 }
             }
+            GetCharacter();
             return "True";
         }
-        private void GetCharacter()
+        private List<DestinyCharacterComponent> GetCharacter()
         {
-
+            _CharacterList = new List<DestinyCharacterComponent>();
+            List<DestinyComponentType> query = new List<DestinyComponentType>();
+            query.Add(DestinyComponentType.Characters);
+            DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId,BungieMembershipType.TigerSteam,query, Token.AccessToken).Result;
+            Dictionary<long, DestinyCharacterComponent> Data = resp.Characters.Data;
+            foreach (KeyValuePair<long, DestinyCharacterComponent> entry in Data)
+            {
+                _CharacterList.Add(entry.Value);
+            }
+            return _CharacterList;
+        }
+        public List<DestinyInventoryItemDefinition> GetEquipped(long characterID)
+        {
+            List<DestinyComponentType> query = new List<DestinyComponentType>();
+            query.Add(DestinyComponentType.CharacterEquipment);
+            DestinyCharacterResponse resp = Client.Api.Destiny2_GetCharacter(characterID, _DestinyProfile.MembershipId, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
+            IEnumerable<DestinyItemComponent> Items = resp.Equipment.Data.Items;
+            Items.GetEnumerator();
+            AggregateDestinyDefinitions def = new AggregateDestinyDefinitions();
+            Dictionary<uint, DestinyInventoryItemDefinition> InventoryItems = def.InventoryItems;
+            List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
+            foreach (DestinyItemComponent item in Items)
+            {
+                itemsList.Add(InventoryItems[item.ItemHash]);
+            }
+            return itemsList;
         }
 /*        public string profile()
         {

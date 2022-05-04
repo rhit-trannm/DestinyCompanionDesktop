@@ -145,3 +145,6 @@ C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-w
 C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\ref\WPFD2.dll
 E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\DevPage.g.cs
 E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\DevPage.baml
+E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.dll
+E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.ClassicTheme.dll
+E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\App.baml

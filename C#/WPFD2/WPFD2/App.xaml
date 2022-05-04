@@ -4,6 +4,17 @@
              xmlns:local="clr-namespace:WPFD2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/AdonisUI;component/ColorSchemes/Light.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="BaseButtonStyle" TargetType="ListView">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+        </ResourceDictionary>
+
+
     </Application.Resources>
 </Application>

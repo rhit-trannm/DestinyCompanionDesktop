@@ -6,6 +6,28 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
+      "AdonisUI/1.17.1": {
+        "dependencies": {
+          "System.Drawing.Common": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/AdonisUI.dll": {
+            "assemblyVersion": "1.17.1.0",
+            "fileVersion": "1.17.1.0"
+          }
+        }
+      },
+      "AdonisUI.ClassicTheme/1.17.1": {
+        "dependencies": {
+          "AdonisUI": "1.17.1"
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/AdonisUI.ClassicTheme.dll": {
+            "assemblyVersion": "1.17.1.0",
+            "fileVersion": "1.17.1.0"
+          }
+        }
+      },
       "Azure.Core/1.6.0": {
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "1.0.0",
@@ -544,6 +566,20 @@
     }
   },
   "libraries": {
+    "AdonisUI/1.17.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-A23SWpxbj6aGaKbGjyDBDJYV1xtkN03uu50iXcyF+m4mxr0vw/IbOLKPSTmclzPEE4hxnHCC4Ysl827HzfLhaw==",
+      "path": "adonisui/1.17.1",
+      "hashPath": "adonisui.1.17.1.nupkg.sha512"
+    },
+    "AdonisUI.ClassicTheme/1.17.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SMTro4yZ22iNczHII3osyrcuBnH69sRmQsUhV5lg7NPdPZWkYaULK0OtyVriDynmNGqqwRwJ+t4Sc0hBK7jT0g==",
+      "path": "adonisui.classictheme/1.17.1",
+      "hashPath": "adonisui.classictheme.1.17.1.nupkg.sha512"
+    },
     "Azure.Core/1.6.0": {
       "type": "package",
       "serviceable": true,

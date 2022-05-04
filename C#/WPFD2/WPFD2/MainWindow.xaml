@@ -11,7 +11,9 @@
 
 
     </Window.Resources>
-
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
     <Grid>
         <Button x:Name="getCode" HorizontalAlignment="Center" Click="getURL" Width="150" Height="20" VerticalAlignment="Top" Margin="0,303,0,0" Content="GetCode">
             <Button.FontWeight>

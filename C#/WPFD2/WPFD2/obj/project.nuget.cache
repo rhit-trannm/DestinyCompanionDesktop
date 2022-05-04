@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "c2E2dIHiV4Ya1fMSt4OaFfgevhOwWvwsyDQzXKj4owUp5GI6bs/Gadb9a/SqzQ8pR7llNMMdIJ108WQNXIEmyg==",
+  "dgSpecHash": "KLoStg46WKkUtyMuTkolF1w8QZuNCzZpjUrqYHMk7YQoCqIiXbFa5eqlZRK60hibr8lhvihnIM58iiCHwjXWqQ==",
   "success": true,
   "projectFilePath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Cylimor\\.nuget\\packages\\adonisui\\1.17.1\\adonisui.1.17.1.nupkg.sha512",
+    "C:\\Users\\Cylimor\\.nuget\\packages\\adonisui.classictheme\\1.17.1\\adonisui.classictheme.1.17.1.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
     "C:\\Users\\Cylimor\\.nuget\\packages\\bungiesharper\\0.9.0\\bungiesharper.0.9.0.nupkg.sha512",
