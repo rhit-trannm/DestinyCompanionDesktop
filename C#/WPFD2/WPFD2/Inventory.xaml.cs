@@ -37,6 +37,7 @@ namespace WPFD2
         List<InventoryItem> Leg = new List<InventoryItem>();
         List<InventoryItem> Class = new List<InventoryItem>();
         List<EquippedItem> EquippedList = new List<EquippedItem>();
+        List<InventoryItem> VaultList = new List<InventoryItem>();
         Manager _Manager;
         public Inventory(Manager manager)
         {
@@ -57,6 +58,7 @@ namespace WPFD2
             temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 3" });
             InventoryKinetic.ItemsSource = temp;
             this._Manager = manager;
+            UpdateVault();
 
             /*blah.Text = manager.getAPIManager().profile();
             Items.Text = manager.getAPIManager().getInventory();
@@ -166,6 +168,7 @@ namespace WPFD2
             }
             EquippedItemsChart.ItemsSource = EquippedList;
             updateInventory();
+
         }
         private void updateInventory()
         {
@@ -238,6 +241,17 @@ namespace WPFD2
             InventoryChest.ItemsSource = this.Chest;
             InventoryLeg.ItemsSource = this.Leg;
             InventoryClass.ItemsSource = this.Class;
+
+        }
+        private void UpdateVault()
+        {
+            foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetVault())
+            {
+                InventoryItem temp = new InventoryItem();
+                temp.ItemName = item.ItemHash.ToString();
+                VaultList.Add(temp);
+            }
+            VaultDisplay.ItemsSource = VaultList;
 
         }
 

@@ -38,7 +38,7 @@ namespace WPFD2
         {
             return _CharacterList;
         }
-        public void Authenticate() 
+        public void Authenticate()
         {
             string url = Client.OAuth.GetOAuthAuthorizationUrl();
             var psi = new ProcessStartInfo
@@ -51,7 +51,7 @@ namespace WPFD2
         public string getAccessToken(string authToken)
         {
             BungieSharper.Entities.TokenResponse token = Client.OAuth.GetOAuthToken(authToken).Result;
-            if(token.AccessToken == null)
+            if (token.AccessToken == null)
             {
                 return token.ErrorDescription;
             }
@@ -73,7 +73,7 @@ namespace WPFD2
             _CharacterList = new List<DestinyCharacterComponent>();
             List<DestinyComponentType> query = new List<DestinyComponentType>();
             query.Add(DestinyComponentType.Characters);
-            DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId,BungieMembershipType.TigerSteam,query, Token.AccessToken).Result;
+            DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
             Dictionary<long, DestinyCharacterComponent> Data = resp.Characters.Data;
             foreach (KeyValuePair<long, DestinyCharacterComponent> entry in Data)
             {
@@ -111,44 +111,45 @@ namespace WPFD2
         {
             SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name);
         }
-/*        public string profile()
-        {
-
-            BungieSharper.Entities.Destiny.Responses.DestinyLinkedProfilesResponse resp =
-                
-            IEnumerable<DestinyProfileUserInfoCard> profileEnumerator = resp.Profiles;
-            foreach(DestinyProfileUserInfoCard profile in profileEnumerator)
-            {
-                if(profile.MembershipType == BungieSharper.Entities.BungieMembershipType.TigerSteam)
+        /*        public string profile()
                 {
-                    d2memId = profile.MembershipId;
-                    userName = profile.DisplayName;
-                    return profile.MembershipId.ToString();
-                }
-            }
-            return "No Profile found";
 
-        }*/
+                    BungieSharper.Entities.Destiny.Responses.DestinyLinkedProfilesResponse resp =
 
-        public IEnumerable<DestinyItemComponent> GetInventory(long characterID) {
-/*            List<DestinyComponentType> components = new List<DestinyComponentType>();
-            components.Add(DestinyComponentType.Characters);
-            DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId, BungieSharper.Entities.BungieMembershipType.TigerSteam, components).Result;
-            DictionaryComponentResponseOfint64AndDestinyCharacterComponent a = resp.Characters;
-            Dictionary<long, DestinyCharacterComponent> characterDic = a.Data;
-            List<long> idList = new List<long>(characterDic.Keys);
-            components = new List<DestinyComponentType>();
-            components.Add(DestinyComponentType.CharacterEquipment);
-            DestinyCharacterResponse resp2 = Client.Api.Destiny2_GetCharacter(idList[0], _DestinyProfile.MembershipId, BungieSharper.Entities.BungieMembershipType.TigerSteam, components).Result;
-            SingleComponentResponseOfDestinyInventoryComponent d = resp2.Equipment;
-            DestinyInventoryComponent f = d.Data;
-            IEnumerable<DestinyItemComponent> g = f.Items;
-            StringBuilder sb = new StringBuilder();
-            foreach(var item in g)
-            {
-                sb.Append(item.ItemHash + "\n");
-            }
-            return sb.ToString();*/
+                    IEnumerable<DestinyProfileUserInfoCard> profileEnumerator = resp.Profiles;
+                    foreach(DestinyProfileUserInfoCard profile in profileEnumerator)
+                    {
+                        if(profile.MembershipType == BungieSharper.Entities.BungieMembershipType.TigerSteam)
+                        {
+                            d2memId = profile.MembershipId;
+                            userName = profile.DisplayName;
+                            return profile.MembershipId.ToString();
+                        }
+                    }
+                    return "No Profile found";
+
+                }*/
+
+        public IEnumerable<DestinyItemComponent> GetInventory(long characterID)
+        {
+            /*            List<DestinyComponentType> components = new List<DestinyComponentType>();
+                        components.Add(DestinyComponentType.Characters);
+                        DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId, BungieSharper.Entities.BungieMembershipType.TigerSteam, components).Result;
+                        DictionaryComponentResponseOfint64AndDestinyCharacterComponent a = resp.Characters;
+                        Dictionary<long, DestinyCharacterComponent> characterDic = a.Data;
+                        List<long> idList = new List<long>(characterDic.Keys);
+                        components = new List<DestinyComponentType>();
+                        components.Add(DestinyComponentType.CharacterEquipment);
+                        DestinyCharacterResponse resp2 = Client.Api.Destiny2_GetCharacter(idList[0], _DestinyProfile.MembershipId, BungieSharper.Entities.BungieMembershipType.TigerSteam, components).Result;
+                        SingleComponentResponseOfDestinyInventoryComponent d = resp2.Equipment;
+                        DestinyInventoryComponent f = d.Data;
+                        IEnumerable<DestinyItemComponent> g = f.Items;
+                        StringBuilder sb = new StringBuilder();
+                        foreach(var item in g)
+                        {
+                            sb.Append(item.ItemHash + "\n");
+                        }
+                        return sb.ToString();*/
 
             List<DestinyComponentType> query = new List<DestinyComponentType>();
             query.Add(DestinyComponentType.CharacterInventories);
@@ -156,7 +157,15 @@ namespace WPFD2
             IEnumerable<DestinyItemComponent> Items = resp.Inventory.Data.Items;
             return Items;
         }
+        public IEnumerable<DestinyItemComponent> GetVault()
+        {
+            List<DestinyComponentType> query = new List<DestinyComponentType>();
+            query.Add(DestinyComponentType.ProfileInventories);
+            DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
+            IEnumerable<DestinyItemComponent> Items = resp.ProfileInventory.Data.Items;
+            return Items;
+        }
 
-        
+
     }
 }
