@@ -41,7 +41,7 @@ namespace WPFD2
         public Inventory(Manager manager)
         {
             InitializeComponent();
-           
+
             List<EquippedItem> persons = new List<EquippedItem>();
             persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
             EquippedItemsChart.ItemsSource = persons;
@@ -84,19 +84,25 @@ namespace WPFD2
         public class InventoryItem
         {
             public string SlotName { set; get; }
-            public string ItemName { set; get; }
+            public String ItemName { set; get; }
+            public uint ItemHash { set; get; }
+            public long? ItemInstanceId
+            {
+                get;
+                set;
+            }
 
         }
 
         public void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
             DestinyItemCategoryDefinition definition = new DestinyItemCategoryDefinition();
             DestinyInventoryItemDefinition itemDefinition = new DestinyInventoryItemDefinition();
             int index = CharacterSelection.SelectedIndex;
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             //All destiny defintion
-  
+
             List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
             foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetEquipped(list.ElementAt(0).CharacterId))
             {
@@ -110,10 +116,10 @@ namespace WPFD2
                 uint classArmor = 1585787867;
 
                 EquippedItem temp = new EquippedItem();
-               
+
                 temp.ItemName = item.ItemHash.ToString();
                 //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
-                if(item.BucketHash == Kinetic)
+                if (item.BucketHash == Kinetic)
                 {
                     temp.SlotName = "Kinetic";
                     EquippedList.Add(temp);
@@ -156,10 +162,82 @@ namespace WPFD2
 
                 temp.ItemHash = item.ItemHash;
                 temp.ItemInstanceId = item.ItemInstanceId;
-                
+
             }
             EquippedItemsChart.ItemsSource = EquippedList;
+            updateInventory();
+        }
+        private void updateInventory()
+        {
+            uint Kinetic = 1498876634;
+            uint Energy = 2465295065;
+            uint Power = 953998645;
+            uint Helmet = 3448274439;
+            uint Gauntlet = 3551918588;
+            uint chest = 14239492;
+            uint Leg = 20886954;
+            uint classArmor = 1585787867;
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            //REMEMBER TO CHANGE INDEX LATER!!!
+            foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
+            {
 
+                InventoryItem temp = new InventoryItem();
+
+                temp.ItemName = item.ItemHash.ToString();
+                //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
+                if (item.BucketHash == Kinetic)
+                {
+                    temp.SlotName = "Kinetic";
+                    this.Kinetic.Add(temp);
+                }
+                else if (item.BucketHash == Energy)
+                {
+                    temp.SlotName = "Energy";
+                    this.Energy.Add(temp);
+                }
+                else if (item.BucketHash == Power)
+                {
+                    temp.SlotName = "Power";
+                    this.Power.Add(temp);
+                }
+                else if (item.BucketHash == Helmet)
+                {
+                    temp.SlotName = "Helmet";
+                    this.Helmet.Add(temp);
+                }
+                else if (item.BucketHash == Gauntlet)
+                {
+                    temp.SlotName = "Gauntlet";
+                    this.Gauntlet.Add(temp);
+                }
+                else if (item.BucketHash == chest)
+                {
+                    temp.SlotName = "Chest";
+                    this.Chest.Add(temp);
+                }
+                else if (item.BucketHash == Leg)
+                {
+                    temp.SlotName = "Leg";
+                    this.Leg.Add(temp);
+                }
+                else if (item.BucketHash == classArmor)
+                {
+                    temp.SlotName = "Class";
+                    this.Class.Add(temp);
+                }
+
+                temp.ItemHash = item.ItemHash;
+                temp.ItemInstanceId = item.ItemInstanceId;
+            }
+            InventoryKinetic.ItemsSource = this.Kinetic;
+            InventoryEnergy.ItemsSource = this.Energy;
+            InventoryPower.ItemsSource = this.Power;
+            InventoryHelmet.ItemsSource = this.Helmet;
+            InventoryGauntlet.ItemsSource = this.Gauntlet;
+            InventoryChest.ItemsSource = this.Chest;
+            InventoryLeg.ItemsSource = this.Leg;
+            InventoryClass.ItemsSource = this.Class;
 
         }
 
@@ -167,33 +245,33 @@ namespace WPFD2
         {
 
 
-                string path = @"E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\Outputs\DestinyInventoryItemDefinition.json";
-                using (StreamReader r = new StreamReader(path))
-                {
-                    string json = r.ReadToEnd();
-                    JObject j = new JObject();
-                    JObject items = JsonConvert.DeserializeObject<JObject>(json);
-                    dynamic k = items;
+            string path = @"E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\Outputs\DestinyInventoryItemDefinition.json";
+            using (StreamReader r = new StreamReader(path))
+            {
+                string json = r.ReadToEnd();
+                JObject j = new JObject();
+                JObject items = JsonConvert.DeserializeObject<JObject>(json);
+                dynamic k = items;
 
-                    foreach (var item in items)
+                foreach (var item in items)
+                {
+                    if (items.SelectToken($"{item.Key}.displayProperties.name") != null)
                     {
-                    if(items.SelectToken($"{item.Key}.displayProperties.name") != null)
-                    {
-                        
+
                         this._Manager.getAPIManager().updateManifest(long.Parse(item.Key.ToString()), long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()), items.SelectToken($"{item.Key}.displayProperties.name").ToString());
                     }
 
-                        Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
+                    Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
 
-                    }
-
-                    //Console.Write(items);
-                    /*			foreach (BungieSharper.Entities.Destiny.Entities.Items.DestinyItemComponent element in items)
-                                {
-                                    Console.Write($"{element.ItemHash} \n");
-                                }*/
                 }
-            
+
+                //Console.Write(items);
+                /*			foreach (BungieSharper.Entities.Destiny.Entities.Items.DestinyItemComponent element in items)
+                            {
+                                Console.Write($"{element.ItemHash} \n");
+                            }*/
+            }
+
         }
     }
 }

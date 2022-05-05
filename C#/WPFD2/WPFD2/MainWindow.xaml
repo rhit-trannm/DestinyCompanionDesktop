@@ -15,7 +15,7 @@
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
     <Grid>
-        <Button x:Name="getCode" HorizontalAlignment="Center" Click="getURL" Width="150" Height="20" VerticalAlignment="Top" Margin="0,303,0,0" Content="GetCode">
+        <Button x:Name="getCode" HorizontalAlignment="Center" Click="getURL" Width="150" Height="31" VerticalAlignment="Top" Margin="0,303,0,0" Content="GetCode">
             <Button.FontWeight>
                 <FontWeight>Bold</FontWeight>
             </Button.FontWeight>
@@ -23,7 +23,7 @@
 
         <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,218,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="24" TextChanged="textBox_TextChanged"/>
 
-        <Button x:Name="Auth" HorizontalAlignment="Center" Click="Authentication_Button" Width="150" Height="20" VerticalAlignment="Top" Margin="0,266,0,0" Content="Authenticate">
+        <Button x:Name="Auth" HorizontalAlignment="Center" Click="Authentication_Button" Width="150" Height="28" VerticalAlignment="Top" Margin="0,266,0,0" Content="Authenticate">
             <Button.FontWeight>
                 <FontWeight>Bold</FontWeight>
             </Button.FontWeight>

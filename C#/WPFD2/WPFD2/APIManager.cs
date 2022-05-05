@@ -130,8 +130,8 @@ namespace WPFD2
 
         }*/
 
-        public string GetInventory() {
-            List<DestinyComponentType> components = new List<DestinyComponentType>();
+        public IEnumerable<DestinyItemComponent> GetInventory(long characterID) {
+/*            List<DestinyComponentType> components = new List<DestinyComponentType>();
             components.Add(DestinyComponentType.Characters);
             DestinyProfileResponse resp = Client.Api.Destiny2_GetProfile(_DestinyProfile.MembershipId, BungieSharper.Entities.BungieMembershipType.TigerSteam, components).Result;
             DictionaryComponentResponseOfint64AndDestinyCharacterComponent a = resp.Characters;
@@ -148,7 +148,13 @@ namespace WPFD2
             {
                 sb.Append(item.ItemHash + "\n");
             }
-            return sb.ToString();
+            return sb.ToString();*/
+
+            List<DestinyComponentType> query = new List<DestinyComponentType>();
+            query.Add(DestinyComponentType.CharacterInventories);
+            DestinyCharacterResponse resp = Client.Api.Destiny2_GetCharacter(characterID, _DestinyProfile.MembershipId, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
+            IEnumerable<DestinyItemComponent> Items = resp.Inventory.Data.Items;
+            return Items;
         }
 
         
