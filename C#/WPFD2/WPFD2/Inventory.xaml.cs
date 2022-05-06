@@ -120,6 +120,8 @@ namespace WPFD2
                 EquippedItem temp = new EquippedItem();
 
                 temp.ItemName = item.ItemHash.ToString();
+                //temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
+
                 //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
                 if (item.BucketHash == Kinetic)
                 {
@@ -188,6 +190,7 @@ namespace WPFD2
                 InventoryItem temp = new InventoryItem();
 
                 temp.ItemName = item.ItemHash.ToString();
+                //temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
                 //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
                 if (item.BucketHash == Kinetic)
                 {
@@ -258,8 +261,9 @@ namespace WPFD2
         private void updateManifests_Click(object sender, RoutedEventArgs e)
         {
 
-
-            string path = @"E:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\Outputs\DestinyInventoryItemDefinition.json";
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
+            string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
                 string json = r.ReadToEnd();
@@ -272,10 +276,15 @@ namespace WPFD2
                     if (items.SelectToken($"{item.Key}.displayProperties.name") != null)
                     {
 
-                        this._Manager.getAPIManager().updateManifest(long.Parse(item.Key.ToString()), long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()), items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+                        this._Manager.getAPIManager().updateManifest(long.Parse(item.Key.ToString()), 
+                            long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()), 
+                            items.SelectToken($"{item.Key}.displayProperties.name").ToString(), 
+                            items.SelectToken($"{item.Key}.displayProperties.description").ToString());
                     }
 
-                    Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
+                    Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + 
+                        items.SelectToken($"{item.Key}.displayProperties.name") + " " + 
+                        items.SelectToken($"{item.Key}.displayProperties.description").ToString() + "\n");
 
                 }
 

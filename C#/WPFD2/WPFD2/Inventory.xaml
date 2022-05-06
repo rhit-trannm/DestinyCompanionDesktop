@@ -111,7 +111,7 @@
         <Button x:Name="button_Copy7" Content="&lt;&lt;&lt;&lt;" Margin="1332,311,73,315" Width="75" Height="44" BorderBrush="Black"/>
         </Canvas>
         <!--
-            <Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/>
+        <Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/>
         -->
 
     </Grid>

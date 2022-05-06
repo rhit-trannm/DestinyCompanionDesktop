@@ -100,6 +100,7 @@ namespace WPFD2
 
             return Items;
         }
+
         public void GetItem(long instanceid)
         {
             List<DestinyComponentType> query = new List<DestinyComponentType>();
@@ -107,9 +108,9 @@ namespace WPFD2
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
         }
-        public void updateManifest(long ItemHash, long bucketHash, string name)
+        public void updateManifest(long ItemHash, long bucketHash, string name, string description)
         {
-            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name);
+            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name, description);
         }
         /*        public string profile()
                 {

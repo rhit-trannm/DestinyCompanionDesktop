@@ -110,7 +110,7 @@ namespace WPFD2
             }
         }
 
-        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name)
+        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -121,6 +121,7 @@ namespace WPFD2
                     cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
                     cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
                     cmd.Parameters.Add("@Name", SqlDbType.NChar,40).Value = name;
+                    cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
                     //set param as output
                     try
                     {
@@ -139,6 +140,41 @@ namespace WPFD2
                 }
             }
         }
+
+        public string getItemDefName(uint ItemHash)
+        {
+            string name = "";
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.getItemDefinitionName", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 40).Value = name;
+                    cmd.Parameters["@Name"].Direction = ParameterDirection.Output;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    return name;
+                }
+            }
+        }
+
+        
 
 
 
