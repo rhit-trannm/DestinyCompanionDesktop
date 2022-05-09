@@ -50,7 +50,13 @@ public class Manager
 
 			foreach(var item in items)
             {
-				Console.WriteLine(item.Key +" "+ items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
+				long? ItemCategoryClass = null;
+				if (items.SelectToken($"{item.Key}.itemCategoryHashes[0]") != null)
+				{
+
+					ItemCategoryClass = long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString());
+				}
+				Console.WriteLine(item.Key +" "+ ItemCategoryClass.ToString() + " " + items.SelectToken($"{item.Key}.displayProperties.name") + "\n");
 
             }
 		

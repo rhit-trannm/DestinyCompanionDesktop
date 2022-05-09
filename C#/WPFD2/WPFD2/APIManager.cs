@@ -32,6 +32,10 @@ namespace WPFD2
             config.OAuthClientSecret = "zGpr-mMHVnYhIYJODAlphLzvsiQQ4HfgyFjrZU2UVvE";
             config.ApiKey = apiKey;
             Client = new BungieSharper.Client.BungieApiClient(config);
+            Token = new TokenResponse();
+            _UserProfile = new DestinyLinkedProfilesResponse();
+            _DestinyProfile = new DestinyProfileUserInfoCard();
+            _CharacterList = new List<DestinyCharacterComponent>();
         }
         public List<DestinyCharacterComponent> getCharacterList()
         {
@@ -116,9 +120,9 @@ namespace WPFD2
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
         }
-        public void updateManifest(long ItemHash, long bucketHash, string name, string description, string tierTypeName)
+        public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
         {
-            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name, description, tierTypeName);
+            SQL.AddDestinyItemDefinition(ItemHash, BucketHash, name, description, tierTypeName, ItemCategoryClass);
         }
         public void updateBucketManifest(long bucketHash, string name)
         {

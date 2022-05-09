@@ -166,7 +166,7 @@ namespace WPFD2
             }
         }
 
-        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName)
+        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -178,7 +178,8 @@ namespace WPFD2
                     cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
                     cmd.Parameters.Add("@Name", SqlDbType.NChar,40).Value = name;
                     cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
-                    cmd.Parameters.Add("@tierTypeName", SqlDbType.VarChar, 50).Value = tierTypeName;
+                    cmd.Parameters.Add("@tierTypeName", SqlDbType.NChar, 50).Value = tierTypeName;
+                    cmd.Parameters.Add("@ItemCategoryClass", SqlDbType.BigInt).Value = ItemCategoryClass;
                     //set param as output
                     try
                     {

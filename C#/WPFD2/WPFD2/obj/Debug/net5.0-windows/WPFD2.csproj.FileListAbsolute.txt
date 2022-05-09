@@ -202,3 +202,7 @@ C:\Users\PopoMachine\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.
 C:\Users\PopoMachine\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\WPFD2.pdb
 C:\Users\PopoMachine\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\WPFD2.genruntimeconfig.cache
 C:\Users\PopoMachine\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\ref\WPFD2.dll
+C:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.dll
+C:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.ClassicTheme.dll
+C:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
+C:\CSSE333\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\App.baml
