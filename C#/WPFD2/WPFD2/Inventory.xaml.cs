@@ -44,7 +44,7 @@ namespace WPFD2
             InitializeComponent();
 
             List<EquippedItem> persons = new List<EquippedItem>();
-            persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
+/*            persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });*/
             EquippedItemsChart.ItemsSource = persons;
             List<DestinyClass> classList = new List<DestinyClass>();
             foreach (DestinyCharacterComponent entry in manager.getAPIManager().getCharacterList())
@@ -53,9 +53,9 @@ namespace WPFD2
             }
             CharacterSelection.ItemsSource = classList;
             List<InventoryItem> temp = new List<InventoryItem>();
-            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
+/*            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });
             temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 2" });
-            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 3" });
+            temp.Add(new InventoryItem() { SlotName = "Kinetic", ItemName = "Ace of 3" });*/
             InventoryKinetic.ItemsSource = temp;
             this._Manager = manager;
             UpdateVault();
@@ -119,8 +119,8 @@ namespace WPFD2
 
                 EquippedItem temp = new EquippedItem();
 
-                temp.ItemName = item.ItemHash.ToString();
-                //temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
+                //temp.ItemName = item.ItemHash.ToString();
+                temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
 
                 //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
                 if (item.BucketHash == Kinetic)
@@ -190,7 +190,7 @@ namespace WPFD2
                 InventoryItem temp = new InventoryItem();
 
                 temp.ItemName = item.ItemHash.ToString();
-                //temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
+                temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
                 //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
                 if (item.BucketHash == Kinetic)
                 {
@@ -252,7 +252,12 @@ namespace WPFD2
             {
                 InventoryItem temp = new InventoryItem();
                 temp.ItemName = item.ItemHash.ToString();
-                VaultList.Add(temp);
+                temp.ItemName = this._Manager.getSQLManager().getOnlyEquippableItems(item.ItemHash);
+                if(!(temp.ItemName.ToString() == ""))
+                {
+                    VaultList.Add(temp);
+                }
+                
             }
             VaultDisplay.ItemsSource = VaultList;
 
@@ -262,7 +267,7 @@ namespace WPFD2
         {
 
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryBucketDefinition.json");
             string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
@@ -276,15 +281,9 @@ namespace WPFD2
                     if (items.SelectToken($"{item.Key}.displayProperties.name") != null)
                     {
 
-                        this._Manager.getAPIManager().updateManifest(long.Parse(item.Key.ToString()), 
-                            long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()), 
-                            items.SelectToken($"{item.Key}.displayProperties.name").ToString(), 
-                            items.SelectToken($"{item.Key}.displayProperties.description").ToString());
+                        this._Manager.getAPIManager().updateBucketManifest(long.Parse(item.Key), 
+                            items.SelectToken($"{item.Key}.displayProperties.name").ToString());
                     }
-
-                    Console.WriteLine(item.Key + " " + items.SelectToken($"{item.Key}.inventory.bucketTypeHash") + " " + 
-                        items.SelectToken($"{item.Key}.displayProperties.name") + " " + 
-                        items.SelectToken($"{item.Key}.displayProperties.description").ToString() + "\n");
 
                 }
 

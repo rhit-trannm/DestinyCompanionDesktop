@@ -112,6 +112,10 @@ namespace WPFD2
         {
             SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name, description);
         }
+        public void updateBucketManifest(long bucketHash, string name)
+        {
+            SQL.AddDestinyBucketDefinition(bucketHash, name);
+        }
         /*        public string profile()
                 {
 

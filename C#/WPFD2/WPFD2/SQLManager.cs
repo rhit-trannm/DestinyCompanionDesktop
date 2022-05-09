@@ -140,7 +140,69 @@ namespace WPFD2
                 }
             }
         }
+        public string getOnlyEquippableItems(long ItemHash)
+        {
+            string temp = "";
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.GetOnlyEquippableItem", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 40).Value = temp;
+                    cmd.Parameters["@Name"].Direction = ParameterDirection.Output;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        temp = Convert.ToString(cmd.Parameters["@Name"].Value);
 
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    return temp;
+                }
+            }
+        }
+
+        public void AddDestinyBucketDefinition(long BucketHash, string name)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.addBucketDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    //cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
+                    cmd.Parameters.Add("@Name", SqlDbType.NChar, 40).Value = name;
+                    //cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
         public string getItemDefName(uint ItemHash)
         {
             string name = "";
@@ -158,7 +220,7 @@ namespace WPFD2
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
-
+                        name = Convert.ToString(cmd.Parameters["@Name"].Value);
 
                     }
                     catch (Exception)
