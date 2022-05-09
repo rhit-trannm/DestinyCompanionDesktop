@@ -24,7 +24,6 @@ namespace WPFD2
         DestinyLinkedProfilesResponse _UserProfile;
         DestinyProfileUserInfoCard _DestinyProfile;
         List<DestinyCharacterComponent> _CharacterList;
-        UserInfoCard _BnetProfile;
         SQLManager SQL = new SQLManager();
         public APIManager()
         {
@@ -65,8 +64,17 @@ namespace WPFD2
                     _DestinyProfile = profile;
                 }
             }
+            userCheck();
             GetCharacter();
             return "True";
+        }
+        public void userCheck()
+        {
+            if(SQL.checkUserExist(Token.MembershipId) == 0)
+            {
+                SQL.createUser(Token.MembershipId, _DestinyProfile.MembershipId, _DestinyProfile.DisplayName);
+            }
+            
         }
         private List<DestinyCharacterComponent> GetCharacter()
         {
@@ -108,9 +116,9 @@ namespace WPFD2
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
         }
-        public void updateManifest(long ItemHash, long bucketHash, string name, string description)
+        public void updateManifest(long ItemHash, long bucketHash, string name, string description, string tierTypeName)
         {
-            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name, description);
+            SQL.AddDestinyItemDefinition(ItemHash, bucketHash, name, description, tierTypeName);
         }
         public void updateBucketManifest(long bucketHash, string name)
         {

@@ -79,23 +79,79 @@ namespace WPFD2
 
 
         }
-        public string createUser(long id, string name)
+        public int checkUserExist(long? membershipID)
         {
+            if (membershipID == null)
+            {
+                return 0;
+            }
+
             using (SqlConnection con = new SqlConnection(cs))
             {
-                using (SqlCommand cmd = new SqlCommand("dbo.addPlayer", con))
+                using (SqlCommand cmd = new SqlCommand("dbo.GetUser", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
-                    cmd.Parameters.Add("@destinyMembershipId", SqlDbType.Int).Value = id;
-                    cmd.Parameters.Add("@displayName", SqlDbType.VarChar, 50).Value = name;
+                    cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = membershipID;
+                    var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
                     //set param as output
                     try
                     {
                         //start connection and execute procedure
                         con.Open();
                         cmd.ExecuteNonQuery();
-                        //get value of output parameter
+                        int sqlreturn = (int)returnParameter.Value;
+                        if (sqlreturn == 1)
+                        {
+                            return 1;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                        
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+        public string createUser(long? membershipID, long DestinyMembershipID, string name)
+        {
+            if(membershipID == null || name == null || DestinyMembershipID == null)
+            {
+                return "False";
+            }
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.addUser", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = membershipID;
+                    cmd.Parameters.Add("@DestinyMembershipId", SqlDbType.BigInt).Value = DestinyMembershipID;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name;
+                    var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.VarChar, 20);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    //set param as output
+                    try
+                    {
+                        //start connection and execute procedure
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        int sqlreturn = (int)returnParameter.Value;
+                        if (sqlreturn == 1)
+                        {
+                            return "False";
+                        }
                         return name;
                     }
                     catch (Exception)
@@ -110,7 +166,7 @@ namespace WPFD2
             }
         }
 
-        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description)
+        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -122,6 +178,7 @@ namespace WPFD2
                     cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
                     cmd.Parameters.Add("@Name", SqlDbType.NChar,40).Value = name;
                     cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
+                    cmd.Parameters.Add("@tierTypeName", SqlDbType.VarChar, 50).Value = tierTypeName;
                     //set param as output
                     try
                     {

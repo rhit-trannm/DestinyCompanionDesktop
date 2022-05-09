@@ -32,7 +32,7 @@ namespace WPFD2
         private void Update(object sender, RoutedEventArgs e)
         {
             int id = int.Parse(userid.Text);
-            this.manager.getSQLManager().createUser(id, name.Text);
+            //this.manager.getSQLManager().createUser(id, name.Text);
 
         }
 

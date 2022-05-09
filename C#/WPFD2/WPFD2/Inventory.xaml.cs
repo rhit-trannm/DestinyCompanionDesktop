@@ -27,7 +27,6 @@ namespace WPFD2
     /// </summary>
     public partial class Inventory : Window
     {
-        Manager manager;
         List<InventoryItem> Kinetic = new List<InventoryItem>();
         List<InventoryItem> Energy = new List<InventoryItem>();
         List<InventoryItem> Power = new List<InventoryItem>();
@@ -267,7 +266,7 @@ namespace WPFD2
         {
 
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryBucketDefinition.json");
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
             string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
@@ -280,9 +279,28 @@ namespace WPFD2
                 {
                     if (items.SelectToken($"{item.Key}.displayProperties.name") != null)
                     {
+                        /*                        //BucketManifest
+                                                this._Manager.getAPIManager().updateBucketManifest(long.Parse(item.Key), 
+                                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString());*/
+                        try
+                        {
+                            long buckethash = long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString());
+                            string name = items.SelectToken($"{item.Key}.displayProperties.name").ToString();
+                            long itemhash = long.Parse(item.Key);
+                            string description = items.SelectToken($"{item.Key}.displayProperties.description").ToString();
+                            string tiertypename = items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString();
+                            if (tiertypename != null)
+                            {
+                                this._Manager.getAPIManager().updateManifest(itemhash, buckethash, name, description, tiertypename);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
 
-                        this._Manager.getAPIManager().updateBucketManifest(long.Parse(item.Key), 
-                            items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+                        }
+
+
+                        
                     }
 
                 }
