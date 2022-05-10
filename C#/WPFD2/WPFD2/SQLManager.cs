@@ -231,6 +231,37 @@ namespace WPFD2
             }
         }
 
+        public void AddCategpryDefinition(long Hash, string name)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.addCategoryDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    //cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@Hash", SqlDbType.BigInt).Value = Hash;
+                    cmd.Parameters.Add("@Name", SqlDbType.NChar, 50).Value = name;
+                    //cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
         public void AddDestinyBucketDefinition(long BucketHash, string name)
         {
             using (SqlConnection con = new SqlConnection(cs))

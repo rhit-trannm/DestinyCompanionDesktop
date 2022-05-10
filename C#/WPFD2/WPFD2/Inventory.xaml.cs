@@ -284,34 +284,23 @@ namespace WPFD2
                                                     items.SelectToken($"{item.Key}.displayProperties.name").ToString());*/
                         try
                         {
-                        this._Manager.getAPIManager().updateManifest(
+                            //Item Definition Manifest
+/*                        this._Manager.getAPIManager().updateManifest(
+                                    long.Parse(item.Key),
+                                    long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
+                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
+                                    items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
+                                    items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
+                                    long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()));*/
+                        this._Manager.getSQLManager().AddCategpryDefinition(
                                     long.Parse(item.Key),
                                     long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
                                     items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
                                     items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
                                     items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
                                     long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()));
-                           /* long buckethash = long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString());
-                            string name = items.SelectToken($"{item.Key}.displayProperties.name").ToString();
-                            long itemhash = long.Parse(item.Key);
-                            string description = items.SelectToken($"{item.Key}.displayProperties.description").ToString();
-                            string tiertypename = items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString();
-                            long? ItemCategoryClass = null;
-                            long? ItemCategoryBase = null;
-                            long? ItemCategoryType = null;
-                            if (items.SelectToken($"{item.Key}.itemCategoryHashes[0]") != null)
-                            {
-                                
-                                ItemCategoryClass = long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString());
-                            }
-                            if (items.SelectToken($"{item.Key}.itemCategoryHashes[1]").ToString() != null)
-                            {
-                                ItemCategoryBase = long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[1]").ToString());
-                            }
-                            if (items.SelectToken($"{item.Key}.itemCategoryHashes[2]").ToString() != null)
-                            {
-                                ItemCategoryType = long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[2]").ToString());
-                            }
+
+
 */
 
 
