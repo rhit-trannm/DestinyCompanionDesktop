@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -70,6 +71,7 @@ namespace WPFD2
             }
             userCheck();
             GetCharacter();
+            OnLoginDriver();
             return "True";
         }
         public void userCheck()
@@ -119,6 +121,34 @@ namespace WPFD2
             query.Add(DestinyComponentType.ItemInstances);
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
+        }
+        public void OnLoginDriver()
+        {
+            List<long> CharacterID = new List<long>();
+            List<long> DestinyMembershipID = new List<long>();
+            List<Int32> ClassType = new List<Int32>();
+            for (int i = 0; i < _CharacterList.Count; i++)
+            {
+                CharacterID.Add(_CharacterList[i].CharacterId);
+                DestinyMembershipID.Add(_DestinyProfile.MembershipId);
+                //this is scuff. Be very careful!
+                if(_CharacterList[i].ClassType == DestinyClass.Titan)
+                {
+                    ClassType.Add(22);
+                }
+                else if (_CharacterList[i].ClassType == DestinyClass.Hunter)
+                {
+                    ClassType.Add(23);
+                }
+                else if (_CharacterList[i].ClassType == DestinyClass.Warlock)
+                {
+                    ClassType.Add(21);
+                }
+                
+            }
+
+            this.SQL.OnLogin(Token.MembershipId, _DestinyProfile.DisplayName, CharacterID, DestinyMembershipID, ClassType);
+            
         }
         public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
         {

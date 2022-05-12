@@ -231,7 +231,7 @@ namespace WPFD2
             }
         }
 
-        public void AddCategpryDefinition(long Hash, string name)
+        public void AddCategoryDefinition(long Hash, string name)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -241,7 +241,55 @@ namespace WPFD2
                     //create params
                     //cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
                     cmd.Parameters.Add("@Hash", SqlDbType.BigInt).Value = Hash;
-                    cmd.Parameters.Add("@Name", SqlDbType.NChar, 50).Value = name;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name;
+                    //cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+        }
+
+        public void OnLogin(long? membershipID, string name, List<long> CharacterID, List<long> DestinyMembershipID, List<int> ClassType)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.OnLogin", con))
+                {
+                    var table = new DataTable();
+                    table.Columns.Add("DestinyMembershipID", typeof(long));
+                    table.Columns.Add("CharacterID", typeof(long));
+                    table.Columns.Add("ClassType", typeof(int));
+                    for(int i = 0; i < CharacterID.Count; i++)
+                    {
+                        table.Rows.Add(DestinyMembershipID[i], CharacterID[i], ClassType[i]);
+                    }
+
+                    var pList = new SqlParameter("@CharacterID", SqlDbType.Structured);
+                    pList.TypeName = "dbo.CharacterIDList";
+                    pList.Value = table;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.Add(pList);
+                    cmd.Parameters.Add("@CharacterID", SqlDbType.Structured).Value = table;
+                    cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = membershipID;
+                    cmd.Parameters.Add("@DestinyMembershipId", SqlDbType.BigInt).Value = DestinyMembershipID[0];
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name;
+                    //create params
+                    //cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    //cmd.Parameters.Add("@Hash", SqlDbType.BigInt).Value = Hash;
+                    //cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name;
                     //cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
                     //set param as output
                     try

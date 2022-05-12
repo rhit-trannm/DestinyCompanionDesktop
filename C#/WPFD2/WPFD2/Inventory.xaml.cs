@@ -266,7 +266,7 @@ namespace WPFD2
         {
 
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyItemCategoryDefinition.json");
             string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
@@ -292,16 +292,10 @@ namespace WPFD2
                                     items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
                                     items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
                                     long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()));*/
-                        this._Manager.getSQLManager().AddCategpryDefinition(
+
+                        this._Manager.getSQLManager().AddCategoryDefinition(
                                     long.Parse(item.Key),
-                                    long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
-                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
-                                    items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
-                                    items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
-                                    long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()));
-
-
-*/
+                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString());
 
 
 
