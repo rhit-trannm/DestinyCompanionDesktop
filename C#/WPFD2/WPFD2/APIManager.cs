@@ -147,7 +147,33 @@ namespace WPFD2
                 
             }
 
-            this.SQL.OnLogin(Token.MembershipId, _DestinyProfile.DisplayName, CharacterID, DestinyMembershipID, ClassType);
+            List<long> DestinyID = new List<long>();
+            List<long> CharID = new List<long>();
+            List<long> ItemHash = new List<long>();
+            List<long> ItemInstanceID = new List<long>();
+            List<long> BucketHash = new List<long>();
+            for (int i = 0; i < _CharacterList.Count; i++)
+            {
+                IEnumerable<DestinyItemComponent>  enumers = GetEquipped(_CharacterList[i].CharacterId);
+                foreach (DestinyItemComponent item in enumers)
+                {
+                    DestinyID.Add(_DestinyProfile.MembershipId);
+                    CharID.Add(_CharacterList[i].CharacterId);
+                    ItemHash.Add(item.ItemHash);
+                    if(item.ItemInstanceId != null)
+                    {
+                        ItemInstanceID.Add((long)item.ItemInstanceId);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    BucketHash.Add(item.BucketHash);
+
+                }
+            }
+
+            this.SQL.OnLogin(Token.MembershipId, _DestinyProfile.DisplayName, CharacterID, DestinyMembershipID, ClassType, DestinyID, CharID, ItemHash, ItemInstanceID, BucketHash);
             
         }
         public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
