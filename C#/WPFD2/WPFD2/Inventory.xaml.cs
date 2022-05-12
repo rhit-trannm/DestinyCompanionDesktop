@@ -1,4 +1,5 @@
-﻿using BungieSharper.Entities;
+﻿using AdonisUI.Controls;
+using BungieSharper.Entities;
 using BungieSharper.Entities.Destiny;
 using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
@@ -25,7 +26,7 @@ namespace WPFD2
     /// <summary>
     /// Interaction logic for Inventory.xaml
     /// </summary>
-    public partial class Inventory : Window
+    public partial class Inventory : AdonisWindow
     {
         List<InventoryItem> Kinetic = new List<InventoryItem>();
         List<InventoryItem> Energy = new List<InventoryItem>();
@@ -74,7 +75,7 @@ namespace WPFD2
         {
             public string? SlotName { set; get; }
             public String? ItemName { set; get; }
-            public uint? ItemHash { set; get; }
+            public long? ItemHash { set; get; }
             public long? ItemInstanceId
             {
                 get;
@@ -86,7 +87,7 @@ namespace WPFD2
         {
             public string? SlotName { set; get; }
             public String? ItemName { set; get; }
-            public uint? ItemHash { set; get; }
+            public long? ItemHash { set; get; }
             public long? ItemInstanceId
             {
                 get;
@@ -332,19 +333,72 @@ namespace WPFD2
             }
 
         }
-
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        private void EquipHandler(InventoryItem inventoryitem, int CharIndex)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-           
-            InventoryItem inventoryitem = (InventoryItem) InventoryLeg.SelectedItem;
             long instanceID = (long)inventoryitem.ItemInstanceId;
             long characterID = list[0].CharacterId;
             BungieMembershipType member = BungieMembershipType.TigerSteam;
-            
+
             this._Manager.getAPIManager().EquipItem(instanceID, characterID, member);
             System.Threading.Thread.Sleep(10000);
             this._Manager.getAPIManager().OnLoginDriver();
+        }
+
+        private void EquipKinetic_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryKinetic.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void EnergyEquip_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void EquipHelmet_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryHelmet.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void GauntletEquip_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryGauntlet.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void ChestEquip_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryChest.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void LegEquip_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryLeg.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void PowerEquip_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
+            EquipHandler(inventoryitem, 0);
+        }
+
+        private void ClassEquip_Click(object sender, RoutedEventArgs e)
+        {
+                        List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem, 0);
         }
     }
 }

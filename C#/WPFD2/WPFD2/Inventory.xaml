@@ -1,4 +1,4 @@
-﻿<Window x:Class="WPFD2.Inventory"
+﻿<adonisControls:AdonisWindow  xmlns:adonisControls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI" x:Class="WPFD2.Inventory"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
     <Grid>
-        <ListView x:Name="EquippedItemsChart" Margin="33,64,1339,365" Style="{StaticResource BaseButtonStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <ListView x:Name="EquippedItemsChart" Margin="33,64,1339,365" Style="{StaticResource BaseButtonStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="#FF4A4949">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Background" Value="Transparent" />
@@ -29,7 +29,7 @@
 
         <!-- Inventory -->
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="33,43,0,0" TextWrapping="Wrap" Text="Equipped" VerticalAlignment="Top"/>
-        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryKinetic" Margin="461,64,1174,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryKinetic" Margin="461,64,1174,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
 
             <ListView.View>
                 <GridView>
@@ -37,49 +37,49 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryEnergy" Margin="626,64,1009,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryEnergy" Margin="626,64,1009,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Energy" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryPower" Margin="791,64,844,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryPower" Margin="791,64,844,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Power" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryHelmet" Margin="956,64,679,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryHelmet" Margin="956,64,679,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Helmet" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryGauntlet" Margin="1121,64,514,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryGauntlet" Margin="1121,64,514,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Gauntlet" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryChest" Margin="1286,64,349,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryChest" Margin="1286,64,349,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Chest" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryLeg" Margin="1451,64,185,365" Style="{StaticResource BaseButtonStyle}">
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryLeg" Margin="1451,64,185,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Leg" Width="160" DisplayMemberBinding="{Binding ItemName}" />
                 </GridView>
             </ListView.View>
         </ListView>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryClass" Margin="1616,64,14,365" Style="{StaticResource BaseButtonStyle}">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryClass" Margin="1616,64,14,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Class" Width="160" DisplayMemberBinding="{Binding ItemName}" />
@@ -88,7 +88,7 @@
             </ListView>
 
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="465,43,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
-        <ListView x:Name="VaultDisplay" Margin="448,409,805,20" Style="{StaticResource BaseButtonStyle}">
+        <ListView x:Name="VaultDisplay" Margin="448,409,805,20" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
 
 
             <ListView.View>
@@ -101,15 +101,15 @@
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="448,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
         <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,376,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
         <Canvas>
-        <Button x:Name="button" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="button_Copy_Click"/>
-            <Button x:Name="button_Copy1" Content="&lt;&lt;&lt;&lt;" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy2" Content="&lt;&lt;&lt;&lt;" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy3" Content="&lt;&lt;&lt;&lt;" Margin="956,313,769,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy4" Content="&lt;&lt;&lt;&lt;" Margin="1121,313,604,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy5" Content="&lt;&lt;&lt;&lt;" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy6" Content="&lt;&lt;&lt;&lt;" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy7" Content="&lt;&lt;&lt;&lt;" Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black"/>
+        <Button x:Name="ItemUnequip" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
+            <Button x:Name="EquipKinetic" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
+            <Button x:Name="EnergyEquip" Content="&lt;&lt;&lt;&lt;" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
+            <Button x:Name="PowerEquip" Content="&lt;&lt;&lt;&lt;" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black" Click="PowerEquip_Click"/>
+            <Button x:Name="EquipHelmet" Content="&lt;&lt;&lt;&lt;" Margin="956,313,769,313" Width="75" Height="44" BorderBrush="Black" Click="EquipHelmet_Click"/>
+            <Button x:Name="GauntletEquip" Content="&lt;&lt;&lt;&lt;" Margin="1121,313,604,313" Width="75" Height="44" BorderBrush="Black" Click="GauntletEquip_Click"/>
+            <Button x:Name="ChestEquip" Content="&lt;&lt;&lt;&lt;" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
+            <Button x:Name="LegEquip" Content="&lt;&lt;&lt;&lt;" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
+            <Button x:Name="ClassEquip" Content="&lt;&lt;&lt;&lt;" Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
         </Canvas>
 
         <!---<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
@@ -117,4 +117,4 @@
 
     </Grid>
 
-</Window>
+</adonisControls:AdonisWindow>
