@@ -105,6 +105,7 @@ namespace WPFD2
             //All destiny defintion
 
             List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
+            this.EquippedList = new List<EquippedItem>();
             foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetEquipped(list.ElementAt(0).CharacterId))
             {
                 uint Kinetic = 1498876634;
@@ -181,6 +182,15 @@ namespace WPFD2
             uint chest = 14239492;
             uint Leg = 20886954;
             uint classArmor = 1585787867;
+
+            this.Kinetic = new List<InventoryItem>();
+            this.Energy = new List<InventoryItem>();
+            this.Power = new List<InventoryItem>();
+            this.Helmet = new List<InventoryItem>();
+            this.Gauntlet = new List<InventoryItem>();
+            this.Chest = new List<InventoryItem>();
+            this.Leg = new List<InventoryItem>();
+            this.Class = new List<InventoryItem>();
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             //REMEMBER TO CHANGE INDEX LATER!!!
             foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
@@ -321,6 +331,20 @@ namespace WPFD2
                             }*/
             }
 
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+           
+            InventoryItem inventoryitem = (InventoryItem) InventoryLeg.SelectedItem;
+            long instanceID = (long)inventoryitem.ItemInstanceId;
+            long characterID = list[0].CharacterId;
+            BungieMembershipType member = BungieMembershipType.TigerSteam;
+            
+            this._Manager.getAPIManager().EquipItem(instanceID, characterID, member);
+            System.Threading.Thread.Sleep(10000);
+            this._Manager.getAPIManager().OnLoginDriver();
         }
     }
 }

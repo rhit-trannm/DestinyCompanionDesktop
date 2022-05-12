@@ -12,6 +12,7 @@ using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
 using BungieSharper.Entities.Destiny.Entities.Inventory;
 using BungieSharper.Entities.Destiny.Entities.Items;
+using BungieSharper.Entities.Destiny.Requests.Actions;
 using BungieSharper.Entities.Destiny.Responses;
 using BungieSharper.Entities.User;
 
@@ -122,6 +123,21 @@ namespace WPFD2
             DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
 
         }
+        public string EquipItem(long ItemInstanceID, long CharacterID, BungieMembershipType membershipType)
+        {
+            DestinyItemActionRequest request = new DestinyItemActionRequest();
+            request.ItemId = ItemInstanceID;
+            request.CharacterId = CharacterID;
+            request.MembershipType = membershipType;
+            int s = Client.Api.Destiny2_EquipItem(request, Token.AccessToken).Result;
+            OnLoginDriver();
+            return "?";
+        }
+
+        /* OnLogin Will essentially act as a refresh from Destiny Database to SQL Database
+         * 
+         * 
+         */
         public void OnLoginDriver()
         {
             List<long> CharacterID = new List<long>();

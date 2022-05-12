@@ -102,7 +102,7 @@
         <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,376,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
         <Canvas>
         <Button x:Name="button" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="button_Copy" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000"/>
+            <Button x:Name="button_Copy" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="button_Copy_Click"/>
             <Button x:Name="button_Copy1" Content="&lt;&lt;&lt;&lt;" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black"/>
             <Button x:Name="button_Copy2" Content="&lt;&lt;&lt;&lt;" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black"/>
             <Button x:Name="button_Copy3" Content="&lt;&lt;&lt;&lt;" Margin="956,313,769,313" Width="75" Height="44" BorderBrush="Black"/>
@@ -112,7 +112,7 @@
             <Button x:Name="button_Copy7" Content="&lt;&lt;&lt;&lt;" Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black"/>
         </Canvas>
 
-        <Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/>
+        <!---<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
 
 
     </Grid>
