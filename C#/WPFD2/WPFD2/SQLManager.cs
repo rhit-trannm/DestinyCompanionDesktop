@@ -263,7 +263,8 @@ namespace WPFD2
         }
 
         public void OnLogin(long? membershipID, string name, List<long> CharacterID, List<long> DestinyMembershipID, List<int> ClassType, List<long> DestinyID, List<long> CharID,
-            List<long> ItemHash, List<long> ItemInstanceID, List<long> BucketHash)
+            List<long> ItemHash, List<long> ItemInstanceID, List<long> BucketHash, 
+            List<long> InventoryCharID, List<long> InventoryItemHash, List<long> InventoryItemInstanceID, List<long> InventoryBucketHash)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -287,6 +288,16 @@ namespace WPFD2
                     {
                         table2.Rows.Add(DestinyID[i], CharID[i], ItemHash[i], ItemInstanceID[i], BucketHash[i]);
                     }
+                    var table3 = new DataTable();
+                    table3.Columns.Add("DestinyID", typeof(long));
+                    table3.Columns.Add("CharID", typeof(long));
+                    table3.Columns.Add("ItemHash", typeof(long));
+                    table3.Columns.Add("ItemInstanceID", typeof(long));
+                    table3.Columns.Add("BucketHash", typeof(long));
+                    for (int i = 0; i < InventoryItemInstanceID.Count; i++)
+                    {
+                        table3.Rows.Add(DestinyID[0], InventoryCharID[i], InventoryItemHash[i], InventoryItemInstanceID[i], InventoryBucketHash[i]);
+                    }
                     var pList = new SqlParameter("@CharacterID", SqlDbType.Structured);
                     pList.TypeName = "dbo.CharacterIDList";
                     pList.Value = table;
@@ -294,6 +305,7 @@ namespace WPFD2
                     //cmd.Parameters.Add(pList);
                     cmd.Parameters.Add("@CharacterID", SqlDbType.Structured).Value = table;
                     cmd.Parameters.Add("@CharacterEquippedList", SqlDbType.Structured).Value = table2;
+                    cmd.Parameters.Add("@CharacterInventoryList", SqlDbType.Structured).Value = table3;
                     cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = membershipID;
                     cmd.Parameters.Add("@DestinyMembershipId", SqlDbType.BigInt).Value = DestinyMembershipID[0];
                     cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = name;
