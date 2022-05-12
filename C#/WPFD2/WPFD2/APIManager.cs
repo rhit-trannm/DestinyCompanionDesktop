@@ -197,8 +197,30 @@ namespace WPFD2
 
                 }
             }
+            List<long> VaultItemHash = new List<long>();
+            List<long> VaultItemInstanceID = new List<long>();
+            IEnumerable<DestinyItemComponent> vaultenum = GetVault();
+            int j = 0;
+               
+                foreach (DestinyItemComponent item in vaultenum)
+                {
+                    //DestinyID.Add(_DestinyProfile.MembershipId);
+                    VaultItemHash.Add(item.ItemHash);
+                    if (item.ItemInstanceId != null)
+                    {
+                        VaultItemInstanceID.Add((long)item.ItemInstanceId);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                j++;
+                }
+            
+
             this.SQL.OnLogin(Token.MembershipId, _DestinyProfile.DisplayName, CharacterID, DestinyMembershipID, ClassType, 
-                DestinyID, CharID, ItemHash, ItemInstanceID, BucketHash, ICharID, IItemHash, IItemInstanceID, IBucketHash);
+                DestinyID, CharID, ItemHash, ItemInstanceID, BucketHash, ICharID, IItemHash, IItemInstanceID, IBucketHash,
+                VaultItemHash, VaultItemInstanceID);
             
         }
         public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
