@@ -92,7 +92,7 @@ namespace WPFD2
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
-                    cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = membershipID;
+                    cmd.Parameters.Add("@DestinyMembershipID", SqlDbType.BigInt).Value = membershipID;
                     var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     //set param as output
@@ -408,7 +408,76 @@ namespace WPFD2
             }
         }
 
-        
+        public DataTable getInventory(long CharID)
+        {
+            string name = "";
+            DataTable tblEmployees = new DataTable();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.GetInventory", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@CharID", SqlDbType.BigInt).Value = CharID;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+
+                        _dap.Fill(tblEmployees);
+                        
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return tblEmployees;
+        }
+        public DataTable GetEquipped(long CharID)
+        {
+            string name = "";
+            DataTable tblEmployees = new DataTable();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.GetEquipped", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@CharID", SqlDbType.BigInt).Value = CharID;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+
+                        _dap.Fill(tblEmployees);
+
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return tblEmployees;
+        }
+
+
 
 
 

@@ -8,9 +8,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +38,7 @@ namespace WPFD2
         List<InventoryItem> Chest = new List<InventoryItem>();
         List<InventoryItem> Leg = new List<InventoryItem>();
         List<InventoryItem> Class = new List<InventoryItem>();
-        List<EquippedItem> EquippedList = new List<EquippedItem>();
+        List<InventoryItem> EquippedList = new List<InventoryItem>();
         List<InventoryItem> VaultList = new List<InventoryItem>();
         Manager _Manager;
         public Inventory(Manager manager)
@@ -70,6 +72,16 @@ namespace WPFD2
             //textBox.Text = sql.starter();
 
         }
+        private Timer timer;
+        public void InitTimer()
+        {
+            timer = new Timer(_ => timer1_Tick(), null, 0, 3000 * 10); //every 30 seconds
+        }
+
+        private void timer1_Tick()
+        {
+            //Refresh;
+        }
 
         public class EquippedItem
         {
@@ -88,6 +100,7 @@ namespace WPFD2
             public string? SlotName { set; get; }
             public String? ItemName { set; get; }
             public long? ItemHash { set; get; }
+            public long? BucketHash { set; get; }
             public long? ItemInstanceId
             {
                 get;
@@ -106,69 +119,8 @@ namespace WPFD2
             //All destiny defintion
 
             List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
-            this.EquippedList = new List<EquippedItem>();
-            foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetEquipped(list.ElementAt(0).CharacterId))
-            {
-                uint Kinetic = 1498876634;
-                uint Energy = 2465295065;
-                uint Power = 953998645;
-                uint Helmet = 3448274439;
-                uint Gauntlet = 3551918588;
-                uint chest = 14239492;
-                uint Leg = 20886954;
-                uint classArmor = 1585787867;
-
-                EquippedItem temp = new EquippedItem();
-
-                //temp.ItemName = item.ItemHash.ToString();
-                temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
-
-                //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
-                if (item.BucketHash == Kinetic)
-                {
-                    temp.SlotName = "Kinetic";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == Energy)
-                {
-                    temp.SlotName = "Energy";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == Power)
-                {
-                    temp.SlotName = "Power";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == Helmet)
-                {
-                    temp.SlotName = "Helmet";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == Gauntlet)
-                {
-                    temp.SlotName = "Gauntlet";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == chest)
-                {
-                    temp.SlotName = "Chest";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == Leg)
-                {
-                    temp.SlotName = "Leg";
-                    EquippedList.Add(temp);
-                }
-                else if (item.BucketHash == classArmor)
-                {
-                    temp.SlotName = "Class";
-                    EquippedList.Add(temp);
-                }
-
-                temp.ItemHash = item.ItemHash;
-                temp.ItemInstanceId = item.ItemInstanceId;
-
-            }
+            this.EquippedList = new List<InventoryItem>();
+            updateEquipped();
             EquippedItemsChart.ItemsSource = EquippedList;
             updateInventory();
 
@@ -194,58 +146,72 @@ namespace WPFD2
             this.Class = new List<InventoryItem>();
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             //REMEMBER TO CHANGE INDEX LATER!!!
-            foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
-            {
+            DataTable data = this._Manager.getSQLManager().getInventory(list.ElementAt(0).CharacterId);
+            //foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
+            //{
 
+                
+
+                foreach (DataRow row in data.Rows)
+                {
                 InventoryItem temp = new InventoryItem();
+                string SlotName = row["SlotName"].ToString();
+                    string ItemName = row["ItemName"].ToString();
+                    long ItemHash = long.Parse(row["ItemHash"].ToString());
+                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                    long BucketHash = long.Parse(row["BucketHash"].ToString());
+                    if(ItemName == null)
+                    {
+                    continue;
+                    }
+                    temp.SlotName = SlotName;
+                    temp.ItemName = ItemName;
+                    temp.ItemHash = ItemHash;
+                    temp.ItemInstanceId = ItemInstanceId;
+                    temp.BucketHash = BucketHash;
 
-                temp.ItemName = item.ItemHash.ToString();
-                temp.ItemName = this._Manager.getSQLManager().getItemDefName(item.ItemHash);
-                //temp.ItemName = InventoryItems[item.ItemHash].DisplayProperties.Name;
-                if (item.BucketHash == Kinetic)
-                {
-                    temp.SlotName = "Kinetic";
-                    this.Kinetic.Add(temp);
+                    if (temp.BucketHash == Kinetic)
+                    {
+                        
+                        this.Kinetic.Add(temp);
+                    }
+                    else if (temp.BucketHash == Energy)
+                    {
+                        
+                        this.Energy.Add(temp);
+                    }
+                    else if (temp.BucketHash == Power)
+                    {
+                        
+                        this.Power.Add(temp);
+                    }
+                    else if (temp.BucketHash == Helmet)
+                    {
+                        
+                        this.Helmet.Add(temp);
+                    }
+                    else if (temp.BucketHash == Gauntlet)
+                    {
+                        
+                        this.Gauntlet.Add(temp);
+                    }
+                    else if (temp.BucketHash == chest)
+                    {
+                        
+                        this.Chest.Add(temp);
+                    }
+                    else if (temp.BucketHash == Leg)
+                    {
+                        
+                        this.Leg.Add(temp);
+                    }
+                    else if (temp.BucketHash == classArmor)
+                    {
+                        
+                        this.Class.Add(temp);
+                    }
                 }
-                else if (item.BucketHash == Energy)
-                {
-                    temp.SlotName = "Energy";
-                    this.Energy.Add(temp);
-                }
-                else if (item.BucketHash == Power)
-                {
-                    temp.SlotName = "Power";
-                    this.Power.Add(temp);
-                }
-                else if (item.BucketHash == Helmet)
-                {
-                    temp.SlotName = "Helmet";
-                    this.Helmet.Add(temp);
-                }
-                else if (item.BucketHash == Gauntlet)
-                {
-                    temp.SlotName = "Gauntlet";
-                    this.Gauntlet.Add(temp);
-                }
-                else if (item.BucketHash == chest)
-                {
-                    temp.SlotName = "Chest";
-                    this.Chest.Add(temp);
-                }
-                else if (item.BucketHash == Leg)
-                {
-                    temp.SlotName = "Leg";
-                    this.Leg.Add(temp);
-                }
-                else if (item.BucketHash == classArmor)
-                {
-                    temp.SlotName = "Class";
-                    this.Class.Add(temp);
-                }
-
-                temp.ItemHash = item.ItemHash;
-                temp.ItemInstanceId = item.ItemInstanceId;
-            }
+            //}
             InventoryKinetic.ItemsSource = this.Kinetic;
             InventoryEnergy.ItemsSource = this.Energy;
             InventoryPower.ItemsSource = this.Power;
@@ -254,6 +220,54 @@ namespace WPFD2
             InventoryChest.ItemsSource = this.Chest;
             InventoryLeg.ItemsSource = this.Leg;
             InventoryClass.ItemsSource = this.Class;
+            
+
+        }
+        private void updateEquipped()
+        {
+            uint Kinetic = 1498876634;
+            uint Energy = 2465295065;
+            uint Power = 953998645;
+            uint Helmet = 3448274439;
+            uint Gauntlet = 3551918588;
+            uint chest = 14239492;
+            uint Leg = 20886954;
+            uint classArmor = 1585787867;
+
+            this.Kinetic = new List<InventoryItem>();
+            this.Energy = new List<InventoryItem>();
+            this.Power = new List<InventoryItem>();
+            this.Helmet = new List<InventoryItem>();
+            this.Gauntlet = new List<InventoryItem>();
+            this.Chest = new List<InventoryItem>();
+            this.Leg = new List<InventoryItem>();
+            this.Class = new List<InventoryItem>();
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            //REMEMBER TO CHANGE INDEX LATER!!!
+            this.EquippedList = new List<InventoryItem>();
+            DataTable data = this._Manager.getSQLManager().GetEquipped(list.ElementAt(0).CharacterId);
+
+            foreach (DataRow row in data.Rows)
+            {
+                InventoryItem temp = new InventoryItem();
+                string SlotName = row["SlotName"].ToString();
+                string ItemName = row["ItemName"].ToString();
+                long ItemHash = long.Parse(row["ItemHash"].ToString());
+                long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                long BucketHash = long.Parse(row["BucketHash"].ToString());
+                if (ItemName == null)
+                {
+                    continue;
+                }
+                temp.SlotName = SlotName;
+                temp.ItemName = ItemName;
+                temp.ItemHash = ItemHash;
+                temp.ItemInstanceId = ItemInstanceId;
+                temp.BucketHash = BucketHash;
+                this.EquippedList.Add(temp);
+            }
+
+
 
         }
         private void UpdateVault()

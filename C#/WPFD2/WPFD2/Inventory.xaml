@@ -79,15 +79,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryClass" Margin="1616,64,14,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Class" Width="160" DisplayMemberBinding="{Binding ItemName}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryClass" Margin="1616,64,14,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Class" Width="160" DisplayMemberBinding="{Binding ItemName}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="465,43,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="465,43,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
         <ListView x:Name="VaultDisplay" Margin="448,409,805,20" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
 
 
@@ -99,9 +99,9 @@
         </ListView>
 
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="448,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
-        <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,376,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
+        <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,314,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
         <Canvas>
-        <Button x:Name="ItemUnequip" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
+            <Button x:Name="ItemUnequip" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
             <Button x:Name="EquipKinetic" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
             <Button x:Name="EnergyEquip" Content="&lt;&lt;&lt;&lt;" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
             <Button x:Name="PowerEquip" Content="&lt;&lt;&lt;&lt;" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black" Click="PowerEquip_Click"/>
@@ -110,6 +110,7 @@
             <Button x:Name="ChestEquip" Content="&lt;&lt;&lt;&lt;" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
             <Button x:Name="LegEquip" Content="&lt;&lt;&lt;&lt;" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
             <Button x:Name="ClassEquip" Content="&lt;&lt;&lt;&lt;" Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
+            <Button x:Name="Refresh" Content="Refresh" Width="75" Height="44" BorderBrush="Black" Canvas.Left="33" Canvas.Top="358"/>
         </Canvas>
 
         <!---<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
