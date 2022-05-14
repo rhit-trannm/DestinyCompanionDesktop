@@ -198,24 +198,27 @@ namespace WPFD2
                 }
             }
         }
-        public string getOnlyEquippableItems(long ItemHash)
+        
+        public DataTable GetVault(long DestinyMembershipID)
         {
-            string temp = "";
+            string name = "";
+            DataTable tblEmployees = new DataTable();
             using (SqlConnection con = new SqlConnection(cs))
             {
-                using (SqlCommand cmd = new SqlCommand("dbo.GetOnlyEquippableItem", con))
+                using (SqlCommand cmd = new SqlCommand("dbo.GetVault", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
-                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
-                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 40).Value = temp;
-                    cmd.Parameters["@Name"].Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@DestinyMembershipID", SqlDbType.BigInt).Value = DestinyMembershipID;
                     //set param as output
                     try
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
-                        temp = Convert.ToString(cmd.Parameters["@Name"].Value);
+                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+
+                        _dap.Fill(tblEmployees);
+
 
                     }
                     catch (Exception)
@@ -226,9 +229,9 @@ namespace WPFD2
                     {
                         conn.Close();
                     }
-                    return temp;
                 }
             }
+            return tblEmployees;
         }
 
         public void AddCategoryDefinition(long Hash, string name)

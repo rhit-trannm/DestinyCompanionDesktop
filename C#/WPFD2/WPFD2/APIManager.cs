@@ -22,10 +22,26 @@ namespace WPFD2
     {
         String apiKey = "7c1528dadd144643b93a7ceb2fff5685";
         BungieSharper.Client.BungieApiClient Client;
-        BungieSharper.Entities.TokenResponse Token;
-        DestinyLinkedProfilesResponse _UserProfile;
-        DestinyProfileUserInfoCard _DestinyProfile;
-        List<DestinyCharacterComponent> _CharacterList;
+        private BungieSharper.Entities.TokenResponse Token;
+        private DestinyLinkedProfilesResponse _UserProfile;
+        public DestinyLinkedProfilesResponse GetUserProfile()
+        {
+            return _UserProfile;
+        }
+        private DestinyProfileUserInfoCard _DestinyProfile;
+
+        public DestinyProfileUserInfoCard GetDestinyProfile()
+        {
+            return _DestinyProfile;
+        }
+
+        private List<DestinyCharacterComponent> _CharacterList;
+
+        public List<DestinyCharacterComponent> GetCharacterList()
+        {
+            return _CharacterList;
+        }
+
         SQLManager SQL = new SQLManager();
         public APIManager()
         {

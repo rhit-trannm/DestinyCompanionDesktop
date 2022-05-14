@@ -88,7 +88,7 @@
         </ListView>
 
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="465,43,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
-        <ListView x:Name="VaultDisplay" Margin="448,409,805,20" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+        <ListView x:Name="VaultDisplay" Margin="465,409,788,20" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
 
 
             <ListView.View>
@@ -101,18 +101,30 @@
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="448,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
         <ComboBox x:Name="CharacterSelection" HorizontalAlignment="Left" Margin="33,314,0,0" VerticalAlignment="Top" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
         <Canvas>
-            <Button x:Name="ItemUnequip" Content="&gt;&gt;&gt;&gt;" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black"/>
-            <Button x:Name="EquipKinetic" Content="&lt;&lt;&lt;&lt;" Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
-            <Button x:Name="EnergyEquip" Content="&lt;&lt;&lt;&lt;" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
-            <Button x:Name="PowerEquip" Content="&lt;&lt;&lt;&lt;" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black" Click="PowerEquip_Click"/>
-            <Button x:Name="EquipHelmet" Content="&lt;&lt;&lt;&lt;" Margin="956,313,769,313" Width="75" Height="44" BorderBrush="Black" Click="EquipHelmet_Click"/>
-            <Button x:Name="GauntletEquip" Content="&lt;&lt;&lt;&lt;" Margin="1121,313,604,313" Width="75" Height="44" BorderBrush="Black" Click="GauntletEquip_Click"/>
-            <Button x:Name="ChestEquip" Content="&lt;&lt;&lt;&lt;" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
-            <Button x:Name="LegEquip" Content="&lt;&lt;&lt;&lt;" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
-            <Button x:Name="ClassEquip" Content="&lt;&lt;&lt;&lt;" Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
+            <Button x:Name="ItemUnequip" FontSize="10" Content="To Vault" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black" />
+            <Button x:Name="EquipKinetic" FontSize="10" Content="Equip"  Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
+            <Button x:Name="EnergyEquip"  FontSize="10" Content="Equip" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
+            <Button x:Name="PowerEquip"  FontSize="10" Content="Equip" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black" Click="PowerEquip_Click"/>
+            <Button x:Name="EquipHelmet"  FontSize="10" Content="Equip" Margin="956,313,769,313" Width="75" Height="44" BorderBrush="Black" Click="EquipHelmet_Click"/>
+            <Button x:Name="GauntletEquip" FontSize="10" Content="Equip"  Margin="1121,313,604,313" Width="75" Height="44" BorderBrush="Black" Click="GauntletEquip_Click"/>
+            <Button x:Name="ChestEquip"  FontSize="10" Content="Equip" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
+            <Button x:Name="LegEquip" FontSize="10" Content="Equip" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
+            <Button x:Name="ClassEquip" FontSize="10" Content="Equip"  Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
             <Button x:Name="Refresh" Content="Refresh" Width="75" Height="44" BorderBrush="Black" Canvas.Left="33" Canvas.Top="358"/>
-        </Canvas>
+            <Button x:Name="EquipKinetic22"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="551" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="716" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy1" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="881" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy2" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1046" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy3" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1211" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy4" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1376" Canvas.Top="313"/>
+            <Button x:Name="EquipKinetic_Copy5" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1541" Canvas.Top="313"/>
+            <Button x:Name="Item22" FontFamily="Marlett" FontSize="40" Content="6" Width="75" Height="44" BorderBrush="Black" Canvas.Left="311" Canvas.Top="313"/>
 
+
+
+
+        </Canvas>
+        <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip"  Margin="385,409,1340,217" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
         <!---<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
 
 
