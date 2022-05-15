@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Diagnostics;
 using Microsoft.Data.SqlClient;
-
+using AdonisUI.Controls;
 
 namespace WPFD2
 {
     public class SQLManager
     {
+       
         SqlConnection conn;
         string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
         public SQLManager()
@@ -66,9 +67,9 @@ namespace WPFD2
                         }
                         
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -76,6 +77,7 @@ namespace WPFD2
                     }
                 }
             }
+            return null;
 
 
         }
@@ -112,9 +114,9 @@ namespace WPFD2
                         }
                         
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -122,7 +124,7 @@ namespace WPFD2
                     }
                 }
             }
-
+            return 1;
         }
         public string createUser(long? membershipID, long DestinyMembershipID, string name)
         {
@@ -154,16 +156,19 @@ namespace WPFD2
                         }
                         return name;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                        
                     }
                     finally
                     {
                         conn.Close();
+                        
                     }
                 }
             }
+            return null;
         }
 
         public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
@@ -187,9 +192,9 @@ namespace WPFD2
                         cmd.ExecuteNonQuery();
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -218,12 +223,12 @@ namespace WPFD2
                         SqlDataAdapter _dap = new SqlDataAdapter(cmd);
 
                         _dap.Fill(tblEmployees);
-
+                        return tblEmployees;
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -231,7 +236,8 @@ namespace WPFD2
                     }
                 }
             }
-            return tblEmployees;
+            return null;
+
         }
 
         public void AddCategoryDefinition(long Hash, string name)
@@ -253,9 +259,9 @@ namespace WPFD2
                         cmd.ExecuteNonQuery();
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -336,9 +342,9 @@ namespace WPFD2
                         cmd.ExecuteNonQuery();
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -367,9 +373,9 @@ namespace WPFD2
                         cmd.ExecuteNonQuery();
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -398,9 +404,9 @@ namespace WPFD2
                         name = Convert.ToString(cmd.Parameters["@Name"].Value);
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -433,9 +439,9 @@ namespace WPFD2
                         
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -467,9 +473,9 @@ namespace WPFD2
 
 
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        throw;
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
                     }
                     finally
                     {
@@ -478,6 +484,38 @@ namespace WPFD2
                 }
             }
             return tblEmployees;
+        }
+        public void EquipItem(long DestinyID, long ItemHash, long BucketHash, long ItemInstanceID, long CharacterID)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.EquipItem", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@DestinyID", SqlDbType.BigInt).Value = DestinyID;
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
+                    cmd.Parameters.Add("@ItemInstanceID", SqlDbType.BigInt).Value = ItemInstanceID;
+                    cmd.Parameters.Add("@CharacterID", SqlDbType.BigInt).Value = CharacterID;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
         }
 
 

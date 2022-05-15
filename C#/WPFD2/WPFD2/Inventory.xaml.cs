@@ -22,6 +22,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AdonisUI.Controls;
+using System.Collections;
 
 namespace WPFD2
 {
@@ -51,6 +53,7 @@ namespace WPFD2
         List<InventoryItem> Class = new List<InventoryItem>();
         List<InventoryItem> EquippedList = new List<InventoryItem>();
         List<InventoryItem> VaultList = new List<InventoryItem>();
+        List<CharacterInfo> characterInfos = new List<CharacterInfo>();
         Manager _Manager;
 
 
@@ -79,22 +82,22 @@ namespace WPFD2
             }
 
         }
+        public class CharacterInfo {
+            public long? CharacterID { set; get; }
+            public DestinyClass? DestinyClass { set; get; }
+
+        }
         public Inventory(Manager manager)
         {
             InitializeComponent();
-
-            List<EquippedItem> persons = new List<EquippedItem>();
-            /*            persons.Add(new EquippedItem() { SlotName = "Kinetic", ItemName = "Ace of Spades" });*/
-            EquippedItemsChart.ItemsSource = persons;
-            List<DestinyClass> classList = new List<DestinyClass>();
-            foreach (DestinyCharacterComponent entry in manager.getAPIManager().getCharacterList())
-            {
-                classList.Add(entry.ClassType);
-            }
-            CharacterSelection.ItemsSource = classList;
-            List<InventoryItem> temp = new List<InventoryItem>();
-            InventoryKinetic.ItemsSource = temp;
+            //AdonisUI.Controls.MessageBox.Show("Hello world!", "Info", AdonisUI.Controls.MessageBoxButton.OK);
             this._Manager = manager;
+            this._Manager.getAPIManager().OnLoginDriver();
+            UpdateCharacterDropDown();
+            int index = CharacterSelection.SelectedIndex;
+            long charID = (long)characterInfos[index].CharacterID;
+            updateEquipped(charID);
+            updateInventory(charID);
             UpdateVault();
 
         }
@@ -108,7 +111,20 @@ namespace WPFD2
         {
             //Refresh;
         }
-
+        public void UpdateCharacterDropDown()
+        {
+            List<DestinyClass> classList = new List<DestinyClass>();
+            characterInfos = new List<CharacterInfo>();
+            foreach (DestinyCharacterComponent entry in this._Manager.getAPIManager().getCharacterList())
+            {
+                CharacterInfo info = new CharacterInfo();
+                info.CharacterID = entry.CharacterId;
+                info.DestinyClass = entry.ClassType;
+                classList.Add(entry.ClassType);
+                characterInfos.Add(info);
+            }
+            CharacterSelection.ItemsSource = classList;
+        }
 
 
         public void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,17 +133,16 @@ namespace WPFD2
             DestinyItemCategoryDefinition definition = new DestinyItemCategoryDefinition();
             DestinyInventoryItemDefinition itemDefinition = new DestinyInventoryItemDefinition();
             int index = CharacterSelection.SelectedIndex;
-            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            long charID = (long) characterInfos[index].CharacterID;
             //All destiny defintion
-
             List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
             this.EquippedList = new List<InventoryItem>();
-            updateEquipped();
-            EquippedItemsChart.ItemsSource = EquippedList;
-            updateInventory();
+            updateEquipped(charID);
+            updateInventory(charID);
+            UpdateVault();
 
         }
-        private void updateInventory()
+        private void updateInventory(long CharacterID)
         {
             this.Kinetic = new List<InventoryItem>();
             this.Energy = new List<InventoryItem>();
@@ -137,9 +152,8 @@ namespace WPFD2
             this.Chest = new List<InventoryItem>();
             this.Leg = new List<InventoryItem>();
             this.Class = new List<InventoryItem>();
-            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             //REMEMBER TO CHANGE INDEX LATER!!!
-            DataTable data = this._Manager.getSQLManager().getInventory(list.ElementAt(0).CharacterId);
+            DataTable data = this._Manager.getSQLManager().getInventory(CharacterID);
             //foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
             //{
 
@@ -215,7 +229,7 @@ namespace WPFD2
 
 
         }
-        private void updateEquipped()
+        private void updateEquipped(long CharacterID)
         {
 
             this.Kinetic = new List<InventoryItem>();
@@ -226,11 +240,14 @@ namespace WPFD2
             this.Chest = new List<InventoryItem>();
             this.Leg = new List<InventoryItem>();
             this.Class = new List<InventoryItem>();
-            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             //REMEMBER TO CHANGE INDEX LATER!!!
             this.EquippedList = new List<InventoryItem>();
-            DataTable data = this._Manager.getSQLManager().GetEquipped(list.ElementAt(0).CharacterId);
-
+            ArrayList arlist = new ArrayList();
+            DataTable data = this._Manager.getSQLManager().GetEquipped(CharacterID);
+            for(int i = 0; i < 8; i++)
+            {
+                arlist.Add(null);
+            }
             foreach (DataRow row in data.Rows)
             {
                 InventoryItem temp = new InventoryItem();
@@ -243,13 +260,61 @@ namespace WPFD2
                 {
                     continue;
                 }
+
                 temp.SlotName = SlotName;
                 temp.ItemName = ItemName;
                 temp.ItemHash = ItemHash;
                 temp.ItemInstanceId = ItemInstanceId;
                 temp.BucketHash = BucketHash;
-                this.EquippedList.Add(temp);
+                if (BucketHash == _BucketHashKinetic)
+                {
+                    this.EquippedList.Insert(0, temp);
+                    arlist[0] = temp;
+                }
+                else if (BucketHash == _BucketHashEnergy)
+                {
+                    this.EquippedList.Insert(1, temp);
+                    arlist[1] = temp;
+                }
+                else if (BucketHash == _BucketHashPower)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[2] = temp;
+                }
+                else if (BucketHash == _BucketHashHelmet)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[3] = temp;
+                }
+                else if (BucketHash == _BucketHashGauntlet)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[4] = temp;
+                }
+                else if (BucketHash == _BucketHashchest)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[5] = temp;
+                }
+                else if (BucketHash == _BucketHashLeg)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[6] = temp;
+                }
+                else if (BucketHash == _BucketHashclassArmor)
+                {
+                    this.EquippedList.Insert(2, temp);
+                    arlist[7] = temp;
+                }
+                else
+                {
+                    this.EquippedList.Add(temp);
+                    arlist.Add(temp);
+                }
+                
             }
+            EquippedItemsChart.ItemsSource = arlist;
+
 
 
 
@@ -289,72 +354,84 @@ namespace WPFD2
         }
 
 
-        private void EquipHandler(InventoryItem inventoryitem, int CharIndex)
+        private void EquipHandler(InventoryItem inventoryitem)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             long instanceID = (long)inventoryitem.ItemInstanceId;
             long characterID = list[0].CharacterId;
             BungieMembershipType member = BungieMembershipType.TigerSteam;
 
-            this._Manager.getAPIManager().EquipItem(instanceID, characterID, member);
-            System.Threading.Thread.Sleep(10000);
-            this._Manager.getAPIManager().OnLoginDriver();
+            int index = CharacterSelection.SelectedIndex;
+            long charID = (long)characterInfos[index].CharacterID;
+
+            APIManager api = this._Manager.getAPIManager();
+            long DestinyID = api.GetDestinyProfile().MembershipId; 
+            long ItemHash = (long) inventoryitem.ItemHash; 
+            long BucketHash = (long)inventoryitem.BucketHash; 
+            long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
+            long CharacterID = charID;
+            this._Manager.getSQLManager().EquipItem(DestinyID, ItemHash, BucketHash, ItemInstanceID, CharacterID);
+            this._Manager.getAPIManager().EquipItem(ItemInstanceID, CharacterID, BungieMembershipType.TigerSteam);
+            updateInventory(CharacterID);
+            updateEquipped(CharacterID);
+            //System.Threading.Thread.Sleep(10000);
+            //this._Manager.getAPIManager().OnLoginDriver();
         }
 
         private void EquipKinetic_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryKinetic.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void EnergyEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void EquipHelmet_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryHelmet.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void GauntletEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryGauntlet.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void ChestEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryChest.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void LegEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryLeg.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void PowerEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void ClassEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
-            EquipHandler(inventoryitem, 0);
+            EquipHandler(inventoryitem);
         }
 
         private void updateManifests_Click(object sender, RoutedEventArgs e)

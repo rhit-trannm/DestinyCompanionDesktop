@@ -146,7 +146,7 @@ namespace WPFD2
             request.CharacterId = CharacterID;
             request.MembershipType = membershipType;
             int s = Client.Api.Destiny2_EquipItem(request, Token.AccessToken).Result;
-            OnLoginDriver();
+            //OnLoginDriver();
             return "?";
         }
 
