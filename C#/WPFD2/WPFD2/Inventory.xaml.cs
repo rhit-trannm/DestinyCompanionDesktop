@@ -94,13 +94,13 @@ namespace WPFD2
             InitializeComponent();
             //AdonisUI.Controls.MessageBox.Show("Hello world!", "Info", AdonisUI.Controls.MessageBoxButton.OK);
             this._Manager = manager;
-/*            this._Manager.getAPIManager().OnLoginDriver();
+            this._Manager.getAPIManager().OnLoginDriver();
             UpdateCharacterDropDown();
             int index = CharacterSelection.SelectedIndex;
             long charID = (long)characterInfos[index].CharacterID;
             updateEquipped(charID);
             updateInventory(charID);
-            UpdateVault();*/
+            UpdateVault();
 
         }
         private Timer timer;
