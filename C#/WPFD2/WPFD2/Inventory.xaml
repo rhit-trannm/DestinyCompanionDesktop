@@ -101,7 +101,7 @@
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="465,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20"><Run Text="Vault"/><LineBreak/><Run/></TextBlock>
         <ComboBox x:Name="CharacterSelection" SelectedIndex="0" HorizontalAlignment="Left" Margin="33,314,0,0" VerticalAlignment="Top" ItemsSource="{Binding AccountManagers}" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
 
-        <Canvas Margin="13,0,-13,0">
+        <Canvas>
             <Button x:Name="ItemUnequip" FontSize="10" Content="Unequip" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black" />
             <Button x:Name="EquipKinetic" FontSize="10" Content="Equip"  Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
             <Button x:Name="EnergyEquip"  FontSize="10" Content="Equip" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
@@ -120,8 +120,7 @@
             <Button x:Name="EquipKinetic_Copy4" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1376" Canvas.Top="313"/>
             <Button x:Name="EquipKinetic_Copy5" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1541" Canvas.Top="313"/>
             <Button x:Name="Item22" FontFamily="Marlett" FontSize="40" Content="6" Width="75" Height="44" BorderBrush="Black" Canvas.Left="311" Canvas.Top="313"/>
-            <ComboBox x:Name="comboBox_Copy" Width="120" Canvas.Left="486" Canvas.Top="35"/>
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="978,34,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="comboBox_Copy" Width="120" Canvas.Left="468" Canvas.Top="34"/>
             <CheckBox x:Name="Filter_Kinetic" Content="Kinetic" Canvas.Left="1140" Canvas.Top="408"/>
             <CheckBox x:Name="Filter_Energy" Content="Energy" Canvas.Left="1140" Canvas.Top="429"/>
             <CheckBox x:Name="Filter_Power" Content="Power" Canvas.Left="1140" Canvas.Top="450"/>
@@ -141,7 +140,7 @@
             <CheckBox x:Name="Filter_SniperRifles" Content="Sniper Rifles" Canvas.Left="1140" Canvas.Top="597"/>
             <CheckBox x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
             <CheckBox x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
-            <ComboBox x:Name="comboBox1" Canvas.Left="1008" Canvas.Top="408" Width="120"/>
+            <ComboBox x:Name="comboBox1" Canvas.Left="1015" Canvas.Top="408" Width="120"/>
             <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip"  Margin="372,409,1353,217" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
             <CheckBox x:Name="Filter_Solar" Content="Solar" Canvas.Left="1324" Canvas.Top="408"/>
             <CheckBox x:Name="Filter_Arc" Content="Arc" Canvas.Left="1324" Canvas.Top="429"/>
@@ -151,7 +150,7 @@
 
 
         </Canvas>
-
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="978,34,0,0" VerticalAlignment="Top" Width="120"/>
 
 
         <!---<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
