@@ -80,6 +80,8 @@ namespace WPFD2
                 get;
                 set;
             }
+            public string? Rarity { set; get; }
+            public string? Color { set; get; }
 
         }
         public class CharacterInfo {
@@ -92,13 +94,13 @@ namespace WPFD2
             InitializeComponent();
             //AdonisUI.Controls.MessageBox.Show("Hello world!", "Info", AdonisUI.Controls.MessageBoxButton.OK);
             this._Manager = manager;
-            this._Manager.getAPIManager().OnLoginDriver();
+/*            this._Manager.getAPIManager().OnLoginDriver();
             UpdateCharacterDropDown();
             int index = CharacterSelection.SelectedIndex;
             long charID = (long)characterInfos[index].CharacterID;
             updateEquipped(charID);
             updateInventory(charID);
-            UpdateVault();
+            UpdateVault();*/
 
         }
         private Timer timer;
@@ -167,6 +169,7 @@ namespace WPFD2
                 long ItemHash = long.Parse(row["ItemHash"].ToString());
                 long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
                 long BucketHash = long.Parse(row["BucketHash"].ToString());
+                string rarity = row["Rarity"].ToString();
                 if (ItemName == null)
                 {
                     continue;
@@ -176,7 +179,32 @@ namespace WPFD2
                 temp.ItemHash = ItemHash;
                 temp.ItemInstanceId = ItemInstanceId;
                 temp.BucketHash = BucketHash;
-
+                temp.Rarity = rarity;
+                if (temp.Rarity.Trim().Equals("Common"))
+                {
+                    temp.Color = "White";
+                }
+                else if (temp.Rarity.Trim().Equals("Uncommon"))
+                {
+                    temp.Color = "Blue";
+                }
+                else if (temp.Rarity.Trim().Equals("Rare"))
+                {
+                    temp.Color = "LightBlue";
+                }
+                else if (temp.Rarity.Trim().Equals("Legendary"))
+                {
+                    temp.Color = "Purple";
+                }
+                else if (temp.Rarity.Trim().Equals("Exotic"))
+                {
+                    temp.Color = "Yellow";
+                }
+                else
+                {
+                    temp.Color = temp.Rarity.Length.ToString();
+                }
+                
                 if (temp.BucketHash == _BucketHashKinetic)
                 {
                     this.Kinetic.Add(temp);
@@ -256,6 +284,7 @@ namespace WPFD2
                 long ItemHash = long.Parse(row["ItemHash"].ToString());
                 long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
                 long BucketHash = long.Parse(row["BucketHash"].ToString());
+                string rarity = row["Rarity"].ToString();
                 if (ItemName == null)
                 {
                     continue;
@@ -266,6 +295,31 @@ namespace WPFD2
                 temp.ItemHash = ItemHash;
                 temp.ItemInstanceId = ItemInstanceId;
                 temp.BucketHash = BucketHash;
+                temp.Rarity = rarity;
+                if (temp.Rarity.Trim().Equals("Common"))
+                {
+                    temp.Color = "White";
+                }
+                else if (temp.Rarity.Trim().Equals("Uncommon"))
+                {
+                    temp.Color = "Blue";
+                }
+                else if (temp.Rarity.Trim().Equals("Rare"))
+                {
+                    temp.Color = "LightBlue";
+                }
+                else if (temp.Rarity.Trim().Equals("Legendary"))
+                {
+                    temp.Color = "Purple";
+                }
+                else if (temp.Rarity.Trim().Equals("Exotic"))
+                {
+                    temp.Color = "Yellow";
+                }
+                else
+                {
+                    temp.Color = temp.Rarity.Length.ToString();
+                }
                 if (BucketHash == _BucketHashKinetic)
                 {
                     this.EquippedList.Insert(0, temp);
@@ -319,6 +373,7 @@ namespace WPFD2
 
 
         }
+
         private void UpdateVault()
         {
             VaultList = new List<InventoryItem>();
@@ -332,12 +387,38 @@ namespace WPFD2
                 long ItemHash = long.Parse(row["ItemHash"].ToString());
                 long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
                 long BucketHash = long.Parse(row["BucketHash"].ToString());
+                string rarity = row["Rarity"].ToString();
 
                 temp.SlotName = SlotName;
                 temp.ItemName = ItemName;
                 temp.ItemHash = ItemHash;
                 temp.ItemInstanceId = ItemInstanceId;
                 temp.BucketHash = BucketHash;
+                temp.Rarity = rarity;
+                if (temp.Rarity.Trim().Equals("Common"))
+                {
+                    temp.Color = "White";
+                }
+                else if (temp.Rarity.Trim().Equals("Uncommon"))
+                {
+                    temp.Color = "Blue";
+                }
+                else if (temp.Rarity.Trim().Equals("Rare"))
+                {
+                    temp.Color = "LightBlue";
+                }
+                else if (temp.Rarity.Trim().Equals("Legendary"))
+                {
+                    temp.Color = "Purple";
+                }
+                else if (temp.Rarity.Trim().Equals("Exotic"))
+                {
+                    temp.Color = "Yellow";
+                }
+                else
+                {
+                    temp.Color = temp.Rarity.Length.ToString();
+                }
 
                 if (!(temp.ItemName.ToString() == ""))
                 {
@@ -438,7 +519,7 @@ namespace WPFD2
         {
 
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyItemCategoryDefinition.json");
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
             string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
@@ -457,18 +538,21 @@ namespace WPFD2
                         try
                         {
                             //Item Definition Manifest
-                            /*                        this._Manager.getAPIManager().updateManifest(
-                                                                long.Parse(item.Key),
-                                                                long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
-                                                                items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
-                                                                items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
-                                                                items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
-                                                                long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()));*/
-
-                            this._Manager.getSQLManager().AddCategoryDefinition(
+                            this._Manager.getAPIManager().updateManifest(
                                         long.Parse(item.Key),
-                                        items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+                                        long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
+                                        items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
+                                        items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
+                                        items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
+                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()),
+                                        items.SelectToken($"{item.Key}.displayProperties.icon").ToString(),
+                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[1]").ToString()),
+                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[2]").ToString()));
 
+                            /*                            this._Manager.getSQLManager().AddCategoryDefinition(
+                                                                    long.Parse(item.Key),
+                                                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+                            */
 
 
 

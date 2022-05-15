@@ -255,9 +255,10 @@ namespace WPFD2
                 VaultItemHash, VaultItemInstanceID);
             
         }
-        public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass)
+        public void updateManifest(long ItemHash, long BucketHash, string name, string description, string tierTypeName, long? ItemCategoryClass, 
+            string IconURL, long? ItemCategoryArmor, long? ItemCategoryWeapon)
         {
-            SQL.AddDestinyItemDefinition(ItemHash, BucketHash, name, description, tierTypeName, ItemCategoryClass);
+            SQL.AddDestinyItemDefinition(ItemHash, BucketHash, name, description, tierTypeName, ItemCategoryClass, IconURL, ItemCategoryArmor, ItemCategoryWeapon);
         }
         public void updateBucketManifest(long bucketHash, string name)
         {

@@ -2671,23 +2671,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\localmgr\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Cylimor\\.nuget\\packages\\": {},
+    "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+      "projectUniqueName": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
       "projectName": "CDestiny2",
-      "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
-      "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
-      "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
+      "projectPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\CDestiny2.csproj",
+      "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
+      "outputPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\CDestiny2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2750,7 +2750,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
