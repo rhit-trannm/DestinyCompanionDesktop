@@ -145,7 +145,14 @@ namespace WPFD2
             request.ItemId = ItemInstanceID;
             request.CharacterId = CharacterID;
             request.MembershipType = membershipType;
-            int s = Client.Api.Destiny2_EquipItem(request, Token.AccessToken).Result;
+            try
+            {
+                int s = Client.Api.Destiny2_EquipItem(request, Token.AccessToken).Result;
+            }catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+            
             //OnLoginDriver();
             return "?";
         }

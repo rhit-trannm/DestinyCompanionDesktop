@@ -146,6 +146,7 @@ namespace WPFD2
             updateEquipped(charID);
             updateInventory(charID);
             UpdateVault();
+            InitTimer();
 
         }
         private Timer timer;
@@ -156,6 +157,12 @@ namespace WPFD2
 
         private void timer1_Tick()
         {
+            this._Manager.getAPIManager().OnLoginDriver();
+            int index = CharacterSelection.SelectedIndex;
+            long charID = (long)characterInfos[index].CharacterID;
+            updateEquipped(charID);
+            updateInventory(charID);
+            UpdateVault();
             //Refresh;
         }
         public void UpdateCharacterDropDown()
@@ -482,24 +489,31 @@ namespace WPFD2
 
         private void EquipHandler(InventoryItem inventoryitem)
         {
-            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            long instanceID = (long)inventoryitem.ItemInstanceId;
-            long characterID = list[0].CharacterId;
-            BungieMembershipType member = BungieMembershipType.TigerSteam;
+            try
+            {
+                List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+                long instanceID = (long)inventoryitem.ItemInstanceId;
+                long characterID = list[0].CharacterId;
+                BungieMembershipType member = BungieMembershipType.TigerSteam;
 
-            int index = CharacterSelection.SelectedIndex;
-            long charID = (long)characterInfos[index].CharacterID;
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
 
-            APIManager api = this._Manager.getAPIManager();
-            long DestinyID = api.GetDestinyProfile().MembershipId; 
-            long ItemHash = (long) inventoryitem.ItemHash; 
-            long BucketHash = (long)inventoryitem.BucketHash; 
-            long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
-            long CharacterID = charID;
-            this._Manager.getSQLManager().EquipItem(DestinyID, ItemHash, BucketHash, ItemInstanceID, CharacterID);
-            this._Manager.getAPIManager().EquipItem(ItemInstanceID, CharacterID, BungieMembershipType.TigerSteam);
-            updateInventory(CharacterID);
-            updateEquipped(CharacterID);
+                APIManager api = this._Manager.getAPIManager();
+                long DestinyID = api.GetDestinyProfile().MembershipId;
+                long ItemHash = (long)inventoryitem.ItemHash;
+                long BucketHash = (long)inventoryitem.BucketHash;
+                long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
+                long CharacterID = charID;
+                this._Manager.getSQLManager().EquipItem(DestinyID, ItemHash, BucketHash, ItemInstanceID, CharacterID);
+                this._Manager.getAPIManager().EquipItem(ItemInstanceID, CharacterID, BungieMembershipType.TigerSteam);
+                updateInventory(CharacterID);
+                updateEquipped(CharacterID);
+            }catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+
             //System.Threading.Thread.Sleep(10000);
             //this._Manager.getAPIManager().OnLoginDriver();
         }
@@ -730,9 +744,12 @@ namespace WPFD2
             }
             
 
-
         }
-
+        private void CheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            AdonisUI.Controls.MessageBox.Show(sender.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+        }
         private void updateManifests_Click(object sender, RoutedEventArgs e)
         {
 

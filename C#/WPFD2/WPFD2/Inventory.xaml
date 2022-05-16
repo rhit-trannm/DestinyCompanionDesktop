@@ -491,31 +491,31 @@
             <Button x:Name="EquipKinetic_Copy5" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1541" Canvas.Top="313"/>
             <Button x:Name="Item22" FontFamily="Marlett" FontSize="40" Content="6" Width="75" Height="44" BorderBrush="Black" Canvas.Left="311" Canvas.Top="313"/>
             <ComboBox x:Name="comboBox_Copy" Width="120" Canvas.Left="468" Canvas.Top="34"/>
-            <CheckBox x:Name="Filter_Kinetic" Content="Kinetic" Canvas.Left="1140" Canvas.Top="408"/>
-            <CheckBox x:Name="Filter_Energy" Content="Energy" Canvas.Left="1140" Canvas.Top="429"/>
-            <CheckBox x:Name="Filter_Power" Content="Power" Canvas.Left="1140" Canvas.Top="450"/>
-            <CheckBox x:Name="Filter_Helmet" Content="Helmet" Canvas.Left="1239" Canvas.Top="408"/>
-            <CheckBox x:Name="Filter_Gauntlet" Content="Gauntlet" Canvas.Left="1239" Canvas.Top="429"/>
-            <CheckBox x:Name="Filter_Chest" Content="Chest" Canvas.Left="1239" Canvas.Top="450"/>
-            <CheckBox x:Name="Filter_Leg" Content="Leg" Canvas.Left="1239" Canvas.Top="471"/>
-            <CheckBox x:Name="Filter_Rare" Content="Rare" Canvas.Left="1402" Canvas.Top="408"/>
-            <CheckBox x:Name="Filter_Legendary" Content="Legendary" Canvas.Left="1402" Canvas.Top="429"/>
-            <CheckBox x:Name="Filter_Exotic" Content="Exotic" Canvas.Left="1402" Canvas.Top="450"/>
-            <CheckBox x:Name="Filter_AutoRifle" Content="Auto Rifle" Canvas.Left="1140" Canvas.Top="471"/>
-            <CheckBox x:Name="Filter_PulseRifle" Content="Pulse Rifle" Canvas.Left="1140" Canvas.Top="492"/>
-            <CheckBox x:Name="Filter_ScoutRifles" Content="Scout Rifles" Canvas.Left="1140" Canvas.Top="513"/>
-            <CheckBox x:Name="Filter_HandCannons" Content="Hand Cannon" Canvas.Left="1140" Canvas.Top="534"/>
-            <CheckBox x:Name="Filter_Side_Arms" Content="Side Arms" Canvas.Left="1140" Canvas.Top="555"/>
-            <CheckBox x:Name="Filter_Shotguns" Content="Shotguns" Canvas.Left="1140" Canvas.Top="576"/>
-            <CheckBox x:Name="Filter_SniperRifles" Content="Sniper Rifles" Canvas.Left="1140" Canvas.Top="597"/>
-            <CheckBox x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
-            <CheckBox x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Kinetic" Content="Kinetic" Canvas.Left="1140" Canvas.Top="408"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Energy" Content="Energy" Canvas.Left="1140" Canvas.Top="429"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Power" Content="Power" Canvas.Left="1140" Canvas.Top="450"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Helmet" Content="Helmet" Canvas.Left="1239" Canvas.Top="408"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Gauntlet" Content="Gauntlet" Canvas.Left="1239" Canvas.Top="429"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Chest" Content="Chest" Canvas.Left="1239" Canvas.Top="450"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Leg" Content="Leg" Canvas.Left="1239" Canvas.Top="471"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Rare" Content="Rare" Canvas.Left="1402" Canvas.Top="408"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Legendary" Content="Legendary" Canvas.Left="1402" Canvas.Top="429"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Exotic" Content="Exotic" Canvas.Left="1402" Canvas.Top="450"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_AutoRifle" Content="Auto Rifle" Canvas.Left="1140" Canvas.Top="471"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_PulseRifle" Content="Pulse Rifle" Canvas.Left="1140" Canvas.Top="492"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_ScoutRifles" Content="Scout Rifles" Canvas.Left="1140" Canvas.Top="513"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_HandCannons" Content="Hand Cannon" Canvas.Left="1140" Canvas.Top="534"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Side_Arms" Content="Side Arms" Canvas.Left="1140" Canvas.Top="555"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Shotguns" Content="Shotguns" Canvas.Left="1140" Canvas.Top="576"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SniperRifles" Content="Sniper Rifles" Canvas.Left="1140" Canvas.Top="597"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
             <ComboBox x:Name="comboBox1" Canvas.Left="1015" Canvas.Top="408" Width="120"/>
             <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip" Width="76" Height="44" BorderBrush="Black" Click="ClassEquip_Click" Canvas.Left="1015" Canvas.Top="444" RenderTransformOrigin="1.105,1.228"/>
-            <CheckBox x:Name="Filter_Solar" Content="Solar" Canvas.Left="1324" Canvas.Top="408"/>
-            <CheckBox x:Name="Filter_Arc" Content="Arc" Canvas.Left="1324" Canvas.Top="429"/>
-            <CheckBox x:Name="Filter_Void" Content="Void" Canvas.Left="1324" Canvas.Top="450"/>
-            <CheckBox x:Name="Filter_Stasis" Content="Stasis" Canvas.Left="1324" Canvas.Top="471"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Solar" Content="Solar" Canvas.Left="1324" Canvas.Top="408"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Arc" Content="Arc" Canvas.Left="1324" Canvas.Top="429"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Void" Content="Void" Canvas.Left="1324" Canvas.Top="450"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Stasis" Content="Stasis" Canvas.Left="1324" Canvas.Top="471"/>
 
 
 
