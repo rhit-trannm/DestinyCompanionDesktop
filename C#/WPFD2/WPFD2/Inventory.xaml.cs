@@ -24,6 +24,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AdonisUI.Controls;
 using System.Collections;
+using BungieSharper.Entities.Destiny.Responses;
 
 namespace WPFD2
 {
@@ -41,6 +42,12 @@ namespace WPFD2
         uint _BucketHashLeg = 20886954;
         uint _BucketHashclassArmor = 1585787867;
 
+        long SolarHash = 591714140;
+        long ArcHash = 728351493;
+        long VoidHash = 4069572561;
+        long StasisHash = 1819698290;
+
+
 
 
         List<InventoryItem> Kinetic = new List<InventoryItem>();
@@ -55,7 +62,9 @@ namespace WPFD2
         List<InventoryItem> VaultList = new List<InventoryItem>();
         List<CharacterInfo> characterInfos = new List<CharacterInfo>();
         Manager _Manager;
-
+        List<ProgressBar> ProgressBarList = new List<ProgressBar>();
+        List<TextBlock> TextBlockList = new List<TextBlock>();
+        List<TextBlock> StatList = new List<TextBlock>();
 
         public class EquippedItem
         {
@@ -92,6 +101,42 @@ namespace WPFD2
         public Inventory(Manager manager)
         {
             InitializeComponent();
+
+            
+
+
+            TextBlockList.Add(ProgresTxt0);
+            TextBlockList.Add(ProgresTxt1);
+            TextBlockList.Add(ProgresTxt2);
+            TextBlockList.Add(ProgresTxt3);
+            TextBlockList.Add(ProgresTxt4);
+            TextBlockList.Add(ProgresTxt5);
+            TextBlockList.Add(ProgresTxt6);
+            TextBlockList.Add(ProgresTxt7);
+            StatList.Add(StatValue0);
+            StatList.Add(StatValue1);
+            StatList.Add(StatValue2);
+            StatList.Add(StatValue3);
+            StatList.Add(StatValue4);
+            StatList.Add(StatValue5);
+            StatList.Add(StatValue6);
+            StatList.Add(StatValue7);
+
+
+            ProgressBarList.Add(Progress0);
+            ProgressBarList.Add(Progress1);
+            ProgressBarList.Add(Progress2);
+            ProgressBarList.Add(Progress3);
+            ProgressBarList.Add(Progress4);
+            ProgressBarList.Add(Progress5);
+            ProgressBarList.Add(Progress6);
+            ProgressBarList.Add(Progress7);
+            for (int j = 0; j < ProgressBarList.Count; j++)
+            {
+                ProgressBarList[j].Visibility = Visibility.Collapsed;
+            }
+
+
             //AdonisUI.Controls.MessageBox.Show("Hello world!", "Info", AdonisUI.Controls.MessageBoxButton.OK);
             this._Manager = manager;
             this._Manager.getAPIManager().OnLoginDriver();
@@ -514,12 +559,185 @@ namespace WPFD2
             InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
             EquipHandler(inventoryitem);
         }
+        public void GetItemDefinition(long ItemHash)
+        {
+
+        }
+        public void UpdateItemInfo(object sender, RoutedEventArgs e)
+        {
+            ListViewItem listViewItem = (ListViewItem)sender;
+
+            for (int j = 0; j < StatList.Count; j++)
+            {
+                StatList[j].Visibility = Visibility.Collapsed;
+            }
+            for (int j = 0; j < ProgressBarList.Count; j++)
+            {
+                ProgressBarList[j].Visibility = Visibility.Collapsed;
+            }
+            for (int j = 0; j < TextBlockList.Count; j++)
+            {
+                TextBlockList[j].Visibility = Visibility.Collapsed;
+            }
+            InventoryItem selectedItem = (InventoryItem)listViewItem.Content;
+            DataTable data = this._Manager.getSQLManager().getItemDefName((long)selectedItem.ItemHash);
+            foreach (DataRow row in data.Rows)
+            {
+                var URL = @"https://www.bungie.net/" + row["IconURL"].ToString().Trim();
+                long InstanceItemID = (long) selectedItem.ItemInstanceId;
+                AdonisUI.Controls.MessageBox.Show(URL, "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                var fullFilePath = @"http://www.americanlayout.com/wp/wp-content/uploads/2012/08/C-To-Go-300x300.png";
+                image2.Source = new BitmapImage(new Uri(URL));
+                DestinyItemResponse resp = this._Manager.getAPIManager().ItemToolTip(InstanceItemID);
+                DestinyItemStatsComponent stats = resp.Stats.Data;
+                LightLevel.Text = resp.Instance.Data.PrimaryStat.Value.ToString();
+                DataTable defitem = this._Manager.getSQLManager().getItemDefName((long)selectedItem.ItemHash);
+                
+                ItemType.Text = this._Manager.getSQLManager().GetItemCategoryDefinition(long.Parse(defitem.Rows[0]["ItemCategoryWeapon"].ToString()));
+                ItemName.Text = selectedItem.ItemName;
+                if (selectedItem.Rarity.Trim().Equals("Common"))
+                {
+                    ItemName.Foreground = Brushes.White;
+                }
+                else if (selectedItem.Rarity.Trim().Equals("Uncommon"))
+                {
+                    ItemName.Foreground = Brushes.Blue;
+                }
+                else if (selectedItem.Rarity.Trim().Equals("Rare"))
+                {
+                    ItemName.Foreground = Brushes.LightBlue;
+                }
+                else if (selectedItem.Rarity.Trim().Equals("Legendary"))
+                {
+                    ItemName.Foreground = Brushes.Purple;
+                }
+                else if (selectedItem.Rarity.Trim().Equals("Exotic"))
+                {
+                    ItemName.Foreground = Brushes.Yellow;
+                }
+                if (resp.Instance.Data.DamageType == 0)
+                {
+                    long? energyHash;
+                    try
+                    {
+                        energyHash = resp.Instance.Data.Energy.EnergyTypeHash;
+                    }
+                    catch (Exception ex)
+                    {
+                        energyHash = null;
+                    }
+
+                    if (energyHash == VoidHash)
+                    {
+                        ItemElementType.Text = "Void";
+                        ItemElementType.Foreground = Brushes.Purple;
+                    }
+                    else if (energyHash == ArcHash)
+                    {
+                        ItemElementType.Text = "Arc";
+                        ItemElementType.Foreground = Brushes.LightBlue;
+                    }
+                    else if (energyHash == StasisHash)
+                    {
+                        ItemElementType.Text = "Stasis";
+                        ItemElementType.Foreground = Brushes.Blue;
+                    }
+                    else if (energyHash == SolarHash)
+                    {
+                        ItemElementType.Text = "Solar";
+                        ItemElementType.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        ItemElementType.Text = "Kinetic";
+                        ItemElementType.Foreground = Brushes.White;
+                    }
+                }
+                else
+                {
+                    ItemElementType.Text = resp.Instance.Data.DamageType.ToString();
+                    if(ItemElementType.Text == "Stasis")
+                    {
+                        ItemElementType.Foreground = Brushes.Blue;
+                    }
+                    else if(ItemElementType.Text == "Arc")
+                    {
+                        ItemElementType.Foreground = Brushes.LightBlue;
+                    }
+                    else if (ItemElementType.Text == "Thermal")
+                    {
+                        ItemElementType.Foreground = Brushes.Red;
+                    }
+                    else if (ItemElementType.Text == "Kinetic")
+                    {
+                        ItemElementType.Foreground = Brushes.White;
+                    }
+                    else if (ItemElementType.Text == "Void")
+                    {
+                        ItemElementType.Foreground = Brushes.Purple;
+                    }
+                    ProgressBarList[0].Visibility = Visibility.Visible;
+                }
+                
+                
+                
+                for (int j = 0; j < StatList.Count; j++)
+                {
+
+                        StatList[j].Visibility = Visibility.Visible;
+                        ProgressBarList[j].Visibility = Visibility.Visible;
+                        TextBlockList[j].Visibility = Visibility.Visible;
+
+                }
+                int i = 0;
+                foreach (KeyValuePair<uint, DestinyStat> entry in stats.Stats)
+                {
+                    String Name = this._Manager.getSQLManager().GetStatDefinition(entry.Key);
+                    int StatValue = entry.Value.Value;
+                    DataTable table = this._Manager.getSQLManager().getItemDefName((long)selectedItem.ItemHash);
+                    long WeaponCategory = long.Parse(table.Rows[0]["ItemCategoryWeapon"].ToString());
+                    
+                    if(WeaponCategory == 1)
+                    {
+                        if (StatValue > 0 || Name == "")
+                        {
+                            TextBlockList[i].Text = Name;
+                            ProgressBarList[i].Value = StatValue;
+                            ProgressBarList[i].Maximum = 50;
+                            StatList[i].Text = StatValue.ToString();
+                            i++;
+                        }
+
+                    }
+                    else
+                    {
+                        if (StatValue > 0 || Name == "")
+                        {
+                            TextBlockList[i].Text = Name;
+                            ProgressBarList[i].Value = StatValue;
+                            ProgressBarList[i].Maximum = 150;
+                            StatList[i].Text = StatValue.ToString();
+                            i++;
+                        }
+                    }
+                    
+
+                }
+
+
+
+
+            }
+            
+
+
+        }
 
         private void updateManifests_Click(object sender, RoutedEventArgs e)
         {
 
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyInventoryItemDefinition.json");
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\Outputs\DestinyStatDefinition.json");
             string path = System.IO.Path.GetFullPath(sFile);
             using (StreamReader r = new StreamReader(path))
             {
@@ -530,24 +748,33 @@ namespace WPFD2
 
                 foreach (var item in items)
                 {
+
+                    this._Manager.getSQLManager().UpdateStatManifest(long.Parse(item.Key),
+                                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString());
+
                     if (items.SelectToken($"{item.Key}.displayProperties.name") != null)
                     {
                         /*                        //BucketManifest
                                                 this._Manager.getAPIManager().updateBucketManifest(long.Parse(item.Key), 
                                                     items.SelectToken($"{item.Key}.displayProperties.name").ToString());*/
+
+
                         try
                         {
+
+                            
+
                             //Item Definition Manifest
-                            this._Manager.getAPIManager().updateManifest(
-                                        long.Parse(item.Key),
-                                        long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
-                                        items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
-                                        items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
-                                        items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
-                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()),
-                                        items.SelectToken($"{item.Key}.displayProperties.icon").ToString(),
-                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[1]").ToString()),
-                                        long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[2]").ToString()));
+                            /*                            this._Manager.getAPIManager().updateManifest(
+                                                                    long.Parse(item.Key),
+                                                                    long.Parse(items.SelectToken($"{item.Key}.inventory.bucketTypeHash").ToString()),
+                                                                    items.SelectToken($"{item.Key}.displayProperties.name").ToString(),
+                                                                    items.SelectToken($"{item.Key}.displayProperties.description").ToString(),
+                                                                    items.SelectToken($"{item.Key}.inventory.tierTypeName").ToString(),
+                                                                    long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[0]").ToString()),
+                                                                    items.SelectToken($"{item.Key}.displayProperties.icon").ToString(),
+                                                                    long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[1]").ToString()),
+                                                                    long.Parse(items.SelectToken($"{item.Key}.itemCategoryHashes[2]").ToString()));*/
 
                             /*                            this._Manager.getSQLManager().AddCategoryDefinition(
                                                                     long.Parse(item.Key),

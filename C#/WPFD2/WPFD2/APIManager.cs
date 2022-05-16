@@ -264,6 +264,21 @@ namespace WPFD2
         {
             SQL.AddDestinyBucketDefinition(bucketHash, name);
         }
+        public DestinyItemResponse ItemToolTip(long instanceid)
+        {
+            List<DestinyComponentType> query = new List<DestinyComponentType>();
+            query.Add(DestinyComponentType.ItemInstances);
+            query.Add(DestinyComponentType.ItemPerks);
+            query.Add(DestinyComponentType.ItemStats);
+            query.Add(DestinyComponentType.ItemSockets);
+            query.Add(DestinyComponentType.ItemTalentGrids);
+            query.Add(DestinyComponentType.ItemCommonData);
+            query.Add(DestinyComponentType.ItemPlugObjectives);
+            query.Add(DestinyComponentType.ItemPlugStates);
+            query.Add(DestinyComponentType.ItemReusablePlugs);
+            DestinyItemResponse resp = Client.Api.Destiny2_GetItem(_DestinyProfile.MembershipId, instanceid, BungieMembershipType.TigerSteam, query, Token.AccessToken).Result;
+            return resp;
+        }
         /*        public string profile()
                 {
 

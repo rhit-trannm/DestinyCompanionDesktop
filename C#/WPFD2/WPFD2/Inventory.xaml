@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         xmlns:local="clr-namespace:WPFD2"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
@@ -13,9 +14,34 @@
     <Grid>
         <ListView x:Name="EquippedItemsChart" Margin="33,64,1339,365" Style="{StaticResource BaseButtonStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="#FF4A4949" Foreground="White">
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
+
+                <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Focusable" Value="false"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
 
@@ -40,14 +66,44 @@
         <!-- Inventory -->
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="33,43,0,0" TextWrapping="Wrap" Text="Equipped" VerticalAlignment="Top"/>
         <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryKinetic" Margin="461,64,1174,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
 
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-
                     <GridViewColumn Header="Kinetic" Width="160" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock x:Name="Txt" Text="{Binding Path=ItemName}" Foreground="{Binding Path=Color}" />
+
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -55,6 +111,39 @@
             </ListView.View>
         </ListView>
         <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  x:Name ="InventoryEnergy" Margin="626,64,1009,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Energy" Width="160">
@@ -68,6 +157,38 @@
             </ListView.View>
         </ListView>
         <ListView HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryPower" Margin="791,64,844,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Power" Width="160">
@@ -81,6 +202,37 @@
             </ListView.View>
         </ListView>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryHelmet" Margin="956,64,679,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Helmet" Width="160">
@@ -94,6 +246,37 @@
             </ListView.View>
         </ListView>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryGauntlet" Margin="1121,64,514,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Gauntlet" Width="160">
@@ -107,6 +290,37 @@
             </ListView.View>
         </ListView>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryChest" Margin="1286,64,349,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Chest" Width="160">
@@ -120,6 +334,37 @@
             </ListView.View>
         </ListView>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryLeg" Margin="1451,64,185,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Leg" Width="160">
@@ -133,6 +378,37 @@
             </ListView.View>
         </ListView>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name ="InventoryClass" Margin="1616,64,14,365" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
+
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Class" Width="160">
@@ -148,8 +424,37 @@
 
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="461,14,0,0" TextWrapping="Wrap" Text="Inventory" VerticalAlignment="Top"/>
         <ListView x:Name="VaultDisplay" Margin="465,409,788,20" Style="{StaticResource BaseButtonStyle}" Background="#FF4A4949">
+            <ListView.ItemContainerStyle>
 
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border
+                         BorderBrush="Transparent"
+                         BorderThickness="0"
+                         Background="{TemplateBinding Background}">
+                                    <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="2,2,2,2"/>
+                    <Setter Property="Border.Height" Value="20"/>
+                    <Setter Property="Padding" Value="100"/>
+                    <EventSetter Event="MouseDoubleClick" Handler="UpdateItemInfo"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#4CA5A5FF"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#721161FF"/>
 
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="1005">
@@ -206,7 +511,7 @@
             <CheckBox x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
             <CheckBox x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
             <ComboBox x:Name="comboBox1" Canvas.Left="1015" Canvas.Top="408" Width="120"/>
-            <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip" Width="76" Height="44" BorderBrush="Black" Click="ClassEquip_Click" Canvas.Left="380" Canvas.Top="410" RenderTransformOrigin="1.105,1.228"/>
+            <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip" Width="76" Height="44" BorderBrush="Black" Click="ClassEquip_Click" Canvas.Left="1015" Canvas.Top="444" RenderTransformOrigin="1.105,1.228"/>
             <CheckBox x:Name="Filter_Solar" Content="Solar" Canvas.Left="1324" Canvas.Top="408"/>
             <CheckBox x:Name="Filter_Arc" Content="Arc" Canvas.Left="1324" Canvas.Top="429"/>
             <CheckBox x:Name="Filter_Void" Content="Void" Canvas.Left="1324" Canvas.Top="450"/>
@@ -216,17 +521,78 @@
 
 
         </Canvas>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="978,34,0,0" VerticalAlignment="Top" Width="120"/>
-        <GroupBox x:Name="groupBox" Height="236" Width="334" Canvas.Top="409" Canvas.Left="33" Margin="33,409,1433,25">
-            <GroupBox.Header>
-                Item Information
-            </GroupBox.Header>
-            <Grid>
-                <Image x:Name="image" Height="48" Width="48" Margin="6,8,264,132"/>
-            </Grid>
-        </GroupBox>
+        <Canvas>
+            <GroupBox x:Name="groupBox" Canvas.Top="399" Canvas.Left="10">
+                <GroupBox.Header>
+                    Item Information
+                </GroupBox.Header>
+                <Grid>
+                    <Image  Source="{Binding ImageSource}" x:Name="image2" Height="48" Width="48" Margin="-8,8,347,148"/>
+                    <TextBlock x:Name="ItemName" Margin="61,10,187,176" FontWeight="Bold" />
+                    <TextBlock x:Name="ItemType" Margin="61,32,247,155" FontWeight="Bold" />
+                    <TextBlock x:Name="LightLevel" Margin="241,32,45,155" FontWeight="Bold" />
+                    <TextBlock x:Name="ItemElementType" Margin="241,10,31,176" FontWeight="Bold" />
+                    <TextBlock x:Name="ProgresTxt0" Margin="-7,63,338,130" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue0" HorizontalAlignment="Left" Margin="72,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress4" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                    Minimum="0"
+                    Value="42"
+                    Maximum="100"
+                    Margin="287,62,5,130"/>
+                    <TextBlock x:Name="ProgresTxt4" Margin="212,62,116,130" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue4" HorizontalAlignment="Left" Margin="275,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress1" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="84,84,211,108"/>
+                    <TextBlock x:Name="ProgresTxt1" Margin="-7,85,338,108" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue1" HorizontalAlignment="Left" Margin="69,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress2" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="84,110,211,82"/>
+                    <TextBlock x:Name="ProgresTxt2" Margin="-7,111,338,82" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue2" HorizontalAlignment="Left" Margin="69,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress3" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="84,135,211,57"/>
+                    <TextBlock x:Name="ProgresTxt3" Margin="-7,136,338,57" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue3" HorizontalAlignment="Left" Margin="69,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress5" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="287,84,5,108"/>
+                    <TextBlock x:Name="ProgresTxt5" Margin="212,84,116,108" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue5" HorizontalAlignment="Left" Margin="275,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress6" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="287,110,5,82"/>
+                    <TextBlock x:Name="ProgresTxt6" Margin="212,110,116,82" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue6" HorizontalAlignment="Left" Margin="275,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress7" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="287,135,5,57"/>
+                    <TextBlock x:Name="ProgresTxt7" Margin="212,135,116,57" FontWeight="Bold" FontSize="8" />
+                    <TextBlock x:Name="StatValue7" HorizontalAlignment="Left" Margin="275,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="7" FontWeight="Bold" Height="11"/>
+                    <ProgressBar x:Name="Progress0" adonisExtensions:ProgressBarExtension.IsProgressAnimationEnabled="false"
+                        Minimum="0"
+                        Value="42"
+                        Maximum="100"
+                        Margin="84,62,211,130"/>
+                </Grid>
 
-        <!--<Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/> -->
+            </GroupBox>
+        </Canvas>
+        <Button x:Name="updateManifests" Content="Button" HorizontalAlignment="Left" Margin="33,372,0,0" VerticalAlignment="Top" Click="updateManifests_Click"/>
 
 
     </Grid>

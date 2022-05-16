@@ -170,6 +170,39 @@ namespace WPFD2
             }
             return null;
         }
+        public string GetItemCategoryDefinition(long hash)
+        {
+            string name = "";
+            // DataTable tblEmployees = new DataTable();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.GetItemCategoryDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@Hash", SqlDbType.BigInt).Value = hash;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50);
+                    cmd.Parameters["@Name"].Direction = ParameterDirection.Output;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        name = Convert.ToString(cmd.Parameters["@Name"].Value).Trim();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return name;
+        }
 
         public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName, 
             long? ItemCategoryClass, string IconURL, long? ItemCategoryArmor, long? ItemCategoryWeapon)
@@ -388,9 +421,10 @@ namespace WPFD2
                 }
             }
         }
-        public string getItemDefName(uint ItemHash)
+        public DataTable getItemDefName(long ItemHash)
         {
             string name = "";
+            DataTable tblEmployees = new DataTable();
             using (SqlConnection con = new SqlConnection(cs))
             {
                 using (SqlCommand cmd = new SqlCommand("dbo.getItemDefinitionName", con))
@@ -398,14 +432,14 @@ namespace WPFD2
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
                     cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
-                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 40).Value = name;
-                    cmd.Parameters["@Name"].Direction = ParameterDirection.Output;
                     //set param as output
                     try
                     {
                         con.Open();
                         cmd.ExecuteNonQuery();
-                        name = Convert.ToString(cmd.Parameters["@Name"].Value);
+                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+
+                        _dap.Fill(tblEmployees);
 
                     }
                     catch (Exception e)
@@ -416,9 +450,40 @@ namespace WPFD2
                     {
                         conn.Close();
                     }
-                    return name;
+                    return tblEmployees;
                 }
             }
+        }
+        public void UpdateStatManifest(long StatHash, string StatName)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.AddStatDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    //cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@StatHash", SqlDbType.BigInt).Value = StatHash;
+                    cmd.Parameters.Add("@StatName", SqlDbType.NChar, 40).Value = StatName;
+                    //cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
         }
 
         public DataTable getInventory(long CharID)
@@ -454,6 +519,40 @@ namespace WPFD2
                 }
             }
             return tblEmployees;
+        }
+
+        public string GetStatDefinition(long StatHash)
+        {
+            string name = "";
+           // DataTable tblEmployees = new DataTable();
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.GetStatDefinition", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@StatHash", SqlDbType.BigInt).Value = StatHash;
+                    cmd.Parameters.Add("@StatName", SqlDbType.VarChar, 100);
+                    cmd.Parameters["@StatName"].Direction = ParameterDirection.Output;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        name = Convert.ToString(cmd.Parameters["@StatName"].Value).Trim();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return name;
         }
         public DataTable GetEquipped(long CharID)
         {
