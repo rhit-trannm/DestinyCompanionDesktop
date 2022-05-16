@@ -146,7 +146,7 @@ namespace WPFD2
             updateEquipped(charID);
             updateInventory(charID);
             UpdateVault();
-            InitTimer();
+            //InitTimer();
 
         }
         private Timer timer;
@@ -154,8 +154,16 @@ namespace WPFD2
         {
             timer = new Timer(_ => timer1_Tick(), null, 0, 3000 * 10); //every 30 seconds
         }
-
-        private async void timer1_Tick()
+        private async void timer1_Tick_Refresh(object sender, RoutedEventArgs e)
+        {
+                this._Manager.getAPIManager().OnLoginDriver();
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
+                updateEquipped(charID);
+                updateInventory(charID);
+                UpdateVault();
+        }
+            private async void timer1_Tick()
         {
 
             Dispatcher.Invoke(() => {
@@ -166,12 +174,6 @@ namespace WPFD2
                 updateInventory(charID);
                 UpdateVault();
             });
-
-            System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke((Action)(() =>
-            {
-
-                //your code here...
-            }));
             
             //Refresh;
         }

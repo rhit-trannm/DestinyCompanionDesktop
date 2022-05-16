@@ -240,7 +240,13 @@ namespace WPFD2
                 }
             }
         }
-        
+        public DataTable GetVaultFiltered(List<bool> filters, string Orderby)
+        {
+
+            //23 bools
+            return new DataTable();
+        }
+
         public DataTable GetVault(long DestinyMembershipID)
         {
             string name = "";

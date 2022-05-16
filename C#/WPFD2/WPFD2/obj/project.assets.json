@@ -2473,23 +2473,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Cylimor\\.nuget\\packages\\": {},
-    "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\localmgr\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
       "projectName": "WPFD2",
-      "projectPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
-      "packagesPath": "C:\\Users\\Cylimor\\.nuget\\packages\\",
-      "outputPath": "E:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
+      "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
+      "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Cylimor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2555,7 +2555,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -481,7 +481,7 @@
             <Button x:Name="ChestEquip"  FontSize="10" Content="Equip" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
             <Button x:Name="LegEquip" FontSize="10" Content="Equip" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
             <Button x:Name="ClassEquip" FontSize="10" Content="Equip"  Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
-            <Button x:Name="Refresh" Content="Refresh" Width="61" Height="24" BorderBrush="Black" Canvas.Left="163" Canvas.Top="314" Click="timer1_Tick" />
+            <Button x:Name="Refresh" Content="Refresh" Width="61" Height="24" BorderBrush="Black" Canvas.Left="163" Canvas.Top="314" Click="timer1_Tick_Refresh" />
 
 
             <Button x:Name="VaultKinetic"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultKinetic_Click" Canvas.Left="551" Canvas.Top="313"/>
