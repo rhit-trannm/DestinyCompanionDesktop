@@ -472,7 +472,7 @@
         <ComboBox x:Name="CharacterSelection" SelectedIndex="0" HorizontalAlignment="Left" Margin="33,314,0,0" VerticalAlignment="Top" ItemsSource="{Binding AccountManagers}" Width="120" Text="Character" SelectionChanged="CharacterSelection_SelectionChanged"/>
 
         <Canvas>
-            <Button x:Name="ItemUnequip" FontSize="10" Content="Unequip" Margin="386,313,1339,313" Width="75" Height="44" BorderBrush="Black" />
+            
             <Button x:Name="EquipKinetic" FontSize="10" Content="Equip"  Margin="461,313,1264,313" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click"/>
             <Button x:Name="EnergyEquip"  FontSize="10" Content="Equip" Margin="626,313,1099,313" Width="75" Height="44" BorderBrush="Black" Click="EnergyEquip_Click"/>
             <Button x:Name="PowerEquip"  FontSize="10" Content="Equip" Margin="791,313,934,313" Width="75" Height="44" BorderBrush="Black" Click="PowerEquip_Click"/>
@@ -481,15 +481,20 @@
             <Button x:Name="ChestEquip"  FontSize="10" Content="Equip" Margin="1286,313,439,313" Width="75" Height="44" BorderBrush="Black" Click="ChestEquip_Click"/>
             <Button x:Name="LegEquip" FontSize="10" Content="Equip" Margin="1451,313,274,313" Width="75" Height="44" BorderBrush="Black" Click="LegEquip_Click"/>
             <Button x:Name="ClassEquip" FontSize="10" Content="Equip"  Margin="1616,313,109,313" Width="75" Height="44" BorderBrush="Black" Click="ClassEquip_Click"/>
-            <Button x:Name="Refresh" Content="Refresh" Width="61" Height="24" BorderBrush="Black" Canvas.Left="163" Canvas.Top="314"/>
-            <Button x:Name="EquipKinetic22"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="551" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="716" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy1" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="881" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy2" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1046" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy3" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1211" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy4" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1376" Canvas.Top="313"/>
-            <Button x:Name="EquipKinetic_Copy5" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="EquipKinetic_Click" Canvas.Left="1541" Canvas.Top="313"/>
-            <Button x:Name="Item22" FontFamily="Marlett" FontSize="40" Content="6" Width="75" Height="44" BorderBrush="Black" Canvas.Left="311" Canvas.Top="313"/>
+            <Button x:Name="Refresh" Content="Refresh" Width="61" Height="24" BorderBrush="Black" Canvas.Left="163" Canvas.Top="314" Click="timer1_Tick" />
+
+
+            <Button x:Name="VaultKinetic"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultKinetic_Click" Canvas.Left="551" Canvas.Top="313"/>
+            <Button x:Name="VaultEnergy"  FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultEnergy_Click" Canvas.Left="716" Canvas.Top="313"/>
+            <Button x:Name="VaultPower" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultPower_Click" Canvas.Left="881" Canvas.Top="313"/>
+            <Button x:Name="VaultHelmet" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultHelmet_Click" Canvas.Left="1046" Canvas.Top="313"/>
+            <Button x:Name="VaultGauntlet" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultGauntlet_Click" Canvas.Left="1211" Canvas.Top="313"/>
+            <Button x:Name="Vaultchest" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultChest_Click" Canvas.Left="1376" Canvas.Top="313"/>
+            <Button x:Name="VaultLeg" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="VaultLeg_Click" Canvas.Left="1541" Canvas.Top="313"/>
+            
+            
+            
+            
             <ComboBox x:Name="comboBox_Copy" Width="120" Canvas.Left="468" Canvas.Top="34"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Kinetic" Content="Kinetic" Canvas.Left="1140" Canvas.Top="408"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Energy" Content="Energy" Canvas.Left="1140" Canvas.Top="429"/>

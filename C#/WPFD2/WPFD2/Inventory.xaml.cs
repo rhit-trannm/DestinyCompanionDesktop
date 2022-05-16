@@ -155,45 +155,70 @@ namespace WPFD2
             timer = new Timer(_ => timer1_Tick(), null, 0, 3000 * 10); //every 30 seconds
         }
 
-        private void timer1_Tick()
+        private async void timer1_Tick()
         {
-            this._Manager.getAPIManager().OnLoginDriver();
-            int index = CharacterSelection.SelectedIndex;
-            long charID = (long)characterInfos[index].CharacterID;
-            updateEquipped(charID);
-            updateInventory(charID);
-            UpdateVault();
+
+            Dispatcher.Invoke(() => {
+                this._Manager.getAPIManager().OnLoginDriver();
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
+                updateEquipped(charID);
+                updateInventory(charID);
+                UpdateVault();
+            });
+
+            System.Windows.Threading.Dispatcher.CurrentDispatcher.Invoke((Action)(() =>
+            {
+
+                //your code here...
+            }));
+            
             //Refresh;
         }
         public void UpdateCharacterDropDown()
         {
-            List<DestinyClass> classList = new List<DestinyClass>();
-            characterInfos = new List<CharacterInfo>();
-            foreach (DestinyCharacterComponent entry in this._Manager.getAPIManager().getCharacterList())
+            try
             {
-                CharacterInfo info = new CharacterInfo();
-                info.CharacterID = entry.CharacterId;
-                info.DestinyClass = entry.ClassType;
-                classList.Add(entry.ClassType);
-                characterInfos.Add(info);
+                List<DestinyClass> classList = new List<DestinyClass>();
+                characterInfos = new List<CharacterInfo>();
+                foreach (DestinyCharacterComponent entry in this._Manager.getAPIManager().getCharacterList())
+                {
+                    CharacterInfo info = new CharacterInfo();
+                    info.CharacterID = entry.CharacterId;
+                    info.DestinyClass = entry.ClassType;
+                    classList.Add(entry.ClassType);
+                    characterInfos.Add(info);
+                }
+                CharacterSelection.ItemsSource = classList;
             }
-            CharacterSelection.ItemsSource = classList;
+            catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+
         }
 
 
         public void CharacterSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try
+            {
+                DestinyItemCategoryDefinition definition = new DestinyItemCategoryDefinition();
+                DestinyInventoryItemDefinition itemDefinition = new DestinyInventoryItemDefinition();
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
+                //All destiny defintion
+                List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
+                this.EquippedList = new List<InventoryItem>();
+                updateEquipped(charID);
+                updateInventory(charID);
+                UpdateVault();
+            }
+            catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
 
-            DestinyItemCategoryDefinition definition = new DestinyItemCategoryDefinition();
-            DestinyInventoryItemDefinition itemDefinition = new DestinyInventoryItemDefinition();
-            int index = CharacterSelection.SelectedIndex;
-            long charID = (long) characterInfos[index].CharacterID;
-            //All destiny defintion
-            List<DestinyInventoryItemDefinition> itemsList = new List<DestinyInventoryItemDefinition>();
-            this.EquippedList = new List<InventoryItem>();
-            updateEquipped(charID);
-            updateInventory(charID);
-            UpdateVault();
 
         }
         private void updateInventory(long CharacterID)
@@ -207,106 +232,114 @@ namespace WPFD2
             this.Leg = new List<InventoryItem>();
             this.Class = new List<InventoryItem>();
             //REMEMBER TO CHANGE INDEX LATER!!!
-            DataTable data = this._Manager.getSQLManager().getInventory(CharacterID);
-            //foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
-            //{
-
-
-
-            foreach (DataRow row in data.Rows)
+            try
             {
-                InventoryItem temp = new InventoryItem();
-                string SlotName = row["SlotName"].ToString();
-                string ItemName = row["ItemName"].ToString();
-                long ItemHash = long.Parse(row["ItemHash"].ToString());
-                long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
-                long BucketHash = long.Parse(row["BucketHash"].ToString());
-                string rarity = row["Rarity"].ToString();
-                if (ItemName == null)
-                {
-                    continue;
-                }
-                temp.SlotName = SlotName;
-                temp.ItemName = ItemName;
-                temp.ItemHash = ItemHash;
-                temp.ItemInstanceId = ItemInstanceId;
-                temp.BucketHash = BucketHash;
-                temp.Rarity = rarity;
-                if (temp.Rarity.Trim().Equals("Common"))
-                {
-                    temp.Color = "White";
-                }
-                else if (temp.Rarity.Trim().Equals("Uncommon"))
-                {
-                    temp.Color = "Blue";
-                }
-                else if (temp.Rarity.Trim().Equals("Rare"))
-                {
-                    temp.Color = "LightBlue";
-                }
-                else if (temp.Rarity.Trim().Equals("Legendary"))
-                {
-                    temp.Color = "Purple";
-                }
-                else if (temp.Rarity.Trim().Equals("Exotic"))
-                {
-                    temp.Color = "Yellow";
-                }
-                else
-                {
-                    temp.Color = temp.Rarity.Length.ToString();
-                }
-                
-                if (temp.BucketHash == _BucketHashKinetic)
-                {
-                    this.Kinetic.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashEnergy)
-                {
+                DataTable data = this._Manager.getSQLManager().getInventory(CharacterID);
+                //foreach (DestinyItemComponent item in this._Manager.getAPIManager().GetInventory(list.ElementAt(0).CharacterId))
+                //{
 
-                    this.Energy.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashPower)
-                {
 
-                    this.Power.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashHelmet)
-                {
 
-                    this.Helmet.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashGauntlet)
+                foreach (DataRow row in data.Rows)
                 {
+                    InventoryItem temp = new InventoryItem();
+                    string SlotName = row["SlotName"].ToString();
+                    string ItemName = row["ItemName"].ToString();
+                    long ItemHash = long.Parse(row["ItemHash"].ToString());
+                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                    long BucketHash = long.Parse(row["BucketHash"].ToString());
+                    string rarity = row["Rarity"].ToString();
+                    if (ItemName == null)
+                    {
+                        continue;
+                    }
+                    temp.SlotName = SlotName;
+                    temp.ItemName = ItemName;
+                    temp.ItemHash = ItemHash;
+                    temp.ItemInstanceId = ItemInstanceId;
+                    temp.BucketHash = BucketHash;
+                    temp.Rarity = rarity;
+                    if (temp.Rarity.Trim().Equals("Common"))
+                    {
+                        temp.Color = "White";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Uncommon"))
+                    {
+                        temp.Color = "Blue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Rare"))
+                    {
+                        temp.Color = "LightBlue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Legendary"))
+                    {
+                        temp.Color = "Purple";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Exotic"))
+                    {
+                        temp.Color = "Yellow";
+                    }
+                    else
+                    {
+                        temp.Color = temp.Rarity.Length.ToString();
+                    }
 
-                    this.Gauntlet.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashchest)
-                {
+                    if (temp.BucketHash == _BucketHashKinetic)
+                    {
+                        this.Kinetic.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashEnergy)
+                    {
 
-                    this.Chest.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashLeg)
-                {
+                        this.Energy.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashPower)
+                    {
 
-                    this.Leg.Add(temp);
-                }
-                else if (temp.BucketHash == _BucketHashclassArmor)
-                {
+                        this.Power.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashHelmet)
+                    {
 
-                    this.Class.Add(temp);
+                        this.Helmet.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashGauntlet)
+                    {
+
+                        this.Gauntlet.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashchest)
+                    {
+
+                        this.Chest.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashLeg)
+                    {
+
+                        this.Leg.Add(temp);
+                    }
+                    else if (temp.BucketHash == _BucketHashclassArmor)
+                    {
+
+                        this.Class.Add(temp);
+                    }
                 }
+                //}
+                InventoryKinetic.ItemsSource = this.Kinetic;
+                InventoryEnergy.ItemsSource = this.Energy;
+                InventoryPower.ItemsSource = this.Power;
+                InventoryHelmet.ItemsSource = this.Helmet;
+                InventoryGauntlet.ItemsSource = this.Gauntlet;
+                InventoryChest.ItemsSource = this.Chest;
+                InventoryLeg.ItemsSource = this.Leg;
+                InventoryClass.ItemsSource = this.Class;
+
+
             }
-            //}
-            InventoryKinetic.ItemsSource = this.Kinetic;
-            InventoryEnergy.ItemsSource = this.Energy;
-            InventoryPower.ItemsSource = this.Power;
-            InventoryHelmet.ItemsSource = this.Helmet;
-            InventoryGauntlet.ItemsSource = this.Gauntlet;
-            InventoryChest.ItemsSource = this.Chest;
-            InventoryLeg.ItemsSource = this.Leg;
-            InventoryClass.ItemsSource = this.Class;
-
+            catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
 
         }
         private void updateEquipped(long CharacterID)
@@ -486,6 +519,12 @@ namespace WPFD2
 
         }
 
+        private void StoreVaultHandler(InventoryItem inventoryitem)
+        {
+        }
+        private void EquipFromVaultHandler(InventoryItem inventoryitem)
+        {
+        }
 
         private void EquipHandler(InventoryItem inventoryitem)
         {
@@ -573,6 +612,60 @@ namespace WPFD2
             InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
             EquipHandler(inventoryitem);
         }
+
+        private void VaultKinetic_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+        }
+        private void VaultEnergy_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+        }
+        private void VaultPower_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+        }
+        private void VaultHelmet_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+
+        }
+        private void VaultGauntlet_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+
+        }
+        private void VaultChest_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+
+        }
+        private void VaultLeg_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+
+        }
+        private void VaultClass_Click(object sender, RoutedEventArgs e)
+        {
+            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
+            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            EquipHandler(inventoryitem);
+
+        }
         public void GetItemDefinition(long ItemHash)
         {
 
@@ -599,7 +692,7 @@ namespace WPFD2
             {
                 var URL = @"https://www.bungie.net/" + row["IconURL"].ToString().Trim();
                 long InstanceItemID = (long) selectedItem.ItemInstanceId;
-                AdonisUI.Controls.MessageBox.Show(URL, "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                //AdonisUI.Controls.MessageBox.Show(URL, "Error", AdonisUI.Controls.MessageBoxButton.OK);
                 var fullFilePath = @"http://www.americanlayout.com/wp/wp-content/uploads/2012/08/C-To-Go-300x300.png";
                 image2.Source = new BitmapImage(new Uri(URL));
                 DestinyItemResponse resp = this._Manager.getAPIManager().ItemToolTip(InstanceItemID);
