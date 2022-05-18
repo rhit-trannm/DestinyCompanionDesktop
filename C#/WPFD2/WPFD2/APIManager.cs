@@ -194,6 +194,7 @@ namespace WPFD2
             validBucketHashes.Add(2465295065);//Energy Weapon
             validBucketHashes.Add(3448274439);//Helmet
             validBucketHashes.Add(3551918588);//Guantlets
+            validBucketHashes.Add(138197802);//General for Vault
 
 
             List<long> CharacterID = new List<long>();
@@ -267,18 +268,27 @@ namespace WPFD2
                 IEnumerable<DestinyItemComponent> enumers = GetInventory(_CharacterList[i].CharacterId);
                 foreach (DestinyItemComponent item in enumers)
                 {
-                    //DestinyID.Add(_DestinyProfile.MembershipId);
-                    ICharID.Add(_CharacterList[i].CharacterId);
-                    IItemHash.Add(item.ItemHash);
-                    if (item.ItemInstanceId != null)
+                    // we only want to push elements to the equippped table that we want to display
+                    // aka the elements that have a buckethash from the list
+                    if (validBucketHashes.Contains(item.BucketHash))
                     {
-                        IItemInstanceID.Add((long)item.ItemInstanceId);
+                        //DestinyID.Add(_DestinyProfile.MembershipId);
+                        ICharID.Add(_CharacterList[i].CharacterId);
+                        IItemHash.Add(item.ItemHash);
+                        if (item.ItemInstanceId != null)
+                        {
+                            IItemInstanceID.Add((long)item.ItemInstanceId);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        IBucketHash.Add(item.BucketHash);
                     }
                     else
                     {
                         continue;
                     }
-                    IBucketHash.Add(item.BucketHash);
 
                 }
             }
@@ -291,17 +301,22 @@ namespace WPFD2
                
                 foreach (DestinyItemComponent item in vaultenum)
                 {
-                    //DestinyID.Add(_DestinyProfile.MembershipId);
-                    VaultItemHash.Add(item.ItemHash);
-                    if (item.ItemInstanceId != null)
+                    // we only want to push elements to the equippped table that we want to display
+                    // aka the elements that have a buckethash from the list
+                    if (validBucketHashes.Contains(item.BucketHash)) 
                     {
-                        VaultItemInstanceID.Add((long)item.ItemInstanceId);
+                        //DestinyID.Add(_DestinyProfile.MembershipId);
+                        VaultItemHash.Add(item.ItemHash);
+                        if (item.ItemInstanceId != null)
+                        {
+                            VaultItemInstanceID.Add((long)item.ItemInstanceId);
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        continue;
-                    }
-                j++;
+                    j++;
                 }
             
 
