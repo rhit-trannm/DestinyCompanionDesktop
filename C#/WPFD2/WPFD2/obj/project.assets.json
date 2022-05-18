@@ -2473,19 +2473,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PopoMachine\\.nuget\\packages\\": {}
+    "C:\\Users\\huangs7\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PopoMachine\\Documents\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "projectUniqueName": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
       "projectName": "WPFD2",
-      "projectPath": "C:\\Users\\PopoMachine\\Documents\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
-      "packagesPath": "C:\\Users\\PopoMachine\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PopoMachine\\Documents\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
+      "projectPath": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "packagesPath": "C:\\Users\\huangs7\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PopoMachine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\huangs7\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -659,28 +659,28 @@ namespace WPFD2
         {
             InventoryItem inventoryitem = (InventoryItem)InventoryKinetic.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+           // EquipHandler(inventoryitem);
         }
         private void VaultEnergy_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryEnergy.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+            //EquipHandler(inventoryitem);
         }
         private void VaultPower_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+           // EquipHandler(inventoryitem);
         }
         private void VaultHelmet_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryHelmet.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+            //EquipHandler(inventoryitem);
 
         }
         private void VaultGauntlet_Click(object sender, RoutedEventArgs e)
@@ -688,7 +688,7 @@ namespace WPFD2
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryGauntlet.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+           // EquipHandler(inventoryitem);
 
         }
         private void VaultChest_Click(object sender, RoutedEventArgs e)
@@ -696,7 +696,7 @@ namespace WPFD2
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryChest.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+           // EquipHandler(inventoryitem);
 
         }
         private void VaultLeg_Click(object sender, RoutedEventArgs e)
@@ -704,7 +704,7 @@ namespace WPFD2
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryLeg.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+           // EquipHandler(inventoryitem);
 
         }
         private void VaultClass_Click(object sender, RoutedEventArgs e)
@@ -712,7 +712,7 @@ namespace WPFD2
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
             StoreVaultHandler(inventoryitem);
-            EquipHandler(inventoryitem);
+          //  EquipHandler(inventoryitem);
 
         }
         private void VaultEquip_Click(object sender, RoutedEventArgs e)
