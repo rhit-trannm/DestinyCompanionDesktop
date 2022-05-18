@@ -12,6 +12,7 @@ using BungieSharper.Entities.Destiny.Definitions;
 using BungieSharper.Entities.Destiny.Entities.Characters;
 using BungieSharper.Entities.Destiny.Entities.Inventory;
 using BungieSharper.Entities.Destiny.Entities.Items;
+using BungieSharper.Entities.Destiny.Requests;
 using BungieSharper.Entities.Destiny.Requests.Actions;
 using BungieSharper.Entities.Destiny.Responses;
 using BungieSharper.Entities.User;
@@ -155,6 +156,26 @@ namespace WPFD2
             
             //OnLoginDriver();
             return "?";
+        }
+        public void TransferItem(long ItemInstanceID, long CharacterID, BungieMembershipType membershipType, long ItemHash, bool ToVault)
+        {
+            DestinyItemTransferRequest request = new DestinyItemTransferRequest();
+            request.ItemId = ItemInstanceID;
+            request.ItemReferenceHash = (uint)ItemHash;
+            request.TransferToVault = ToVault;
+            request.CharacterId = CharacterID;
+            request.MembershipType = membershipType;
+            try
+            {
+                int s = Client.Api.Destiny2_TransferItem(request, Token.AccessToken).Result;
+            }
+            catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+
+            //OnLoginDriver();
+            //return "?";
         }
 
         /* OnLogin Will essentially act as a refresh from Destiny Database to SQL Database

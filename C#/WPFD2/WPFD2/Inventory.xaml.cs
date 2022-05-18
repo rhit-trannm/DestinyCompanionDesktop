@@ -366,8 +366,8 @@ namespace WPFD2
             foreach (DataRow row in data.Rows)
             {
                 InventoryItem temp = new InventoryItem();
-                string SlotName = row["SlotName"].ToString();
-                string ItemName = row["ItemName"].ToString();
+                string SlotName = row["SlotName"].ToString().Trim();
+                string ItemName = row["ItemName"].ToString().Trim();
                 long ItemHash = long.Parse(row["ItemHash"].ToString());
                 long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
                 long BucketHash = long.Parse(row["BucketHash"].ToString());
@@ -376,13 +376,17 @@ namespace WPFD2
                 {
                     continue;
                 }
-
+                if (SlotName == "Subclass")
+                {
+                    continue;
+                }
                 temp.SlotName = SlotName;
                 temp.ItemName = ItemName;
                 temp.ItemHash = ItemHash;
                 temp.ItemInstanceId = ItemInstanceId;
                 temp.BucketHash = BucketHash;
                 temp.Rarity = rarity;
+
                 if (temp.Rarity.Trim().Equals("Common"))
                 {
                     temp.Color = "White";
@@ -523,9 +527,45 @@ namespace WPFD2
 
         private void StoreVaultHandler(InventoryItem inventoryitem)
         {
+            try
+            {
+                APIManager api = this._Manager.getAPIManager();
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
+                long DestinyID = api.GetDestinyProfile().MembershipId;
+                long ItemHash = (long)inventoryitem.ItemHash;
+                long BucketHash = (long)inventoryitem.BucketHash;
+                long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
+                this._Manager.getSQLManager().TransferInventoryToVault(DestinyID, charID, ItemInstanceID, ItemHash, BucketHash);
+                this._Manager.getAPIManager().TransferItem(ItemInstanceID, charID, BungieMembershipType.TigerSteam, ItemHash, true);
+                UpdateVault();
+                updateInventory(charID);
+            }catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+
         }
-        private void EquipFromVaultHandler(InventoryItem inventoryitem)
+        private void EquipFromVaultHandler()
         {
+
+
+        }
+        private void TransferFromVault(InventoryItem inventoryitem)
+        {
+            //InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
+            APIManager api = this._Manager.getAPIManager();
+            int index = CharacterSelection.SelectedIndex;
+            long charID = (long)characterInfos[index].CharacterID;
+            long DestinyID = api.GetDestinyProfile().MembershipId;
+            long ItemHash = (long)inventoryitem.ItemHash;
+            long BucketHash = (long)inventoryitem.BucketHash;
+            long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
+            this._Manager.getSQLManager().TransferVaultToInventory(DestinyID, charID, ItemInstanceID, ItemHash, BucketHash);
+            this._Manager.getAPIManager().TransferItem(ItemInstanceID, charID, BungieMembershipType.TigerSteam, ItemHash, false);
+
+            UpdateVault();
+            updateInventory(charID);
         }
 
         private void EquipHandler(InventoryItem inventoryitem)
@@ -534,7 +574,7 @@ namespace WPFD2
             {
                 List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
                 long instanceID = (long)inventoryitem.ItemInstanceId;
-                long characterID = list[0].CharacterId;
+                //long characterID = list[0].CharacterId;
                 BungieMembershipType member = BungieMembershipType.TigerSteam;
 
                 int index = CharacterSelection.SelectedIndex;
@@ -546,8 +586,8 @@ namespace WPFD2
                 long BucketHash = (long)inventoryitem.BucketHash;
                 long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
                 long CharacterID = charID;
-                this._Manager.getSQLManager().EquipItem(DestinyID, ItemHash, BucketHash, ItemInstanceID, CharacterID);
-                this._Manager.getAPIManager().EquipItem(ItemInstanceID, CharacterID, BungieMembershipType.TigerSteam);
+                this._Manager.getSQLManager().EquipItem(DestinyID, ItemHash, BucketHash, ItemInstanceID, charID);
+                this._Manager.getAPIManager().EquipItem(ItemInstanceID, charID, BungieMembershipType.TigerSteam);
                 updateInventory(CharacterID);
                 updateEquipped(CharacterID);
             }catch (Exception ex)
@@ -617,47 +657,53 @@ namespace WPFD2
 
         private void VaultKinetic_Click(object sender, RoutedEventArgs e)
         {
-            List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryKinetic.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
         }
         private void VaultEnergy_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryEnergy.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
         }
         private void VaultPower_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
         }
         private void VaultHelmet_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryHelmet.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
 
         }
         private void VaultGauntlet_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryGauntlet.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
 
         }
         private void VaultChest_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryChest.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
 
         }
         private void VaultLeg_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryLeg.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
 
         }
@@ -665,9 +711,23 @@ namespace WPFD2
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
             InventoryItem inventoryitem = (InventoryItem)InventoryClass.SelectedItem;
+            StoreVaultHandler(inventoryitem);
             EquipHandler(inventoryitem);
 
         }
+        private void VaultEquip_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
+            TransferFromVault(inventoryitem);
+            EquipHandler(inventoryitem);
+        }
+        private void VaultTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
+            TransferFromVault(inventoryitem);
+            EquipHandler(inventoryitem);
+        }
+
         public void GetItemDefinition(long ItemHash)
         {
 
@@ -840,6 +900,8 @@ namespace WPFD2
             
 
         }
+
+
         private void CheckBoxChanged(object sender, RoutedEventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;

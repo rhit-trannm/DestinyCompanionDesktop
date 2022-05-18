@@ -12,7 +12,7 @@ namespace WPFD2
 {
     public class SQLManager
     {
-       
+
         SqlConnection conn;
         string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
         public SQLManager()
@@ -46,7 +46,7 @@ namespace WPFD2
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //create params
-                    cmd.Parameters.Add("@DestinyID", SqlDbType.Int).Value = (int) id;
+                    cmd.Parameters.Add("@DestinyID", SqlDbType.Int).Value = (int)id;
                     cmd.Parameters.Add("@Return_Value", SqlDbType.VarChar, 50);
                     //set param as output
                     cmd.Parameters["@Return_Value"].Direction = ParameterDirection.Output;
@@ -65,7 +65,7 @@ namespace WPFD2
                         {
                             return "False";
                         }
-                        
+
                     }
                     catch (Exception e)
                     {
@@ -112,7 +112,7 @@ namespace WPFD2
                         {
                             return 0;
                         }
-                        
+
                     }
                     catch (Exception e)
                     {
@@ -128,7 +128,7 @@ namespace WPFD2
         }
         public string createUser(long? membershipID, long DestinyMembershipID, string name)
         {
-            if(membershipID == null || name == null || DestinyMembershipID == null)
+            if (membershipID == null || name == null || DestinyMembershipID == null)
             {
                 return "False";
             }
@@ -159,12 +159,12 @@ namespace WPFD2
                     catch (Exception e)
                     {
                         AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
-                        
+
                     }
                     finally
                     {
                         conn.Close();
-                        
+
                     }
                 }
             }
@@ -204,7 +204,7 @@ namespace WPFD2
             return name;
         }
 
-        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName, 
+        public void AddDestinyItemDefinition(long ItemHash, long BucketHash, string name, string description, string tierTypeName,
             long? ItemCategoryClass, string IconURL, long? ItemCategoryArmor, long? ItemCategoryWeapon)
         {
             using (SqlConnection con = new SqlConnection(cs))
@@ -215,11 +215,11 @@ namespace WPFD2
                     //create params
                     cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
                     cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
-                    cmd.Parameters.Add("@Name", SqlDbType.NChar,40).Value = name;
+                    cmd.Parameters.Add("@Name", SqlDbType.NChar, 40).Value = name;
                     cmd.Parameters.Add("@Description", SqlDbType.Text).Value = description;
                     cmd.Parameters.Add("@tierTypeName", SqlDbType.NChar, 50).Value = tierTypeName;
                     cmd.Parameters.Add("@ItemCategoryClass", SqlDbType.BigInt).Value = ItemCategoryClass;
-                    cmd.Parameters.Add("@IconURL", SqlDbType.VarChar,500).Value = IconURL;
+                    cmd.Parameters.Add("@IconURL", SqlDbType.VarChar, 500).Value = IconURL;
                     cmd.Parameters.Add("@ItemCategoryWeapon", SqlDbType.BigInt).Value = ItemCategoryWeapon;
                     cmd.Parameters.Add("@ItemCategoryArmor", SqlDbType.BigInt).Value = ItemCategoryArmor;
                     //set param as output
@@ -240,9 +240,61 @@ namespace WPFD2
                 }
             }
         }
+
+        class FilterContainer
+        {
+            public List<long> arr = new List<long>() { 1498876634 , 2465295065, 953998645, 5, 7, 8, 6 ,14, 11,
+            10, 3954685534, 3448274439, 3551918588, 14239492, 20886954, 1585787867};
+            public long Kinetic = 1498876634; // 0
+            public long Energy = 2465295065; // 1
+            public long Power = 953998645; // 2
+            public long Auto = 5; // 3
+            public long Pulse = 7;// 4
+            public long Scout = 8; // 5
+            public long HandCannon = 6; // 6
+            public long SideArms = 14; // 7
+            public long Shotguns = 11; // 8
+            public long Sniper = 10; // 9
+            public long SMG = 3954685534; // 10
+            public long Helmet = 3448274439; // 11
+            public long Gauntlet = 3551918588; // 12
+            public long Chest = 14239492; // 13
+            public long Leg = 20886954; // 14
+            public long Class = 1585787867; // 15
+            public string Rare = "Rare"; // 16
+            public string Legendary = "Legendary"; // 17
+            public string Exotic = "Exotic"; // 18
+        }
+        /*
+         *
+         *
+         *
+         *
+         *
+         */
         public DataTable GetVaultFiltered(List<bool> filters, string Orderby)
         {
-
+            FilterContainer fils = new FilterContainer();
+            string Beginning = "SELECT * FROM Vault " +
+                "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
+                "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash" +
+                "WHERE Vault.VaultID = 1 AND ";
+            string Buckets = "DestinyBucketDefinition.BucketHash IN (";
+            for(int i = 0; i < 3; i++)
+            {
+                if (filters[i])
+                {
+                    Buckets = Buckets + fils.arr[i].ToString() + ",";
+                }
+            }
+            Buckets = Buckets + ") OR";
+            Beginning = Beginning + Buckets;
+            string Category = "[DestinyItemDefinition].ItemCategoryWeapon IN (";
+            for(int i = 3; i < 11; i++)
+            {
+                Category = Category + fils.arr[i].ToString() + ",";
+            }
+            Category = Category + ") OR";
             //23 bools
             return new DataTable();
         }
@@ -315,7 +367,7 @@ namespace WPFD2
         }
 
         public void OnLogin(long? membershipID, string name, List<long> CharacterID, List<long> DestinyMembershipID, List<int> ClassType, List<long> DestinyID, List<long> CharID,
-            List<long> ItemHash, List<long> ItemInstanceID, List<long> BucketHash, 
+            List<long> ItemHash, List<long> ItemInstanceID, List<long> BucketHash,
             List<long> InventoryCharID, List<long> InventoryItemHash, List<long> InventoryItemInstanceID, List<long> InventoryBucketHash,
             List<long> VaultItemHash, List<long> VaultItemInstanceID)
         {
@@ -327,7 +379,7 @@ namespace WPFD2
                     table.Columns.Add("DestinyMembershipID", typeof(long));
                     table.Columns.Add("CharacterID", typeof(long));
                     table.Columns.Add("ClassType", typeof(int));
-                    for(int i = 0; i < CharacterID.Count; i++)
+                    for (int i = 0; i < CharacterID.Count; i++)
                     {
                         table.Rows.Add(DestinyMembershipID[i], CharacterID[i], ClassType[i]);
                     }
@@ -511,7 +563,7 @@ namespace WPFD2
                         SqlDataAdapter _dap = new SqlDataAdapter(cmd);
 
                         _dap.Fill(tblEmployees);
-                        
+
 
                     }
                     catch (Exception e)
@@ -526,11 +578,10 @@ namespace WPFD2
             }
             return tblEmployees;
         }
-
         public string GetStatDefinition(long StatHash)
         {
             string name = "";
-           // DataTable tblEmployees = new DataTable();
+            // DataTable tblEmployees = new DataTable();
             using (SqlConnection con = new SqlConnection(cs))
             {
                 using (SqlCommand cmd = new SqlCommand("dbo.GetStatDefinition", con))
@@ -607,6 +658,72 @@ namespace WPFD2
                     cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
                     cmd.Parameters.Add("@ItemInstanceID", SqlDbType.BigInt).Value = ItemInstanceID;
                     cmd.Parameters.Add("@CharacterID", SqlDbType.BigInt).Value = CharacterID;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+
+        public void TransferVaultToInventory(long DestinyID, long CharID, long ItemInstanceID, long ItemHash, long BucketHash)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.TransferVaultToInventory", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@DestinyMembershipID", SqlDbType.BigInt).Value = DestinyID;
+                    cmd.Parameters.Add("@CharID", SqlDbType.BigInt).Value = CharID;
+                    cmd.Parameters.Add("@ItemInstanceID", SqlDbType.BigInt).Value = ItemInstanceID;
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
+                    //set param as output
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
+        }
+
+        public void TransferInventoryToVault(long DestinyID, long CharID, long ItemInstanceID, long ItemHash, long BucketHash)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand("dbo.TransferInventoryToVault", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //create params
+                    cmd.Parameters.Add("@DestinyMembershipID", SqlDbType.BigInt).Value = DestinyID;
+                    cmd.Parameters.Add("@CharID", SqlDbType.BigInt).Value = CharID;
+                    cmd.Parameters.Add("@ItemInstanceID", SqlDbType.BigInt).Value = ItemInstanceID;
+                    cmd.Parameters.Add("@ItemHash", SqlDbType.BigInt).Value = ItemHash;
+                    cmd.Parameters.Add("@BucketHash", SqlDbType.BigInt).Value = BucketHash;
                     //set param as output
                     try
                     {
