@@ -184,11 +184,23 @@ namespace WPFD2
          */
         public void OnLoginDriver()
         {
+            //List of BucketHash Types that we want added to SQLDB
+            List<long> validBucketHashes = new List<long>();
+            validBucketHashes.Add(14239492);//chest
+            validBucketHashes.Add(20886954);//Leg
+            validBucketHashes.Add(953998645);//Power
+            validBucketHashes.Add(1498876634);//Kinetic
+            validBucketHashes.Add(1585787867);//Class
+            validBucketHashes.Add(2465295065);//Energy Weapon
+            validBucketHashes.Add(3448274439);//Helmet
+            validBucketHashes.Add(3551918588);//Guantlets
+
+
             List<long> CharacterID = new List<long>();
             List<long> DestinyMembershipID = new List<long>();
             List<Int32> ClassType = new List<Int32>();
             for (int i = 0; i < _CharacterList.Count; i++)
-            {
+            {   
                 CharacterID.Add(_CharacterList[i].CharacterId);
                 DestinyMembershipID.Add(_DestinyProfile.MembershipId);
                 //this is scuff. Be very careful!
@@ -207,6 +219,7 @@ namespace WPFD2
                 
             }
 
+            ////////////////Equipped Items////////////////
             List<long> DestinyID = new List<long>();
             List<long> CharID = new List<long>();
             List<long> ItemHash = new List<long>();
@@ -214,24 +227,36 @@ namespace WPFD2
             List<long> BucketHash = new List<long>();
             for (int i = 0; i < _CharacterList.Count; i++)
             {
+
                 IEnumerable<DestinyItemComponent>  enumers = GetEquipped(_CharacterList[i].CharacterId);
                 foreach (DestinyItemComponent item in enumers)
                 {
-                    DestinyID.Add(_DestinyProfile.MembershipId);
-                    CharID.Add(_CharacterList[i].CharacterId);
-                    ItemHash.Add(item.ItemHash);
-                    if(item.ItemInstanceId != null)
+                    // we only want to push elements to the equippped table that we want to display
+                    // aka the elements that have a buckethash from the list
+                    if (validBucketHashes.Contains(item.BucketHash))
                     {
-                        ItemInstanceID.Add((long)item.ItemInstanceId);
+                        DestinyID.Add(_DestinyProfile.MembershipId);
+                        CharID.Add(_CharacterList[i].CharacterId);
+                        ItemHash.Add(item.ItemHash);
+                        if (item.ItemInstanceId != null)
+                        {
+                            ItemInstanceID.Add((long)item.ItemInstanceId);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                        BucketHash.Add(item.BucketHash);
                     }
-                    else
+                    else 
                     {
                         continue;
                     }
-                    BucketHash.Add(item.BucketHash);
 
                 }
             }
+
+            ////////////////Inventory Items////////////////
             //List<long> IDestinyID = new List<long>();
             List<long> ICharID = new List<long>();
             List<long> IItemHash = new List<long>();
@@ -257,6 +282,8 @@ namespace WPFD2
 
                 }
             }
+
+            ////////////////Vault Items////////////////
             List<long> VaultItemHash = new List<long>();
             List<long> VaultItemInstanceID = new List<long>();
             IEnumerable<DestinyItemComponent> vaultenum = GetVault();

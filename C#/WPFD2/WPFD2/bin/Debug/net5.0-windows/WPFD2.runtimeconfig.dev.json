@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Cylimor\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Cylimor\\.nuget\\packages",
-      "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\PopoMachine\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\PopoMachine\\.nuget\\packages"
     ]
   }
 }
