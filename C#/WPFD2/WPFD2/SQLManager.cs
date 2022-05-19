@@ -272,13 +272,15 @@ namespace WPFD2
          *
          *
          */
-        public DataTable GetVaultFiltered(List<bool> filters, string Orderby)
+        public DataTable GetVaultFiltered(List<bool> filters, string Orderby, long MembershipID)
         {
             FilterContainer fils = new FilterContainer();
-            string Query = "SELECT * FROM Vault " +
+            string Query = "SELECT DestinyBucketDefinition.Name as SlotName, DestinyItemDefinition.Name as ItemName, Vault.ItemHash as ItemHash, Vault.ItemInstanceID as ItemInstanceID, DestinyItemDefinition.BucketHash as BucketHash, DestinyItemDefinition.tierTypeName as Rarity " + 
+                "FROM Vault " +
                 "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
                 "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash" +
-                "WHERE Vault.VaultID = 1 AND ";
+                "JOIN Users ON Users.MembershipID = " + MembershipID.ToString() +
+                "WHERE Vault.VaultID = Users.VaultID AND ";
             string Buckets = "DestinyBucketDefinition.BucketHash IN (";
             for(int i = 0; i < 3; i++)
             {

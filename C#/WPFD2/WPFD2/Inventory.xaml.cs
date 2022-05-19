@@ -49,7 +49,7 @@ namespace WPFD2
 
         List<bool> filterCheckBox = new List<bool>(new bool[18]);
 
-
+        bool UseFilters = false;
 
         List<InventoryItem> Kinetic = new List<InventoryItem>();
         List<InventoryItem> Energy = new List<InventoryItem>();
@@ -59,7 +59,7 @@ namespace WPFD2
         List<InventoryItem> Chest = new List<InventoryItem>();
         List<InventoryItem> Leg = new List<InventoryItem>();
         List<InventoryItem> Class = new List<InventoryItem>();
-        List<InventoryItem> EquippedList = new List<InventoryItem>();
+        List<InventoryItem> EquippedList = new List<InventoryItem>( new InventoryItem[9]);
         List<InventoryItem> VaultList = new List<InventoryItem>();
         List<CharacterInfo> characterInfos = new List<CharacterInfo>();
         Manager _Manager;
@@ -414,47 +414,47 @@ namespace WPFD2
                 }
                 if (BucketHash == _BucketHashKinetic)
                 {
-                    this.EquippedList.Insert(0, temp);
+                    //this.EquippedList.Insert(0, temp);
                     arlist[0] = temp;
                 }
                 else if (BucketHash == _BucketHashEnergy)
                 {
-                    this.EquippedList.Insert(1, temp);
+                   // this.EquippedList.Insert(1, temp);
                     arlist[1] = temp;
                 }
                 else if (BucketHash == _BucketHashPower)
                 {
-                    this.EquippedList.Insert(2, temp);
+                    //this.EquippedList.Insert(2, temp);
                     arlist[2] = temp;
                 }
                 else if (BucketHash == _BucketHashHelmet)
                 {
-                    this.EquippedList.Insert(2, temp);
+                    //this.EquippedList.Insert(2, temp);
                     arlist[3] = temp;
                 }
                 else if (BucketHash == _BucketHashGauntlet)
                 {
-                    this.EquippedList.Insert(2, temp);
+                  //  this.EquippedList.Insert(2, temp);
                     arlist[4] = temp;
                 }
                 else if (BucketHash == _BucketHashchest)
                 {
-                    this.EquippedList.Insert(2, temp);
+                   // this.EquippedList.Insert(2, temp);
                     arlist[5] = temp;
                 }
                 else if (BucketHash == _BucketHashLeg)
                 {
-                    this.EquippedList.Insert(2, temp);
+                   // this.EquippedList.Insert(2, temp);
                     arlist[6] = temp;
                 }
                 else if (BucketHash == _BucketHashclassArmor)
                 {
-                    this.EquippedList.Insert(2, temp);
+                   // this.EquippedList.Insert(2, temp);
                     arlist[7] = temp;
                 }
                 else
                 {
-                    this.EquippedList.Add(temp);
+                   // this.EquippedList.Add(temp);
                     arlist.Add(temp);
                 }
                 
@@ -470,58 +470,119 @@ namespace WPFD2
         {
             VaultList = new List<InventoryItem>();
             long memshipdId = this._Manager.getAPIManager().GetDestinyProfile().MembershipId;
-            DataTable data = this._Manager.getSQLManager().GetVault(memshipdId);
-            foreach (DataRow row in data.Rows)
+
+            if (!UseFilters)
             {
-                InventoryItem temp = new InventoryItem();
-                string SlotName = row["SlotName"].ToString();
-                string ItemName = row["ItemName"].ToString();
-                long ItemHash = long.Parse(row["ItemHash"].ToString());
-                long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
-                long BucketHash = long.Parse(row["BucketHash"].ToString());
-                string rarity = row["Rarity"].ToString();
+                DataTable data = this._Manager.getSQLManager().GetVault(memshipdId);
+                foreach (DataRow row in data.Rows)
+                {
+                    InventoryItem temp = new InventoryItem();
+                    string SlotName = row["SlotName"].ToString();
+                    string ItemName = row["ItemName"].ToString();
+                    long ItemHash = long.Parse(row["ItemHash"].ToString());
+                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                    long BucketHash = long.Parse(row["BucketHash"].ToString());
+                    string rarity = row["Rarity"].ToString();
 
-                temp.SlotName = SlotName;
-                temp.ItemName = ItemName;
-                temp.ItemHash = ItemHash;
-                temp.ItemInstanceId = ItemInstanceId;
-                temp.BucketHash = BucketHash;
-                temp.Rarity = rarity;
-                if (temp.Rarity.Trim().Equals("Common"))
-                {
-                    temp.Color = "White";
-                }
-                else if (temp.Rarity.Trim().Equals("Uncommon"))
-                {
-                    temp.Color = "Blue";
-                }
-                else if (temp.Rarity.Trim().Equals("Rare"))
-                {
-                    temp.Color = "LightBlue";
-                }
-                else if (temp.Rarity.Trim().Equals("Legendary"))
-                {
-                    temp.Color = "Purple";
-                }
-                else if (temp.Rarity.Trim().Equals("Exotic"))
-                {
-                    temp.Color = "Yellow";
-                }
-                else
-                {
-                    temp.Color = temp.Rarity.Length.ToString();
-                }
+                    temp.SlotName = SlotName;
+                    temp.ItemName = ItemName;
+                    temp.ItemHash = ItemHash;
+                    temp.ItemInstanceId = ItemInstanceId;
+                    temp.BucketHash = BucketHash;
+                    temp.Rarity = rarity;
+                    if (temp.Rarity.Trim().Equals("Common"))
+                    {
+                        temp.Color = "White";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Uncommon"))
+                    {
+                        temp.Color = "Blue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Rare"))
+                    {
+                        temp.Color = "LightBlue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Legendary"))
+                    {
+                        temp.Color = "Purple";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Exotic"))
+                    {
+                        temp.Color = "Yellow";
+                    }
+                    else
+                    {
+                        temp.Color = temp.Rarity.Length.ToString();
+                    }
 
-                if (!(temp.ItemName.ToString() == ""))
-                {
-                    VaultList.Add(temp);
+                    if (!(temp.ItemName.ToString() == ""))
+                    {
+                        VaultList.Add(temp);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
                 }
-                else
+            }
+            else
+            {
+                DataTable data = this._Manager.getSQLManager().GetVaultFiltered(filterCheckBox,"null", memshipdId);
+                foreach (DataRow row in data.Rows)
                 {
-                    continue;
+                    InventoryItem temp = new InventoryItem();
+                    string SlotName = row["SlotName"].ToString();
+                    string ItemName = row["ItemName"].ToString();
+                    long ItemHash = long.Parse(row["ItemHash"].ToString());
+                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                    long BucketHash = long.Parse(row["BucketHash"].ToString());
+                    string rarity = row["Rarity"].ToString();
+
+                    temp.SlotName = SlotName;
+                    temp.ItemName = ItemName;
+                    temp.ItemHash = ItemHash;
+                    temp.ItemInstanceId = ItemInstanceId;
+                    temp.BucketHash = BucketHash;
+                    temp.Rarity = rarity;
+                    if (temp.Rarity.Trim().Equals("Common"))
+                    {
+                        temp.Color = "White";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Uncommon"))
+                    {
+                        temp.Color = "Blue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Rare"))
+                    {
+                        temp.Color = "LightBlue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Legendary"))
+                    {
+                        temp.Color = "Purple";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Exotic"))
+                    {
+                        temp.Color = "Yellow";
+                    }
+                    else
+                    {
+                        temp.Color = temp.Rarity.Length.ToString();
+                    }
+
+                    if (!(temp.ItemName.ToString() == ""))
+                    {
+                        VaultList.Add(temp);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
                 }
 
             }
+
             VaultDisplay.ItemsSource = VaultList;
 
         }
@@ -545,11 +606,6 @@ namespace WPFD2
             {
                 AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
             }
-
-        }
-        private void EquipFromVaultHandler()
-        {
-
 
         }
         private void TransferFromVault(InventoryItem inventoryitem)
@@ -729,7 +785,7 @@ namespace WPFD2
             //EquipHandler(inventoryitem);
         }
 
-        private void Filter_Click(object sender, RoutedEventArgs e)
+        private void CheckBoxChanged(object sender, RoutedEventArgs e)
         {
             CheckBox CheckBoxItem = (CheckBox)sender;
             if(CheckBoxItem.IsChecked == true)
@@ -760,7 +816,7 @@ namespace WPFD2
                     case "Side Arms":
                         filterCheckBox[7] = true;
                         break;
-                    case "Shotguns"
+                    case "Shotguns":
                         filterCheckBox[8] = true;
                         break;
                     case "Sniper Rifle":
@@ -858,10 +914,18 @@ namespace WPFD2
                         break;
                 }
             }
-
-            InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
-            TransferFromVault(inventoryitem);
-            EquipHandler(inventoryitem);
+            bool temp = false;
+            for (int i = 0; i < filterCheckBox.Count; i++) {
+                if (filterCheckBox[i])
+                {
+                    temp = true;
+                }
+            }
+            UseFilters = temp;
+            UpdateVault();
+            //InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
+            //TransferFromVault(inventoryitem);
+            //EquipHandler(inventoryitem);
         }
 
         public void GetItemDefinition(long ItemHash)
@@ -1038,11 +1102,6 @@ namespace WPFD2
         }
 
 
-        private void CheckBoxChanged(object sender, RoutedEventArgs e)
-        {
-            CheckBox checkbox = (CheckBox)sender;
-            AdonisUI.Controls.MessageBox.Show(sender.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
-        }
         private void updateManifests_Click(object sender, RoutedEventArgs e)
         {
 
