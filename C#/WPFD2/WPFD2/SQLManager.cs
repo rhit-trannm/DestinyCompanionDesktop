@@ -275,7 +275,7 @@ namespace WPFD2
         public DataTable GetVaultFiltered(List<bool> filters, string Orderby)
         {
             FilterContainer fils = new FilterContainer();
-            string Beginning = "SELECT * FROM Vault " +
+            string Query = "SELECT * FROM Vault " +
                 "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
                 "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash" +
                 "WHERE Vault.VaultID = 1 AND ";
@@ -288,13 +288,28 @@ namespace WPFD2
                 }
             }
             Buckets = Buckets + ") OR";
-            Beginning = Beginning + Buckets;
+            Query = Query + Buckets;
             string Category = "[DestinyItemDefinition].ItemCategoryWeapon IN (";
-            for(int i = 3; i < 11; i++)
+            for(int i = 11; i < 16; i++)
             {
                 Category = Category + fils.arr[i].ToString() + ",";
             }
             Category = Category + ") OR";
+            string armorType = "[DestinyItemDefinition].ItemCategoryArmor IN (";
+            Query = Query + Category;
+            for (int i = 3; i < 11; i++)
+            {
+                armorType = armorType + fils.arr[i].ToString() + ",";
+            }
+            armorType = armorType + ") OR";
+            string rarity = "[DestinyItemDefinition].tierTypeName IN (";
+            Query = Query + armorType;
+            for (int i = 3; i < 11; i++)
+            {
+                rarity = rarity + fils.arr[i].ToString() + ",";
+            }
+            rarity = rarity + ")";
+            Query = Query + rarity;
             //23 bools
             return new DataTable();
         }

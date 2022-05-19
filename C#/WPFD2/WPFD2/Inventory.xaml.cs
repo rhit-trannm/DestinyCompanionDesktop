@@ -47,6 +47,7 @@ namespace WPFD2
         long VoidHash = 4069572561;
         long StasisHash = 1819698290;
 
+        List<bool> filterCheckBox = new List<bool>(new bool[18]);
 
 
 
@@ -723,6 +724,141 @@ namespace WPFD2
         }
         private void VaultTransfer_Click(object sender, RoutedEventArgs e)
         {
+            InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
+            TransferFromVault(inventoryitem);
+            //EquipHandler(inventoryitem);
+        }
+
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox CheckBoxItem = (CheckBox)sender;
+            if(CheckBoxItem.IsChecked == true)
+            {
+                switch (CheckBoxItem.Content)
+                {
+                    case "Kinetic":
+                        filterCheckBox[0] = true;
+                        break;
+                    case "Energy":
+                        filterCheckBox[1] = true;
+                        break;
+                    case "Power":
+                        filterCheckBox[2] = true;
+                        break;
+                    case "Auto Rifle":
+                        filterCheckBox[3] = true;
+                        break;
+                    case "Pulse Rifle":
+                        filterCheckBox[4] = true;
+                        break;
+                    case "Scout Rifle":
+                        filterCheckBox[5] = true;
+                        break;
+                    case "Hand Cannon":
+                        filterCheckBox[6] = true;
+                        break;
+                    case "Side Arms":
+                        filterCheckBox[7] = true;
+                        break;
+                    case "Shotguns"
+                        filterCheckBox[8] = true;
+                        break;
+                    case "Sniper Rifle":
+                        filterCheckBox[9] = true;
+                        break;
+                    case "SMG":
+                        filterCheckBox[10] = true;
+                        break;
+                    case "Helmet":
+                        filterCheckBox[11] = true;
+                        break;
+                    case "Gauntlet":
+                        filterCheckBox[12] = true;
+                        break;
+                    case "Chest":
+                        filterCheckBox[13] = true;
+                        break;
+                    case "Leg":
+                        filterCheckBox[14] = true;
+                        break;
+                    case "Class":
+                        filterCheckBox[15] = true;
+                        break;
+                    case "Rare":
+                        filterCheckBox[16] = true;
+                        break;
+                    case "Legendary":
+                        filterCheckBox[17] = true;
+                        break;
+                    case "Exotic":
+                        filterCheckBox[18] = true;
+                        break;
+                }
+            }
+            else
+            {
+                switch (CheckBoxItem.Content)
+                {
+                    case "Kinetic":
+                        filterCheckBox[0] = false;
+                        break;
+                    case "Energy":
+                        filterCheckBox[1] = false;
+                        break;
+                    case "Power":
+                        filterCheckBox[2] = false;
+                        break;
+                    case "Auto Rifle":
+                        filterCheckBox[3] = false;
+                        break;
+                    case "Pulse Rifle":
+                        filterCheckBox[4] = false;
+                        break;
+                    case "Scout Rifle":
+                        filterCheckBox[5] = false;
+                        break;
+                    case "Hand Cannon":
+                        filterCheckBox[6] = false;
+                        break;
+                    case "Side Arms":
+                        filterCheckBox[7] = false;
+                        break;
+                    case "Shotguns":
+                        filterCheckBox[8] = false;
+                        break;
+                    case "Sniper Rifle":
+                        filterCheckBox[9] = false;
+                        break;
+                    case "SMG":
+                        filterCheckBox[10] = false;
+                        break;
+                    case "Helmet":
+                        filterCheckBox[11] = false;
+                        break;
+                    case "Gauntlet":
+                        filterCheckBox[12] = false;
+                        break;
+                    case "Chest":
+                        filterCheckBox[13] = false;
+                        break;
+                    case "Leg":
+                        filterCheckBox[14] = false;
+                        break;
+                    case "Class":
+                        filterCheckBox[15] = false;
+                        break;
+                    case "Rare":
+                        filterCheckBox[16] = false;
+                        break;
+                    case "Legendary":
+                        filterCheckBox[17] = false;
+                        break;
+                    case "Exotic":
+                        filterCheckBox[18] = false;
+                        break;
+                }
+            }
+
             InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
             TransferFromVault(inventoryitem);
             EquipHandler(inventoryitem);

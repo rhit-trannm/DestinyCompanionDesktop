@@ -2473,19 +2473,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\huangs7\\.nuget\\packages\\": {}
+    "C:\\Users\\localmgr\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "projectUniqueName": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
       "projectName": "WPFD2",
-      "projectPath": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
-      "packagesPath": "C:\\Users\\huangs7\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\huangs7\\Documents\\GitHub\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
+      "projectPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\WPFD2.csproj",
+      "packagesPath": "C:\\Users\\localmgr\\.nuget\\packages\\",
+      "outputPath": "C:\\CSSE333\\courseproject-s4g2\\C#\\WPFD2\\WPFD2\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\huangs7\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\localmgr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

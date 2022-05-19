@@ -508,11 +508,11 @@
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Exotic" Content="Exotic" Canvas.Left="1333" Canvas.Top="450"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_AutoRifle" Content="Auto Rifle" Canvas.Left="1140" Canvas.Top="471"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_PulseRifle" Content="Pulse Rifle" Canvas.Left="1140" Canvas.Top="492"/>
-            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_ScoutRifles" Content="Scout Rifles" Canvas.Left="1140" Canvas.Top="513"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_ScoutRifles" Content="Scout Rifle" Canvas.Left="1140" Canvas.Top="513"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_HandCannons" Content="Hand Cannon" Canvas.Left="1140" Canvas.Top="534"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Side_Arms" Content="Side Arms" Canvas.Left="1140" Canvas.Top="555"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Shotguns" Content="Shotguns" Canvas.Left="1140" Canvas.Top="576"/>
-            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SniperRifles" Content="Sniper Rifles" Canvas.Left="1140" Canvas.Top="597"/>
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SniperRifles" Content="Sniper Rifle" Canvas.Left="1140" Canvas.Top="597"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
             <ComboBox x:Name="comboBox1" Canvas.Left="1015" Canvas.Top="408" Width="120"/>
