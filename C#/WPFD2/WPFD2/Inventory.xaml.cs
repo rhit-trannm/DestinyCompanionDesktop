@@ -47,7 +47,7 @@ namespace WPFD2
         long VoidHash = 4069572561;
         long StasisHash = 1819698290;
 
-        List<bool> filterCheckBox = new List<bool>(new bool[18]);
+        List<bool> filterCheckBox = new List<bool>(new bool[19]);
 
         bool UseFilters = false;
 

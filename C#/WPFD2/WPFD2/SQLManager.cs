@@ -15,6 +15,7 @@ namespace WPFD2
 
         SqlConnection conn;
         string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
+        
         public SQLManager()
         {
 
@@ -274,46 +275,172 @@ namespace WPFD2
          */
         public DataTable GetVaultFiltered(List<bool> filters, string Orderby, long MembershipID)
         {
+            int count = 0;
             FilterContainer fils = new FilterContainer();
+            DataTable tblEmployees = new DataTable();
             string Query = "SELECT DestinyBucketDefinition.Name as SlotName, DestinyItemDefinition.Name as ItemName, Vault.ItemHash as ItemHash, Vault.ItemInstanceID as ItemInstanceID, DestinyItemDefinition.BucketHash as BucketHash, DestinyItemDefinition.tierTypeName as Rarity " + 
                 "FROM Vault " +
                 "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
-                "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash" +
-                "JOIN Users ON Users.MembershipID = " + MembershipID.ToString() +
-                "WHERE Vault.VaultID = Users.VaultID AND ";
+                "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash " +
+                "JOIN Users ON Users.[DestinyMembershipID] = " + MembershipID.ToString() +
+                " WHERE Vault.VaultID = Users.VaultID AND (";
             string Buckets = "DestinyBucketDefinition.BucketHash IN (";
+            bool temp = false;
             for(int i = 0; i < 3; i++)
             {
                 if (filters[i])
                 {
+                    if(temp == false)
+                    {
+                        temp = true;
+                    }
                     Buckets = Buckets + fils.arr[i].ToString() + ",";
+
                 }
             }
-            Buckets = Buckets + ") OR";
-            Query = Query + Buckets;
+            if(temp == true)
+            {
+                count++;
+                Buckets = Buckets.Substring(0, Buckets.Length - 1);
+                Buckets = Buckets + ")";
+                Query = Query + Buckets;
+            }
+            temp = false;
+
             string Category = "[DestinyItemDefinition].ItemCategoryWeapon IN (";
-            for(int i = 11; i < 16; i++)
+            for(int i = 3; i < 11; i++)
             {
-                Category = Category + fils.arr[i].ToString() + ",";
+                if (filters[i])
+                {
+                    if (temp == false)
+                    {
+                        temp = true;
+                    }
+                    Category = Category + fils.arr[i].ToString() + ",";
+                }
             }
-            Category = Category + ") OR";
+            
+            
+            if (temp == true)
+            {
+                count++;
+                Category = Category.Substring(0, Category.Length - 1);
+                Category = Category + ")";
+                if(count > 0)
+                {
+                    Query = Query + " AND " + Category;
+                }
+                else
+                {
+                    Query = Query + Category;
+                }
+                
+            }
+            temp = false;
+
+
             string armorType = "[DestinyItemDefinition].ItemCategoryArmor IN (";
-            Query = Query + Category;
-            for (int i = 3; i < 11; i++)
+            for (int i = 11; i < 16; i++)
             {
-                armorType = armorType + fils.arr[i].ToString() + ",";
+                if (filters[i])
+                {
+                    if (temp == false)
+                    {
+                        temp = true;
+                    }
+                    armorType = armorType + fils.arr[i].ToString() + ",";
+                }
+                
             }
-            armorType = armorType + ") OR";
+            
+            if (temp == true)
+            {
+                count++;
+                armorType = armorType.Substring(0, armorType.Length - 1);
+                armorType = armorType + ")";
+                if (count > 0)
+                {
+                    Query = Query + " AND " + armorType;
+                }
+                else
+                {
+                    Query = Query + armorType;
+                }
+            }
+            temp = false;
+
             string rarity = "[DestinyItemDefinition].tierTypeName IN (";
-            Query = Query + armorType;
-            for (int i = 3; i < 11; i++)
+            for (int i = 16; i < 19; i++)
             {
-                rarity = rarity + fils.arr[i].ToString() + ",";
+                if (filters[i])
+                {
+                    if (temp == false)
+                    {
+                        temp = true;
+                    }
+                    if(i == 16)
+                    {
+                        rarity = rarity + "'" + fils.Rare + "'" + ",";
+                    }
+                    else if( i == 17)
+                    {
+                        rarity = rarity + "'" + fils.Legendary + "'" + ",";
+                    }
+                    else if( i == 18)
+                    {
+                        rarity = rarity + "'" +fils.Exotic + "'" + ",";
+                    }
+                    
+                }
+                
             }
-            rarity = rarity + ")";
-            Query = Query + rarity;
+            if (temp == true)
+            {
+                rarity = rarity.Substring(0, rarity.Length - 1);
+                rarity = rarity + ")";
+                if (count > 0)
+                {
+                    Query = Query + " AND " + rarity;
+                }
+                else
+                {
+                    Query = Query + rarity;
+                }
+            }
+            Query = Query + ")";
+            AdonisUI.Controls.MessageBox.Show(Query.ToString() + "\n" + count.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
             //23 bools
-            return new DataTable();
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                using (SqlCommand cmd = new SqlCommand(Query, con))
+                {
+
+                    cmd.CommandType = CommandType.Text;
+
+                    try
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+
+                        _dap.Fill(tblEmployees);
+                        return tblEmployees;
+
+                    }
+                    catch (Exception e)
+                    {
+                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+
+            return tblEmployees;
+
         }
 
         public DataTable GetVault(long DestinyMembershipID)
