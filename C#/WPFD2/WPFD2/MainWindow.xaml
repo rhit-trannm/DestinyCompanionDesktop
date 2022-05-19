@@ -29,6 +29,7 @@
             </Button.FontWeight>
         </Button>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="88,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Width="200"/>
+        <Button x:Name="Devpage" Content="Devpage" HorizontalAlignment="Left" Click="Summon_Dev"  Margin="10,10,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

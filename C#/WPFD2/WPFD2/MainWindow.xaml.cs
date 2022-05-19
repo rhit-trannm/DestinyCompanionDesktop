@@ -58,6 +58,11 @@ namespace WPFD2
                 textBlock.Text = s;
             }
         }
+        private void Summon_Dev(object sender, RoutedEventArgs e)
+        {
+            DevPage devPage = new DevPage(manager);
+            devPage.Show();
+        }
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {

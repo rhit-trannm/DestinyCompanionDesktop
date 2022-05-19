@@ -30,20 +30,6 @@ namespace WPFD2
 
             textBlock.Text = this.manager.getSQLManager().initiateUser(1);
 
-        }
-
-        private void Update(object sender, RoutedEventArgs e)
-        {
-            int id = int.Parse(userid.Text);
-            //this.manager.getSQLManager().createUser(id, name.Text);
-
-        }
-
-        private void read(object sender, RoutedEventArgs e)
-        {
-            int id = int.Parse(id_read.Text);
-            textBlock.Text = this.manager.getSQLManager().initiateUser(id);
-
 
 
         }
