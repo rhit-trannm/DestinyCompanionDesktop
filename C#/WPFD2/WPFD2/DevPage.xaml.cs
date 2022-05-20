@@ -27,10 +27,12 @@ namespace WPFD2
         {
             this.manager = manager;
             InitializeComponent();
+            updateBucketManifest();
 
-            textBlock.Text = this.manager.getSQLManager().initiateUser(1);
-
-
+            updateCategoryManifest();
+            //textBlock.Text = this.manager.getSQLManager().initiateUser(1);
+            //manager.getSQLManager().SwitchDataBase("S4G2_Demo");
+            //updateItemManifest();
 
         }
 
@@ -141,7 +143,7 @@ namespace WPFD2
         private void updateManifest_Click(object sender, RoutedEventArgs e)
         {
             updateBucketManifest();
-            updateItemManifest();
+            
             updateCategoryManifest();
             //Console.Write(items);
             /*			foreach (BungieSharper.Entities.Destiny.Entities.Items.DestinyItemComponent element in items)

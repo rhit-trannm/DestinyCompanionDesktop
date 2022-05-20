@@ -611,18 +611,25 @@ namespace WPFD2
         private void TransferFromVault(InventoryItem inventoryitem)
         {
             //InventoryItem inventoryitem = (InventoryItem)VaultDisplay.SelectedItem;
-            APIManager api = this._Manager.getAPIManager();
-            int index = CharacterSelection.SelectedIndex;
-            long charID = (long)characterInfos[index].CharacterID;
-            long DestinyID = api.GetDestinyProfile().MembershipId;
-            long ItemHash = (long)inventoryitem.ItemHash;
-            long BucketHash = (long)inventoryitem.BucketHash;
-            long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
-            this._Manager.getSQLManager().TransferVaultToInventory(DestinyID, charID, ItemInstanceID, ItemHash, BucketHash);
-            this._Manager.getAPIManager().TransferItem(ItemInstanceID, charID, BungieMembershipType.TigerSteam, ItemHash, false);
+            try
+            {
+                APIManager api = this._Manager.getAPIManager();
+                int index = CharacterSelection.SelectedIndex;
+                long charID = (long)characterInfos[index].CharacterID;
+                long DestinyID = api.GetDestinyProfile().MembershipId;
+                long ItemHash = (long)inventoryitem.ItemHash;
+                long BucketHash = (long)inventoryitem.BucketHash;
+                long ItemInstanceID = (long)inventoryitem.ItemInstanceId;
+                this._Manager.getSQLManager().TransferVaultToInventory(DestinyID, charID, ItemInstanceID, ItemHash, BucketHash);
+                this._Manager.getAPIManager().TransferItem(ItemInstanceID, charID, BungieMembershipType.TigerSteam, ItemHash, false);
 
-            UpdateVault();
-            updateInventory(charID);
+                UpdateVault();
+                updateInventory(charID);
+            }catch(Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+            }
+
         }
 
         private void EquipHandler(InventoryItem inventoryitem)
@@ -666,7 +673,7 @@ namespace WPFD2
         private void EnergyEquip_Click(object sender, RoutedEventArgs e)
         {
             List<DestinyCharacterComponent> list = this._Manager.getAPIManager().getCharacterList();
-            InventoryItem inventoryitem = (InventoryItem)InventoryPower.SelectedItem;
+            InventoryItem inventoryitem = (InventoryItem)InventoryEnergy.SelectedItem;
             EquipHandler(inventoryitem);
         }
 

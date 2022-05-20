@@ -14,12 +14,11 @@ namespace WPFD2
     {
 
         SqlConnection conn;
-        string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
+        string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=S4G2_Demo; UID=hendermd; Password=PopoPeckingOrder3!";
         
         public SQLManager()
         {
 
-            string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=trannm; Password=Acixuw+03";
             try
             {
                 conn = new SqlConnection(cs);
@@ -33,6 +32,23 @@ namespace WPFD2
             }
 
 
+        }
+        public void SwitchDataBase(string DB)
+        {
+            conn.Close();
+            string cs2 = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=" + DB +"; UID=trannm; Password=Acixuw+03";
+            try
+            {
+                conn = new SqlConnection(cs2);
+                //MySqlConnection con = new MySqlConnection(cs);
+                conn.Open();
+                Console.WriteLine($"MySQL version : {conn.ServerVersion}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.ToString());
+
+            }
         }
         public string starter()
         {
@@ -811,7 +827,7 @@ namespace WPFD2
                     }
                     catch (Exception e)
                     {
-                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                        throw;
                     }
                     finally
                     {
@@ -844,7 +860,7 @@ namespace WPFD2
                     }
                     catch (Exception e)
                     {
-                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                        throw;
                     }
                     finally
                     {
