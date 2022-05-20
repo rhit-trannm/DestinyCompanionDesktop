@@ -259,3 +259,7 @@ C:\Users\huangs7\Documents\GitHub\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\ne
 C:\Users\huangs7\Documents\GitHub\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\WPFD2.pdb
 C:\Users\huangs7\Documents\GitHub\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\WPFD2.genruntimeconfig.cache
 C:\Users\huangs7\Documents\GitHub\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\ref\WPFD2.dll
+C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.dll
+C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\AdonisUI.ClassicTheme.dll
+C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
+C:\Users\hendermd\Documents\courseproject-s4g2\C#\WPFD2\WPFD2\obj\Debug\net5.0-windows\App.baml

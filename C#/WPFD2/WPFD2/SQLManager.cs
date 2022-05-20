@@ -16,6 +16,7 @@ namespace WPFD2
         SqlConnection conn;
         //S4G2_Demo
         string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=hendermd; Password=PopoPeckingOrder3!";
+        //string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=S4G2_Demo; UID=trannm; Password=Acixuw+03";
 
         public SQLManager()
         {
