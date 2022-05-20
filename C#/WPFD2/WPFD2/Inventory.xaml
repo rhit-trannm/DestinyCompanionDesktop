@@ -491,11 +491,11 @@
             <Button x:Name="VaultGauntlet" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultGauntlet_Click" Canvas.Left="1211" Canvas.Top="313"/>
             <Button x:Name="Vaultchest" FontSize="10" Content="To Vault" Width="75" Height="44" BorderBrush="#FF060000" Click="VaultChest_Click" Canvas.Left="1376" Canvas.Top="313"/>
             <Button x:Name="VaultLeg" FontSize="10" Content="To Vault"  Width="75" Height="44" BorderBrush="#FF060000" Click="VaultLeg_Click" Canvas.Left="1541" Canvas.Top="313"/>
+            <Button x:Name="VaultClass" FontSize="10" Content="To Vault"  Width="76" Height="44" BorderBrush="Black" Click="VaultClass_Click" Canvas.Left="1708" Canvas.Top="313"/>
 
 
 
 
-            <ComboBox x:Name="comboBox_Copy" Width="120" Canvas.Left="468" Canvas.Top="34"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Kinetic" Content="Kinetic" Canvas.Left="1140" Canvas.Top="408"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Energy" Content="Energy" Canvas.Left="1140" Canvas.Top="429"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Power" Content="Power" Canvas.Left="1140" Canvas.Top="450"/>
@@ -515,9 +515,8 @@
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SniperRifles" Content="Sniper Rifle" Canvas.Left="1140" Canvas.Top="597"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_SMGs" Content="SMGs" Canvas.Left="1140" Canvas.Top="618"/>
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Class" Content="Class" Canvas.Left="1239" Canvas.Top="492"/>
-            <ComboBox x:Name="comboBox1" Canvas.Left="1015" Canvas.Top="408" Width="120"/>
-            <Button x:Name="VaultEquip"  FontSize="10" Content="Vault Equip" Width="76" Height="44" BorderBrush="Black" Click="VaultEquip_Click" Canvas.Left="1015" Canvas.Top="444" RenderTransformOrigin="1.105,1.228"/>
-            <Button x:Name="VaultTransfer"  FontSize="10" Content="Vault Equip" Width="76" Height="44" BorderBrush="Black" Click="VaultTransfer_Click" Canvas.Left="1015" Canvas.Top="444" RenderTransformOrigin="1.105,1.228"/>
+
+            <Button x:Name="VaultTransfer"  FontSize="10" Content="To Inventory" Width="76" Height="44" BorderBrush="Black" Click="VaultTransfer_Click" Canvas.Left="1020" Canvas.Top="410" RenderTransformOrigin="1.105,1.228"/>
 
             <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" x:Name="Filter_Fusion" Content="Fusion" Canvas.Left="1141" Canvas.Top="639"/>
 

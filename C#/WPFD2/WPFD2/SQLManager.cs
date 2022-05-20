@@ -14,8 +14,9 @@ namespace WPFD2
     {
 
         SqlConnection conn;
-        string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=S4G2_Demo; UID=hendermd; Password=PopoPeckingOrder3!";
-        
+        //S4G2_Demo
+        string cs = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=CSSE333_S4G1_FinalProjectDB; UID=hendermd; Password=PopoPeckingOrder3!";
+
         public SQLManager()
         {
 
@@ -36,7 +37,7 @@ namespace WPFD2
         public void SwitchDataBase(string DB)
         {
             conn.Close();
-            string cs2 = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=" + DB +"; UID=trannm; Password=Acixuw+03";
+            string cs2 = @"Server=titan.csse.rose-hulman.edu; Encrypt=False; Database=" + DB + "; UID=trannm; Password=Acixuw+03";
             try
             {
                 conn = new SqlConnection(cs2);
@@ -289,174 +290,196 @@ namespace WPFD2
          *
          *
          */
-        public DataTable GetVaultFiltered(List<bool> filters, string Orderby, long MembershipID)
+        public DataTable GetVaultFiltered(List<int> filters, string Orderby, long MembershipID)
         {
-            int count = 0;
-            FilterContainer fils = new FilterContainer();
-            DataTable tblEmployees = new DataTable();
-            string Query = "SELECT DestinyBucketDefinition.Name as SlotName, DestinyItemDefinition.Name as ItemName, Vault.ItemHash as ItemHash, Vault.ItemInstanceID as ItemInstanceID, DestinyItemDefinition.BucketHash as BucketHash, DestinyItemDefinition.tierTypeName as Rarity " + 
-                "FROM Vault " +
-                "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
-                "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash " +
-                "JOIN Users ON Users.[DestinyMembershipID] = " + MembershipID.ToString() +
-                " WHERE Vault.VaultID = Users.VaultID AND (";
-            string Buckets = "DestinyBucketDefinition.BucketHash IN (";
-            bool temp = false;
-            for(int i = 0; i < 3; i++)
-            {
-                if (filters[i])
+                /*                int count = 0;
+                                FilterContainer fils = new FilterContainer();
+                                DataTable tblEmployees = new DataTable();
+                                string Query = "SELECT DestinyBucketDefinition.Name as SlotName, DestinyItemDefinition.Name as ItemName, Vault.ItemHash as ItemHash, Vault.ItemInstanceID as ItemInstanceID, DestinyItemDefinition.BucketHash as BucketHash, DestinyItemDefinition.tierTypeName as Rarity " +
+                                    "FROM Vault " +
+                                    "JOIN[DestinyItemDefinition] ON [DestinyItemDefinition].ItemHash = Vault.ItemHash " +
+                                    "JOIN DestinyBucketDefinition ON DestinyBucketDefinition.BucketHash = DestinyItemDefinition.BucketHash " +
+                                    "JOIN Users ON Users.[DestinyMembershipID] = " + MembershipID.ToString() +
+                                    " WHERE Vault.VaultID = Users.VaultID AND (";
+                                string Buckets = "DestinyBucketDefinition.BucketHash IN (";
+                                bool temp = false;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    if (filters[i])
+                                    {
+                                        if (temp == false)
+                                        {
+                                            temp = true;
+                                        }
+                                        Buckets = Buckets + fils.arr[i].ToString() + ",";
+
+                                    }
+                                }
+                                if (temp == true)
+                                {
+                                    count++;
+                                    Buckets = Buckets.Substring(0, Buckets.Length - 1);
+                                    Buckets = Buckets + ")";
+                                    Query = Query + Buckets;
+                                }
+                                temp = false;
+
+                                string Category = "[DestinyItemDefinition].ItemCategoryWeapon IN (";
+                                for (int i = 3; i < 11; i++)
+                                {
+                                    if (filters[i])
+                                    {
+                                        if (temp == false)
+                                        {
+                                            temp = true;
+                                        }
+                                        Category = Category + fils.arr[i].ToString() + ",";
+                                    }
+                                }
+
+
+                                if (temp == true)
+                                {
+                                    count++;
+                                    Category = Category.Substring(0, Category.Length - 1);
+                                    Category = Category + ")";
+                                    if (count > 0)
+                                    {
+                                        Query = Query + " AND " + Category;
+                                    }
+                                    else
+                                    {
+                                        Query = Query + Category;
+                                    }
+
+                                }
+                                temp = false;
+
+
+                                string armorType = "[DestinyItemDefinition].ItemCategoryArmor IN (";
+                                for (int i = 11; i < 16; i++)
+                                {
+                                    if (filters[i])
+                                    {
+                                        if (temp == false)
+                                        {
+                                            temp = true;
+                                        }
+                                        armorType = armorType + fils.arr[i].ToString() + ",";
+                                    }
+
+                                }
+
+                                if (temp == true)
+                                {
+                                    count++;
+                                    armorType = armorType.Substring(0, armorType.Length - 1);
+                                    armorType = armorType + ")";
+                                    if (count > 0)
+                                    {
+                                        Query = Query + " AND " + armorType;
+                                    }
+                                    else
+                                    {
+                                        Query = Query + armorType;
+                                    }
+                                }
+                                temp = false;
+
+                                string rarity = "[DestinyItemDefinition].tierTypeName IN (";
+                                for (int i = 16; i < 19; i++)
+                                {
+                                    if (filters[i])
+                                    {
+                                        if (temp == false)
+                                        {
+                                            temp = true;
+                                        }
+                                        if (i == 16)
+                                        {
+                                            rarity = rarity + "'" + fils.Rare + "'" + ",";
+                                        }
+                                        else if (i == 17)
+                                        {
+                                            rarity = rarity + "'" + fils.Legendary + "'" + ",";
+                                        }
+                                        else if (i == 18)
+                                        {
+                                            rarity = rarity + "'" + fils.Exotic + "'" + ",";
+                                        }
+
+                                    }
+
+                                }
+                                if (temp == true)
+                                {
+                                    rarity = rarity.Substring(0, rarity.Length - 1);
+                                    rarity = rarity + ")";
+                                    if (count > 0)
+                                    {
+                                        Query = Query + " AND " + rarity;
+                                    }
+                                    else
+                                    {
+                                        Query = Query + rarity;
+                                    }
+                                }
+                                Query = Query + ")";*/
+                //23 bools
+
+                string name = "";
+                DataTable tblEmployees = new DataTable();
+                using (SqlConnection con = new SqlConnection(cs))
                 {
-                    if(temp == false)
+                    using (SqlCommand cmd = new SqlCommand("dbo.GetVaultFiltered", con))
                     {
-                        temp = true;
-                    }
-                    Buckets = Buckets + fils.arr[i].ToString() + ",";
-
-                }
-            }
-            if(temp == true)
-            {
-                count++;
-                Buckets = Buckets.Substring(0, Buckets.Length - 1);
-                Buckets = Buckets + ")";
-                Query = Query + Buckets;
-            }
-            temp = false;
-
-            string Category = "[DestinyItemDefinition].ItemCategoryWeapon IN (";
-            for(int i = 3; i < 11; i++)
-            {
-                if (filters[i])
-                {
-                    if (temp == false)
-                    {
-                        temp = true;
-                    }
-                    Category = Category + fils.arr[i].ToString() + ",";
-                }
-            }
-            
-            
-            if (temp == true)
-            {
-                count++;
-                Category = Category.Substring(0, Category.Length - 1);
-                Category = Category + ")";
-                if(count > 0)
-                {
-                    Query = Query + " AND " + Category;
-                }
-                else
-                {
-                    Query = Query + Category;
-                }
-                
-            }
-            temp = false;
-
-
-            string armorType = "[DestinyItemDefinition].ItemCategoryArmor IN (";
-            for (int i = 11; i < 16; i++)
-            {
-                if (filters[i])
-                {
-                    if (temp == false)
-                    {
-                        temp = true;
-                    }
-                    armorType = armorType + fils.arr[i].ToString() + ",";
-                }
-                
-            }
-            
-            if (temp == true)
-            {
-                count++;
-                armorType = armorType.Substring(0, armorType.Length - 1);
-                armorType = armorType + ")";
-                if (count > 0)
-                {
-                    Query = Query + " AND " + armorType;
-                }
-                else
-                {
-                    Query = Query + armorType;
-                }
-            }
-            temp = false;
-
-            string rarity = "[DestinyItemDefinition].tierTypeName IN (";
-            for (int i = 16; i < 19; i++)
-            {
-                if (filters[i])
-                {
-                    if (temp == false)
-                    {
-                        temp = true;
-                    }
-                    if(i == 16)
-                    {
-                        rarity = rarity + "'" + fils.Rare + "'" + ",";
-                    }
-                    else if( i == 17)
-                    {
-                        rarity = rarity + "'" + fils.Legendary + "'" + ",";
-                    }
-                    else if( i == 18)
-                    {
-                        rarity = rarity + "'" +fils.Exotic + "'" + ",";
-                    }
-                    
-                }
-                
-            }
-            if (temp == true)
-            {
-                rarity = rarity.Substring(0, rarity.Length - 1);
-                rarity = rarity + ")";
-                if (count > 0)
-                {
-                    Query = Query + " AND " + rarity;
-                }
-                else
-                {
-                    Query = Query + rarity;
-                }
-            }
-            Query = Query + ")";
-            AdonisUI.Controls.MessageBox.Show(Query.ToString() + "\n" + count.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
-            //23 bools
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                using (SqlCommand cmd = new SqlCommand(Query, con))
-                {
-
-                    cmd.CommandType = CommandType.Text;
-
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        //create params
+                        cmd.Parameters.Add("@MembershipID", SqlDbType.BigInt).Value = MembershipID;
+                        cmd.Parameters.Add("@Kinetic", SqlDbType.BigInt).Value = filters[0];
+                        cmd.Parameters.Add("@Energy", SqlDbType.BigInt).Value = filters[1];
+                        cmd.Parameters.Add("@Power", SqlDbType.BigInt).Value = filters[2];
+                        cmd.Parameters.Add("@Auto", SqlDbType.BigInt).Value = filters[3];
+                        cmd.Parameters.Add("@Pulse", SqlDbType.BigInt).Value = filters[4];
+                        cmd.Parameters.Add("@Scout", SqlDbType.BigInt).Value = filters[5];
+                        cmd.Parameters.Add("@HandCannon", SqlDbType.BigInt).Value = filters[6];
+                        cmd.Parameters.Add("@SideArms", SqlDbType.BigInt).Value = filters[7];
+                        cmd.Parameters.Add("@Shotguns", SqlDbType.BigInt).Value = filters[8];
+                        cmd.Parameters.Add("@Sniper", SqlDbType.BigInt).Value = filters[9];
+                        cmd.Parameters.Add("@SMG", SqlDbType.BigInt).Value = filters[10];
+                        cmd.Parameters.Add("@Helmet", SqlDbType.BigInt).Value = filters[11];
+                        cmd.Parameters.Add("@Gauntlet", SqlDbType.BigInt).Value = filters[12];
+                        cmd.Parameters.Add("@Chest", SqlDbType.BigInt).Value = filters[13];
+                        cmd.Parameters.Add("@Leg", SqlDbType.BigInt).Value = filters[14];
+                        cmd.Parameters.Add("@Class", SqlDbType.BigInt).Value = filters[15];
+                        cmd.Parameters.Add("@Rare", SqlDbType.BigInt).Value = filters[16];
+                        cmd.Parameters.Add("@Legendary", SqlDbType.BigInt).Value = filters[17];
+                        cmd.Parameters.Add("@Exotic", SqlDbType.BigInt).Value = filters[18];
+                        cmd.Parameters.Add("@Fusion", SqlDbType.BigInt).Value = filters[19];
+                    //set param as output
                     try
-                    {
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        SqlDataAdapter _dap = new SqlDataAdapter(cmd);
+                        {
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            SqlDataAdapter _dap = new SqlDataAdapter(cmd);
 
-                        _dap.Fill(tblEmployees);
-                        return tblEmployees;
+                            _dap.Fill(tblEmployees);
+                            return tblEmployees;
 
+                        }
+                        catch (Exception e)
+                        {
+                            throw;
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
-                }
+                
+
+
             }
-
-            return tblEmployees;
-
         }
 
         public DataTable GetVault(long DestinyMembershipID)
@@ -483,7 +506,7 @@ namespace WPFD2
                     }
                     catch (Exception e)
                     {
-                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                        throw;
                     }
                     finally
                     {
@@ -795,7 +818,7 @@ namespace WPFD2
                     }
                     catch (Exception e)
                     {
-                        AdonisUI.Controls.MessageBox.Show(e.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                        throw;
                     }
                     finally
                     {

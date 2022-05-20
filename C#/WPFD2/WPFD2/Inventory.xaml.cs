@@ -47,7 +47,7 @@ namespace WPFD2
         long VoidHash = 4069572561;
         long StasisHash = 1819698290;
 
-        List<bool> filterCheckBox = new List<bool>(new bool[19]);
+        List<int> filterCheckBox = new List<int>(new int[20]);
 
         bool UseFilters = false;
 
@@ -147,7 +147,7 @@ namespace WPFD2
             updateEquipped(charID);
             updateInventory(charID);
             UpdateVault();
-            //InitTimer();
+            InitTimer();
 
         }
         private Timer timer;
@@ -359,107 +359,115 @@ namespace WPFD2
             //REMEMBER TO CHANGE INDEX LATER!!!
             this.EquippedList = new List<InventoryItem>();
             ArrayList arlist = new ArrayList();
-            DataTable data = this._Manager.getSQLManager().GetEquipped(CharacterID);
-            for(int i = 0; i < 8; i++)
+            try
             {
-                arlist.Add(null);
-            }
-            foreach (DataRow row in data.Rows)
-            {
-                InventoryItem temp = new InventoryItem();
-                string SlotName = row["SlotName"].ToString().Trim();
-                string ItemName = row["ItemName"].ToString().Trim();
-                long ItemHash = long.Parse(row["ItemHash"].ToString());
-                long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
-                long BucketHash = long.Parse(row["BucketHash"].ToString());
-                string rarity = row["Rarity"].ToString();
-                if (ItemName == null)
+                DataTable data = this._Manager.getSQLManager().GetEquipped(CharacterID);
+                for (int i = 0; i < 8; i++)
                 {
-                    continue;
+                    arlist.Add(null);
                 }
-                if (SlotName == "Subclass")
+                foreach (DataRow row in data.Rows)
                 {
-                    continue;
-                }
-                temp.SlotName = SlotName;
-                temp.ItemName = ItemName;
-                temp.ItemHash = ItemHash;
-                temp.ItemInstanceId = ItemInstanceId;
-                temp.BucketHash = BucketHash;
-                temp.Rarity = rarity;
+                    InventoryItem temp = new InventoryItem();
+                    string SlotName = row["SlotName"].ToString().Trim();
+                    string ItemName = row["ItemName"].ToString().Trim();
+                    long ItemHash = long.Parse(row["ItemHash"].ToString());
+                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                    long BucketHash = long.Parse(row["BucketHash"].ToString());
+                    string rarity = row["Rarity"].ToString();
+                    if (ItemName == null)
+                    {
+                        continue;
+                    }
+                    if (SlotName == "Subclass")
+                    {
+                        continue;
+                    }
+                    temp.SlotName = SlotName;
+                    temp.ItemName = ItemName;
+                    temp.ItemHash = ItemHash;
+                    temp.ItemInstanceId = ItemInstanceId;
+                    temp.BucketHash = BucketHash;
+                    temp.Rarity = rarity;
 
-                if (temp.Rarity.Trim().Equals("Common"))
-                {
-                    temp.Color = "White";
+                    if (temp.Rarity.Trim().Equals("Common"))
+                    {
+                        temp.Color = "White";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Uncommon"))
+                    {
+                        temp.Color = "Blue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Rare"))
+                    {
+                        temp.Color = "LightBlue";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Legendary"))
+                    {
+                        temp.Color = "Purple";
+                    }
+                    else if (temp.Rarity.Trim().Equals("Exotic"))
+                    {
+                        temp.Color = "Yellow";
+                    }
+                    else
+                    {
+                        temp.Color = temp.Rarity.Length.ToString();
+                    }
+                    if (BucketHash == _BucketHashKinetic)
+                    {
+                        //this.EquippedList.Insert(0, temp);
+                        arlist[0] = temp;
+                    }
+                    else if (BucketHash == _BucketHashEnergy)
+                    {
+                        // this.EquippedList.Insert(1, temp);
+                        arlist[1] = temp;
+                    }
+                    else if (BucketHash == _BucketHashPower)
+                    {
+                        //this.EquippedList.Insert(2, temp);
+                        arlist[2] = temp;
+                    }
+                    else if (BucketHash == _BucketHashHelmet)
+                    {
+                        //this.EquippedList.Insert(2, temp);
+                        arlist[3] = temp;
+                    }
+                    else if (BucketHash == _BucketHashGauntlet)
+                    {
+                        //  this.EquippedList.Insert(2, temp);
+                        arlist[4] = temp;
+                    }
+                    else if (BucketHash == _BucketHashchest)
+                    {
+                        // this.EquippedList.Insert(2, temp);
+                        arlist[5] = temp;
+                    }
+                    else if (BucketHash == _BucketHashLeg)
+                    {
+                        // this.EquippedList.Insert(2, temp);
+                        arlist[6] = temp;
+                    }
+                    else if (BucketHash == _BucketHashclassArmor)
+                    {
+                        // this.EquippedList.Insert(2, temp);
+                        arlist[7] = temp;
+                    }
+                    else
+                    {
+                        // this.EquippedList.Add(temp);
+                        arlist.Add(temp);
+                    }
+
                 }
-                else if (temp.Rarity.Trim().Equals("Uncommon"))
-                {
-                    temp.Color = "Blue";
-                }
-                else if (temp.Rarity.Trim().Equals("Rare"))
-                {
-                    temp.Color = "LightBlue";
-                }
-                else if (temp.Rarity.Trim().Equals("Legendary"))
-                {
-                    temp.Color = "Purple";
-                }
-                else if (temp.Rarity.Trim().Equals("Exotic"))
-                {
-                    temp.Color = "Yellow";
-                }
-                else
-                {
-                    temp.Color = temp.Rarity.Length.ToString();
-                }
-                if (BucketHash == _BucketHashKinetic)
-                {
-                    //this.EquippedList.Insert(0, temp);
-                    arlist[0] = temp;
-                }
-                else if (BucketHash == _BucketHashEnergy)
-                {
-                   // this.EquippedList.Insert(1, temp);
-                    arlist[1] = temp;
-                }
-                else if (BucketHash == _BucketHashPower)
-                {
-                    //this.EquippedList.Insert(2, temp);
-                    arlist[2] = temp;
-                }
-                else if (BucketHash == _BucketHashHelmet)
-                {
-                    //this.EquippedList.Insert(2, temp);
-                    arlist[3] = temp;
-                }
-                else if (BucketHash == _BucketHashGauntlet)
-                {
-                  //  this.EquippedList.Insert(2, temp);
-                    arlist[4] = temp;
-                }
-                else if (BucketHash == _BucketHashchest)
-                {
-                   // this.EquippedList.Insert(2, temp);
-                    arlist[5] = temp;
-                }
-                else if (BucketHash == _BucketHashLeg)
-                {
-                   // this.EquippedList.Insert(2, temp);
-                    arlist[6] = temp;
-                }
-                else if (BucketHash == _BucketHashclassArmor)
-                {
-                   // this.EquippedList.Insert(2, temp);
-                    arlist[7] = temp;
-                }
-                else
-                {
-                   // this.EquippedList.Add(temp);
-                    arlist.Add(temp);
-                }
-                
+                EquippedItemsChart.ItemsSource = arlist;
+
+            }catch (Exception ex)
+            {
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
             }
-            EquippedItemsChart.ItemsSource = arlist;
+
 
 
 
@@ -469,121 +477,128 @@ namespace WPFD2
         private void UpdateVault()
         {
             VaultList = new List<InventoryItem>();
-            long memshipdId = this._Manager.getAPIManager().GetDestinyProfile().MembershipId;
-
-            if (!UseFilters)
+            try
             {
-                DataTable data = this._Manager.getSQLManager().GetVault(memshipdId);
-                foreach (DataRow row in data.Rows)
+                long memshipdId = this._Manager.getAPIManager().GetDestinyProfile().MembershipId;
+
+                if (!UseFilters)
                 {
-                    InventoryItem temp = new InventoryItem();
-                    string SlotName = row["SlotName"].ToString();
-                    string ItemName = row["ItemName"].ToString();
-                    long ItemHash = long.Parse(row["ItemHash"].ToString());
-                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
-                    long BucketHash = long.Parse(row["BucketHash"].ToString());
-                    string rarity = row["Rarity"].ToString();
+                    DataTable data = this._Manager.getSQLManager().GetVault(memshipdId);
+                    foreach (DataRow row in data.Rows)
+                    {
+                        InventoryItem temp = new InventoryItem();
+                        string SlotName = row["SlotName"].ToString();
+                        string ItemName = row["ItemName"].ToString();
+                        long ItemHash = long.Parse(row["ItemHash"].ToString());
+                        long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                        long BucketHash = long.Parse(row["BucketHash"].ToString());
+                        string rarity = row["Rarity"].ToString();
 
-                    temp.SlotName = SlotName;
-                    temp.ItemName = ItemName;
-                    temp.ItemHash = ItemHash;
-                    temp.ItemInstanceId = ItemInstanceId;
-                    temp.BucketHash = BucketHash;
-                    temp.Rarity = rarity;
-                    if (temp.Rarity.Trim().Equals("Common"))
-                    {
-                        temp.Color = "White";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Uncommon"))
-                    {
-                        temp.Color = "Blue";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Rare"))
-                    {
-                        temp.Color = "LightBlue";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Legendary"))
-                    {
-                        temp.Color = "Purple";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Exotic"))
-                    {
-                        temp.Color = "Yellow";
-                    }
-                    else
-                    {
-                        temp.Color = temp.Rarity.Length.ToString();
-                    }
+                        temp.SlotName = SlotName;
+                        temp.ItemName = ItemName;
+                        temp.ItemHash = ItemHash;
+                        temp.ItemInstanceId = ItemInstanceId;
+                        temp.BucketHash = BucketHash;
+                        temp.Rarity = rarity;
+                        if (temp.Rarity.Trim().Equals("Common"))
+                        {
+                            temp.Color = "White";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Uncommon"))
+                        {
+                            temp.Color = "Blue";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Rare"))
+                        {
+                            temp.Color = "LightBlue";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Legendary"))
+                        {
+                            temp.Color = "Purple";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Exotic"))
+                        {
+                            temp.Color = "Yellow";
+                        }
+                        else
+                        {
+                            temp.Color = temp.Rarity.Length.ToString();
+                        }
 
-                    if (!(temp.ItemName.ToString() == ""))
-                    {
-                        VaultList.Add(temp);
+                        if (!(temp.ItemName.ToString() == ""))
+                        {
+                            VaultList.Add(temp);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
                     }
-                    else
+                }
+                else
+                {
+                    DataTable data = this._Manager.getSQLManager().GetVaultFiltered(filterCheckBox, "null", memshipdId);
+                    foreach (DataRow row in data.Rows)
                     {
-                        continue;
+                        InventoryItem temp = new InventoryItem();
+                        string SlotName = row["SlotName"].ToString();
+                        string ItemName = row["ItemName"].ToString();
+                        long ItemHash = long.Parse(row["ItemHash"].ToString());
+                        long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
+                        long BucketHash = long.Parse(row["BucketHash"].ToString());
+                        string rarity = row["Rarity"].ToString();
+
+                        temp.SlotName = SlotName;
+                        temp.ItemName = ItemName;
+                        temp.ItemHash = ItemHash;
+                        temp.ItemInstanceId = ItemInstanceId;
+                        temp.BucketHash = BucketHash;
+                        temp.Rarity = rarity;
+                        if (temp.Rarity.Trim().Equals("Common"))
+                        {
+                            temp.Color = "White";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Uncommon"))
+                        {
+                            temp.Color = "Blue";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Rare"))
+                        {
+                            temp.Color = "LightBlue";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Legendary"))
+                        {
+                            temp.Color = "Purple";
+                        }
+                        else if (temp.Rarity.Trim().Equals("Exotic"))
+                        {
+                            temp.Color = "Yellow";
+                        }
+                        else
+                        {
+                            temp.Color = temp.Rarity.Length.ToString();
+                        }
+
+                        if (!(temp.ItemName.ToString() == ""))
+                        {
+                            VaultList.Add(temp);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
                     }
 
                 }
-            }
-            else
+
+                VaultDisplay.ItemsSource = VaultList;
+            }catch (Exception ex)
             {
-                DataTable data = this._Manager.getSQLManager().GetVaultFiltered(filterCheckBox,"null", memshipdId);
-                foreach (DataRow row in data.Rows)
-                {
-                    InventoryItem temp = new InventoryItem();
-                    string SlotName = row["SlotName"].ToString();
-                    string ItemName = row["ItemName"].ToString();
-                    long ItemHash = long.Parse(row["ItemHash"].ToString());
-                    long ItemInstanceId = long.Parse(row["ItemInstanceId"].ToString());
-                    long BucketHash = long.Parse(row["BucketHash"].ToString());
-                    string rarity = row["Rarity"].ToString();
-
-                    temp.SlotName = SlotName;
-                    temp.ItemName = ItemName;
-                    temp.ItemHash = ItemHash;
-                    temp.ItemInstanceId = ItemInstanceId;
-                    temp.BucketHash = BucketHash;
-                    temp.Rarity = rarity;
-                    if (temp.Rarity.Trim().Equals("Common"))
-                    {
-                        temp.Color = "White";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Uncommon"))
-                    {
-                        temp.Color = "Blue";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Rare"))
-                    {
-                        temp.Color = "LightBlue";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Legendary"))
-                    {
-                        temp.Color = "Purple";
-                    }
-                    else if (temp.Rarity.Trim().Equals("Exotic"))
-                    {
-                        temp.Color = "Yellow";
-                    }
-                    else
-                    {
-                        temp.Color = temp.Rarity.Length.ToString();
-                    }
-
-                    if (!(temp.ItemName.ToString() == ""))
-                    {
-                        VaultList.Add(temp);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                }
-
+                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
             }
 
-            VaultDisplay.ItemsSource = VaultList;
 
         }
 
@@ -627,7 +642,7 @@ namespace WPFD2
                 updateInventory(charID);
             }catch(Exception ex)
             {
-                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                AdonisUI.Controls.MessageBox.Show("Too Many Items In Inventory!", "Error", AdonisUI.Controls.MessageBoxButton.OK);
             }
 
         }
@@ -656,7 +671,7 @@ namespace WPFD2
                 updateEquipped(CharacterID);
             }catch (Exception ex)
             {
-                AdonisUI.Controls.MessageBox.Show(ex.ToString(), "Error", AdonisUI.Controls.MessageBoxButton.OK);
+                AdonisUI.Controls.MessageBox.Show("Too Many Exotic Equipped OR Invalid Class!", "Error", AdonisUI.Controls.MessageBoxButton.OK);
             }
 
             //System.Threading.Thread.Sleep(10000);
@@ -800,61 +815,64 @@ namespace WPFD2
                 switch (CheckBoxItem.Content)
                 {
                     case "Kinetic":
-                        filterCheckBox[0] = true;
+                        filterCheckBox[0] = 1;
                         break;
                     case "Energy":
-                        filterCheckBox[1] = true;
+                        filterCheckBox[1] = 1;
                         break;
                     case "Power":
-                        filterCheckBox[2] = true;
+                        filterCheckBox[2] = 1;
                         break;
                     case "Auto Rifle":
-                        filterCheckBox[3] = true;
+                        filterCheckBox[3] = 1;
                         break;
                     case "Pulse Rifle":
-                        filterCheckBox[4] = true;
+                        filterCheckBox[4] = 1;
                         break;
                     case "Scout Rifle":
-                        filterCheckBox[5] = true;
+                        filterCheckBox[5] = 1;
                         break;
                     case "Hand Cannon":
-                        filterCheckBox[6] = true;
+                        filterCheckBox[6] = 1;
                         break;
                     case "Side Arms":
-                        filterCheckBox[7] = true;
+                        filterCheckBox[7] = 1;
                         break;
                     case "Shotguns":
-                        filterCheckBox[8] = true;
+                        filterCheckBox[8] = 1;
                         break;
                     case "Sniper Rifle":
-                        filterCheckBox[9] = true;
+                        filterCheckBox[9] = 1;
                         break;
-                    case "SMG":
-                        filterCheckBox[10] = true;
+                    case "SMGs":
+                        filterCheckBox[10] = 1;
+                        break;
+                    case "Fusion":
+                        filterCheckBox[19] = 1;
                         break;
                     case "Helmet":
-                        filterCheckBox[11] = true;
+                        filterCheckBox[11] = 1;
                         break;
                     case "Gauntlet":
-                        filterCheckBox[12] = true;
+                        filterCheckBox[12] = 1;
                         break;
                     case "Chest":
-                        filterCheckBox[13] = true;
+                        filterCheckBox[13] = 1;
                         break;
                     case "Leg":
-                        filterCheckBox[14] = true;
+                        filterCheckBox[14] = 1;
                         break;
                     case "Class":
-                        filterCheckBox[15] = true;
+                        filterCheckBox[15] = 1;
                         break;
                     case "Rare":
-                        filterCheckBox[16] = true;
+                        filterCheckBox[16] = 1;
                         break;
                     case "Legendary":
-                        filterCheckBox[17] = true;
+                        filterCheckBox[17] = 1;
                         break;
                     case "Exotic":
-                        filterCheckBox[18] = true;
+                        filterCheckBox[18] = 1;
                         break;
                 }
             }
@@ -862,68 +880,72 @@ namespace WPFD2
             {
                 switch (CheckBoxItem.Content)
                 {
+
                     case "Kinetic":
-                        filterCheckBox[0] = false;
+                        filterCheckBox[0] = 0;
                         break;
                     case "Energy":
-                        filterCheckBox[1] = false;
+                        filterCheckBox[1] = 0;
                         break;
                     case "Power":
-                        filterCheckBox[2] = false;
+                        filterCheckBox[2] = 0;
                         break;
                     case "Auto Rifle":
-                        filterCheckBox[3] = false;
+                        filterCheckBox[3] = 0;
                         break;
                     case "Pulse Rifle":
-                        filterCheckBox[4] = false;
+                        filterCheckBox[4] = 0;
                         break;
                     case "Scout Rifle":
-                        filterCheckBox[5] = false;
+                        filterCheckBox[5] = 0;
                         break;
                     case "Hand Cannon":
-                        filterCheckBox[6] = false;
+                        filterCheckBox[6] = 0;
                         break;
                     case "Side Arms":
-                        filterCheckBox[7] = false;
+                        filterCheckBox[7] = 0;
                         break;
                     case "Shotguns":
-                        filterCheckBox[8] = false;
+                        filterCheckBox[8] = 0;
                         break;
                     case "Sniper Rifle":
-                        filterCheckBox[9] = false;
+                        filterCheckBox[9] = 0;
                         break;
-                    case "SMG":
-                        filterCheckBox[10] = false;
+                    case "SMGs":
+                        filterCheckBox[10] = 0;
+                        break;
+                    case "Fusion":
+                        filterCheckBox[19] = 0;
                         break;
                     case "Helmet":
-                        filterCheckBox[11] = false;
+                        filterCheckBox[11] = 0;
                         break;
                     case "Gauntlet":
-                        filterCheckBox[12] = false;
+                        filterCheckBox[12] = 0;
                         break;
                     case "Chest":
-                        filterCheckBox[13] = false;
+                        filterCheckBox[13] = 0;
                         break;
                     case "Leg":
-                        filterCheckBox[14] = false;
+                        filterCheckBox[14] = 0;
                         break;
                     case "Class":
-                        filterCheckBox[15] = false;
+                        filterCheckBox[15] = 0;
                         break;
                     case "Rare":
-                        filterCheckBox[16] = false;
+                        filterCheckBox[16] = 0;
                         break;
                     case "Legendary":
-                        filterCheckBox[17] = false;
+                        filterCheckBox[17] = 0;
                         break;
                     case "Exotic":
-                        filterCheckBox[18] = false;
+                        filterCheckBox[18] = 0;
                         break;
                 }
             }
             bool temp = false;
             for (int i = 0; i < filterCheckBox.Count; i++) {
-                if (filterCheckBox[i])
+                if (filterCheckBox[i] == 1)
                 {
                     temp = true;
                 }
